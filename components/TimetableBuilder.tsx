@@ -148,7 +148,7 @@ export default function TimetableBuilder() {
     if (!selectedProgram || !selectedClass || !selectedSemester || !selectedDivision) return;
     try {
       const response = await fetch(
-        `/api/timetable/list?program=${encodeURIComponent(selectedProgram)}&className=${selectedClass}&semester=${selectedSemester}&division=${selectedDivision}`
+        `/api/timetable/preview?program=${encodeURIComponent(selectedProgram)}&className=${selectedClass}&semester=${selectedSemester}&division=${selectedDivision}`
       );
       const data = await response.json();
       setTimetable(data.timetable || []);

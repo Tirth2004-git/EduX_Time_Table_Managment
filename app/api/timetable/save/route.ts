@@ -2,14 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Timetable from '@/models/Timetable';
 import WeeklyTimetable from '@/models/WeeklyTimetable';
-import { authenticateRequest } from '@/lib/auth-middleware';
 import { validateWeeklyTimetable } from '@/lib/validation-engine';
 
 export async function POST(req: NextRequest) {
   try {
-    const { error, user } = await authenticateRequest(req);
-    if (error) return error;
-
     await connectDB();
 
     const { program, className, semester, division, holidays = [] } = await req.json();
@@ -22,10 +18,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validate weekly timetable before saving
-    // Note: Full capacity (remainingHours === 0, remainingPeriods === 0) is VALID
-    // Only actual conflicts (exceeding limits) will block the save
-    // Warnings are informational and do NOT block saves
+    // Get all current timetable entries for this division
+    const currentEntries = await Timetable.find({
+      program,
+      className,
+      semester,
+      division,
+    });
+
+    // Validate the current timetable state
     const validation = await validateWeeklyTimetable(
       program,
       className,
@@ -35,7 +36,6 @@ export async function POST(req: NextRequest) {
     );
 
     // Only block save if there are actual errors (conflicts)
-    // Warnings are allowed - they don't prevent saving
     if (!validation.isValid) {
       return NextResponse.json(
         {
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Find or create weekly timetable
+    // Find or create weekly timetable record
     let weeklyTimetable = await WeeklyTimetable.findOne({
       program,
       className,
@@ -55,15 +55,7 @@ export async function POST(req: NextRequest) {
       division,
     });
 
-    // Get all timetable entries for this class
-    const timetableEntries = await Timetable.find({
-      program,
-      className,
-      semester,
-      division,
-    });
-
-    const timetableEntryIds = timetableEntries.map((entry) => entry._id);
+    const timetableEntryIds = currentEntries.map((entry) => entry._id);
 
     if (weeklyTimetable) {
       // Update existing weekly timetable
@@ -79,7 +71,7 @@ export async function POST(req: NextRequest) {
         division,
         holidays,
         timetableEntries: timetableEntryIds,
-        createdBy: user.userId,
+        createdBy: 'admin', // Temporarily hardcoded since auth is disabled
       });
     }
 
@@ -101,12 +93,6 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: any) {
     console.error('Save timetable error:', error);
-    if (error.code === 11000) {
-      return NextResponse.json(
-        { error: 'Weekly timetable for this class already exists' },
-        { status: 400 }
-      );
-    }
     return NextResponse.json(
       { error: error.message || 'Internal server error' },
       { status: 500 }
@@ -117,9 +103,6 @@ export async function POST(req: NextRequest) {
 // GET endpoint to retrieve saved weekly timetable
 export async function GET(req: NextRequest) {
   try {
-    const { error, user } = await authenticateRequest(req);
-    if (error) return error;
-
     await connectDB();
 
     const { searchParams } = new URL(req.url);
