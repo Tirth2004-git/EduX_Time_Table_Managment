@@ -5,6 +5,7 @@ import WeeklyTimetable from '@/models/WeeklyTimetable';
 import Teacher from '@/models/Teacher';
 import Subject from '@/models/Subject';
 import Classroom from '@/models/Classroom';
+import mongoose from 'mongoose';
 
 export async function GET(req: NextRequest) {
   try {
@@ -28,10 +29,12 @@ export async function GET(req: NextRequest) {
       filter.division = searchParams.get('division');
     }
     if (searchParams.get('teacherId')) {
-      filter.teacherId = searchParams.get('teacherId');
+      // Convert string to ObjectId for MongoDB query
+      filter.teacherId = new mongoose.Types.ObjectId(searchParams.get('teacherId')!);
     }
     if (searchParams.get('subjectId')) {
-      filter.subjectId = searchParams.get('subjectId');
+      // Convert string to ObjectId for MongoDB query
+      filter.subjectId = new mongoose.Types.ObjectId(searchParams.get('subjectId')!);
     }
     if (searchParams.get('day')) {
       filter.day = searchParams.get('day');
@@ -40,11 +43,97 @@ export async function GET(req: NextRequest) {
       filter.timeSlot = searchParams.get('timeSlot');
     }
 
-    const timetable = await Timetable.find(filter)
-      .populate('teacherId', 'teacherID faculty_name department')
-      .populate('subjectId', 'subject_name subject_code')
-      .populate('classroomId', 'roomNumber building floor capacity')
-      .sort({ program: 1, className: 1, semester: 1, division: 1, day: 1, timeSlot: 1 });
+    // Get collection names from models (Mongoose uses lowercase plural by default)
+    // Fallback to default Mongoose convention if collection name is not available
+    const teachersCollection = Teacher.collection?.name || 'teachers';
+    const subjectsCollection = Subject.collection?.name || 'subjects';
+    const classroomsCollection = Classroom.collection?.name || 'classrooms';
+
+    // Use MongoDB aggregation to join classrooms dynamically based on (program, className, semester, division)
+    const aggregationPipeline: any[] = [
+      // Match timetable entries based on filters
+      { $match: filter },
+      
+      // Lookup and populate teacher
+      {
+        $lookup: {
+          from: teachersCollection,
+          localField: 'teacherId',
+          foreignField: '_id',
+          as: 'teacherData'
+        }
+      },
+      {
+        $unwind: {
+          path: '$teacherData',
+          preserveNullAndEmptyArrays: true
+        }
+      },
+      
+      // Lookup and populate subject
+      {
+        $lookup: {
+          from: subjectsCollection,
+          localField: 'subjectId',
+          foreignField: '_id',
+          as: 'subjectData'
+        }
+      },
+      {
+        $unwind: {
+          path: '$subjectData',
+          preserveNullAndEmptyArrays: true
+        }
+      },
+      
+      // Lookup classroom dynamically based on (program, className, semester, division)
+      {
+        $lookup: {
+          from: classroomsCollection,
+          let: {
+            p: '$program',
+            c: '$className',
+            s: '$semester',
+            d: '$division'
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ['$program', '$$p'] },
+                    { $eq: ['$className', '$$c'] },
+                    { $eq: ['$semester', '$$s'] },
+                    { $eq: ['$division', '$$d'] }
+                  ]
+                }
+              }
+            }
+          ],
+          as: 'classroomData'
+        }
+      },
+      {
+        $unwind: {
+          path: '$classroomData',
+          preserveNullAndEmptyArrays: true
+        }
+      },
+      
+      // Sort results
+      {
+        $sort: {
+          program: 1,
+          className: 1,
+          semester: 1,
+          division: 1,
+          day: 1,
+          timeSlot: 1
+        }
+      }
+    ];
+
+    const timetable = await Timetable.aggregate(aggregationPipeline);
 
     // Get holidays - only if specific division is selected
     let holidays = [];
@@ -62,7 +151,7 @@ export async function GET(req: NextRequest) {
     const teachers = await Teacher.find({}, 'teacherID faculty_name department').sort({ faculty_name: 1 });
     const subjects = await Subject.find({}, 'subject_name subject_code').sort({ subject_name: 1 });
 
-    // Transform the data to match frontend expectations
+    // Transform the aggregated data to match frontend expectations
     const transformedTimetable = timetable.map(entry => ({
       _id: entry._id,
       program: entry.program,
@@ -72,23 +161,23 @@ export async function GET(req: NextRequest) {
       day: entry.day,
       timeSlot: entry.timeSlot,
       status: entry.status,
-      subject: entry.subjectId ? {
-        _id: entry.subjectId._id,
-        subject_name: entry.subjectId.subject_name,
-        subject_code: entry.subjectId.subject_code,
+      subject: entry.subjectData ? {
+        _id: entry.subjectData._id,
+        subject_name: entry.subjectData.subject_name,
+        subject_code: entry.subjectData.subject_code,
       } : null,
-      teacher: entry.teacherId ? {
-        _id: entry.teacherId._id,
-        faculty_name: entry.teacherId.faculty_name,
-        teacherID: entry.teacherId.teacherID,
-        department: entry.teacherId.department,
+      teacher: entry.teacherData ? {
+        _id: entry.teacherData._id,
+        faculty_name: entry.teacherData.faculty_name,
+        teacherID: entry.teacherData.teacherID,
+        department: entry.teacherData.department,
       } : null,
-      classroom: entry.classroomId ? {
-        _id: entry.classroomId._id,
-        roomNumber: entry.classroomId.roomNumber,
-        building: entry.classroomId.building,
-        floor: entry.classroomId.floor,
-        capacity: entry.classroomId.capacity,
+      classroom: entry.classroomData ? {
+        _id: entry.classroomData._id,
+        roomNumber: entry.classroomData.roomNumber || null,
+        building: entry.classroomData.building,
+        floor: entry.classroomData.floor,
+        capacity: entry.classroomData.capacity,
       } : null,
     }));
 
