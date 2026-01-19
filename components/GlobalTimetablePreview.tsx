@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Filter, X, Eye, User, BookOpen } from 'lucide-react';
+import { Filter, X, Eye, User, BookOpen, Download } from 'lucide-react';
 import { useTimetableStore } from '@/lib/store';
+import { exportTimetableToPDF } from '@/lib/pdf-export';
 
 interface TimetableEntry {
   _id: string;
@@ -81,6 +82,7 @@ export default function GlobalTimetablePreview() {
   const [holidays, setHolidays] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(true);
+  const [exportingPDF, setExportingPDF] = useState(false);
   
   const [filters, setFilters] = useState({
     program: '',
@@ -193,11 +195,63 @@ export default function GlobalTimetablePreview() {
   const hasActiveFilters = filters.teacherId || filters.subjectId || 
     (filters.program && filters.className && filters.semester && filters.division);
 
+  const handleExportPDF = async () => {
+    if (!hasActiveFilters) {
+      alert('Please select filters first');
+      return;
+    }
+
+    if (timetable.length === 0) {
+      alert('No timetable data to export');
+      return;
+    }
+
+    setExportingPDF(true);
+    try {
+      let title = '';
+      let filename = '';
+
+      if (viewMode === 'teacher' && filters.teacherId) {
+        const teacher = teachers.find(t => t._id === filters.teacherId);
+        title = `Teacher Schedule — ${teacher?.faculty_name} (${teacher?.teacherID})`;
+        filename = `TeacherSchedule_${teacher?.faculty_name.replace(/[^a-zA-Z0-9]/g, '')}.pdf`;
+      } else if (viewMode === 'subject' && filters.subjectId) {
+        const subject = subjects.find(s => s._id === filters.subjectId);
+        title = `Subject Schedule — ${subject?.subject_name} (${subject?.subject_code})`;
+        filename = `SubjectSchedule_${subject?.subject_name.replace(/[^a-zA-Z0-9]/g, '')}.pdf`;
+      } else {
+        title = `Division Schedule — ${filters.program} ${filters.className} Sem-${filters.semester} ${filters.division}`;
+        filename = `Timetable_${filters.program.replace(/[^a-zA-Z0-9]/g, '')}_${filters.className}_Sem${filters.semester}_${filters.division}.pdf`;
+      }
+
+      await exportTimetableToPDF({
+        viewMode,
+        title,
+        filename,
+      });
+
+      alert('Timetable exported successfully!');
+    } catch (error: any) {
+      alert(error.message || 'Failed to export PDF');
+    } finally {
+      setExportingPDF(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Timetable Preview</h2>
         <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            onClick={handleExportPDF}
+            disabled={exportingPDF || !hasActiveFilters || timetable.length === 0}
+            className="bg-green-50 hover:bg-green-100 border-green-200"
+          >
+            <Download className="mr-2 h-4 w-4" />
+            {exportingPDF ? 'Preparing PDF...' : 'Download as PDF'}
+          </Button>
           <Button variant="outline" onClick={() => setShowFilters(!showFilters)}>
             <Filter className="mr-2 h-4 w-4" />
             {showFilters ? 'Hide' : 'Show'} Filters
@@ -401,106 +455,98 @@ export default function GlobalTimetablePreview() {
               ) : loading ? (
                 <div className="text-center py-8">Loading timetable...</div>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr>
-                        <th className="border p-2 bg-gray-100 font-semibold">Time</th>
-                        {DAYS.map((day) => (
-                          <th key={day} className="border p-2 bg-gray-100 font-semibold">
-                            {day}
-                            {isHoliday(day) && (
-                              <div className="text-xs text-red-600 font-normal">HOLIDAY</div>
-                            )}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {TIME_SLOTS.map((time) => (
-                        <tr key={time}>
-                          <td className="border p-2 bg-gray-50 font-medium text-sm">{time}</td>
-                          {DAYS.map((day) => {
-                            const entries = getEntriesForSlot(day, time);
-                            const isBreak = isBreakSlot(time);
-                            const isHolidayDay = isHoliday(day);
-                            
-                            return (
-                              <td
-                                key={`${day}-${time}`}
-                                className={`border p-2 min-w-[180px] ${
-                                  isHolidayDay ? 'bg-red-100 border-red-200' :
-                                  isBreak ? 'bg-gray-300' :
-                                  getCellStyle(entries)
-                                }`}
-                              >
-                                {isHolidayDay ? (
-                                  <div className="text-center py-2">
-                                    <div className="text-red-800 font-bold text-sm">🚫 HOLIDAY</div>
-                                    <div className="text-xs text-red-600">No Lectures</div>
-                                  </div>
-                                ) : isBreak ? (
-                                  <div className="text-center py-2">
-                                    <div className="text-gray-700 font-bold text-sm">BREAK</div>
-                                  </div>
-                                ) : entries.length > 0 ? (
-                                  <div className="space-y-2">
-                                    {entries.map((entry, index) => (
-                                      <div key={entry._id} className={`${index > 0 ? 'border-t border-gray-300 pt-2' : ''}`}>
-                                        {/* Class Tag with Room */}
-                                        <div className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-1 rounded mb-1 flex items-center justify-between">
-                                          <span>{entry.className}-{entry.division} | Sem-{entry.semester}</span>
-                                          {entry.classroom && (
-                                            <span className="text-xs font-normal text-blue-600">
-                                              • {entry.classroom.roomNumber}
-                                            </span>
-                                          )}
-                                        </div>
-                                        
-                                        {/* Subject Name */}
-                                        {entry.subject && (
-                                          <div className="font-semibold text-sm">
-                                            {entry.subject.subject_name}
-                                          </div>
-                                        )}
-                                        
-                                        {/* Teacher Name */}
-                                        {entry.teacher && viewMode !== 'teacher' && (
-                                          <div className="text-xs text-gray-600">
-                                            {entry.teacher.faculty_name}
-                                          </div>
-                                        )}
-                                        
-                                        {/* Room Details for Teacher View */}
-                                        {viewMode === 'teacher' && entry.classroom && (
-                                          <div className="text-xs text-gray-500">
-                                            Room: {entry.classroom.roomNumber}
-                                            {entry.classroom.building && ` (${entry.classroom.building})`}
-                                          </div>
-                                        )}
-                                        
-                                        {/* Subject Code for subject view */}
-                                        {viewMode === 'subject' && entry.subject && (
-                                          <div className="text-xs text-gray-500">
-                                            {entry.subject.subject_code}
-                                            {entry.classroom && ` • ${entry.classroom.roomNumber}`}
-                                          </div>
-                                        )}
-                                      </div>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <div className="text-center py-2">
-                                    <div className="text-gray-400 text-xs">No Lectures</div>
-                                  </div>
-                                )}
-                              </td>
-                            );
-                          })}
+                <div id="timetable-export-container" className="w-full">
+                  <div className="w-full overflow-hidden">
+                    <table className="w-full border-collapse table-fixed">
+                      <thead>
+                        <tr>
+                          <th className="border p-2 bg-gray-100 font-semibold w-[10%]">Time</th>
+                          {DAYS.map((day) => (
+                            <th key={day} className="border p-2 bg-gray-100 font-semibold w-[15%]">
+                              {day}
+                              {isHoliday(day) && (
+                                <div className="text-xs text-red-600 font-normal">HOLIDAY</div>
+                              )}
+                            </th>
+                          ))}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {TIME_SLOTS.map((time) => (
+                          <tr key={time}>
+                            <td className="border p-2 bg-gray-50 font-medium text-sm w-[10%]">{time}</td>
+                            {DAYS.map((day) => {
+                              const entries = getEntriesForSlot(day, time);
+                              const isBreak = isBreakSlot(time);
+                              const isHolidayDay = isHoliday(day);
+                              
+                              return (
+                                <td
+                                  key={`${day}-${time}`}
+                                  className={`border p-2 w-[15%] ${
+                                    isHolidayDay ? 'bg-red-100 border-red-200' :
+                                    isBreak ? 'bg-gray-300' :
+                                    getCellStyle(entries)
+                                  }`}
+                                >
+                                  {isHolidayDay ? (
+                                    <div className="text-center py-2">
+                                      <div className="text-red-800 font-bold text-sm">🚫 HOLIDAY</div>
+                                      <div className="text-xs text-red-600">No Lectures</div>
+                                    </div>
+                                  ) : isBreak ? (
+                                    <div className="text-center py-2">
+                                      <div className="text-gray-700 font-bold text-sm">BREAK</div>
+                                    </div>
+                                  ) : entries.length > 0 ? (
+                                    <div className="space-y-2">
+                                      {entries.map((entry, index) => (
+                                        <div key={entry._id} className={`${index > 0 ? 'border-t border-gray-300 pt-2' : ''}`}>
+                                          {/* Class Tag */}
+                                          {viewMode !== 'division' && (
+                                            <div className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-1 rounded mb-1">
+                                              {entry.className}-{entry.division} | Sem-{entry.semester}
+                                            </div>
+                                          )}
+                                          
+                                          {/* Subject Name */}
+                                          {entry.subject && (
+                                            <div className="font-semibold text-sm">
+                                              {entry.subject.subject_name}
+                                            </div>
+                                          )}
+                                          
+                                          {/* Teacher Name */}
+                                          {entry.teacher && viewMode !== 'teacher' && (
+                                            <div className="text-xs text-gray-600">
+                                              {entry.teacher.faculty_name}
+                                            </div>
+                                          )}
+                                          
+                                          {/* Classroom */}
+                                          <div className="text-xs text-gray-500 mt-1">
+                                            {entry.classroom ? (
+                                              <span>Room: {entry.classroom.roomNumber}</span>
+                                            ) : (
+                                              <span className="text-gray-400">No classroom assigned</span>
+                                            )}
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : (
+                                    <div className="text-center py-2">
+                                      <div className="text-gray-400 text-xs">No Lectures</div>
+                                    </div>
+                                  )}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               )}
             </CardContent>

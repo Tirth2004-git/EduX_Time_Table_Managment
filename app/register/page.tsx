@@ -69,6 +69,18 @@ export default function RegisterPage() {
             )}
 
             <div className="space-y-2">
+              <label htmlFor="name" className="text-sm font-medium">
+                Full Name
+              </label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="John Doe"
+                {...register('name')}
+              />
+            </div>
+
+            <div className="space-y-2">
               <label htmlFor="username" className="text-sm font-medium">
                 Username
               </label>

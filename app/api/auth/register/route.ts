@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const { username, email, password } = await req.json();
+    const { username, email, password, name } = await req.json();
 
     // Validation
     if (!username || !email || !password) {
@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
       username,
       email,
       password: hashedPassword,
+      name: name || username,
       role: 'admin',
     });
 
@@ -62,6 +63,7 @@ export async function POST(req: NextRequest) {
         user: {
           id: user._id,
           username: user.username,
+          name: user.name,
           email: user.email,
           role: user.role,
         },

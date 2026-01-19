@@ -15,7 +15,9 @@ import { LogOut, Users, BookOpen, Calendar, Building2, Table2 } from 'lucide-rea
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { user, logout, isAuthenticated, setUser } = useAuthStore();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const { logout } = useAuthStore();
   const [activeTab, setActiveTab] = useState<'timetable' | 'teachers' | 'subjects' | 'classrooms' | 'preview'>('timetable');
 
   useEffect(() => {
@@ -30,12 +32,12 @@ export default function DashboardPage() {
         }
       } catch (error) {
         router.push('/login');
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (!isAuthenticated) {
-      checkAuth();
-    }
+    checkAuth();
 
     // Listen for switch to timetable event
     const handleSwitchToTimetable = () => {
@@ -46,19 +48,39 @@ export default function DashboardPage() {
     return () => {
       window.removeEventListener('switchToTimetable', handleSwitchToTimetable);
     };
-  }, [isAuthenticated, router, setUser]);
+  }, [router]);
 
   const handleLogout = async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
       logout();
+      setUser(null);
       router.push('/login');
     } catch (error) {
       console.error('Logout error:', error);
+      // Force logout even if API call fails
+      logout();
+      setUser(null);
+      router.push('/login');
     }
   };
 
-  if (!isAuthenticated) {
+  const getUserDisplayName = () => {
+    if (!user) return 'User';
+    return user.name || user.username || user.email || 'User';
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-lg">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
     return null;
   }
 
@@ -73,7 +95,10 @@ export default function DashboardPage() {
                 AI-Assisted Timetable Scheduling
               </h1>
               <p className="text-sm text-gray-500">
-                Welcome, {user?.username}
+                Welcome, {getUserDisplayName()}
+              </p>
+              <p className="text-xs text-gray-400">
+                Admin — Timetable Scheduling System
               </p>
             </div>
             <Button variant="outline" onClick={handleLogout}>

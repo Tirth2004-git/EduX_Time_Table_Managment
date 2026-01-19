@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Input } from '@/components/ui/input';
-import { CheckCircle2, XCircle, AlertTriangle, Save, Trash2, Calendar, Sparkles, RefreshCw } from 'lucide-react';
+import { CheckCircle2, XCircle, AlertTriangle, Save, Trash2, Calendar, Sparkles, RefreshCw, Download } from 'lucide-react';
 import { useTimetableStore } from '@/lib/store';
 import { showToast } from '@/components/ui/toast';
+import { exportTimetableToPDF } from '@/lib/pdf-export';
 
 interface TimetableEntry {
   _id: string;
@@ -123,6 +124,7 @@ export default function TimetableBuilder() {
   const [holidays, setHolidays] = useState<string[]>([]);
   const [autoGenerating, setAutoGenerating] = useState(false);
   const [autoGenerateResult, setAutoGenerateResult] = useState<any>(null);
+  const [exportingPDF, setExportingPDF] = useState(false);
 
   const fetchSubjects = async () => {
     try {
@@ -148,7 +150,7 @@ export default function TimetableBuilder() {
     if (!selectedProgram || !selectedClass || !selectedSemester || !selectedDivision) return;
     try {
       const response = await fetch(
-        `/api/timetable/preview?program=${encodeURIComponent(selectedProgram)}&className=${selectedClass}&semester=${selectedSemester}&division=${selectedDivision}`
+        `/api/timetable/list?program=${encodeURIComponent(selectedProgram)}&className=${selectedClass}&semester=${selectedSemester}&division=${selectedDivision}`
       );
       const data = await response.json();
       setTimetable(data.timetable || []);
@@ -634,6 +636,36 @@ export default function TimetableBuilder() {
     }
   };
 
+  const handleExportPDF = async () => {
+    if (!selectedProgram || !selectedClass || !selectedSemester || !selectedDivision) {
+      alert('Please select program, class, semester, and division first');
+      return;
+    }
+
+    if (timetable.length === 0) {
+      alert('No timetable data to export');
+      return;
+    }
+
+    setExportingPDF(true);
+    try {
+      const title = `Weekly Timetable — ${selectedProgram} ${selectedClass} Sem-${selectedSemester} ${selectedDivision}`;
+      const filename = `Timetable_${selectedProgram.replace(/[^a-zA-Z0-9]/g, '')}_${selectedClass}_Sem${selectedSemester}_${selectedDivision}.pdf`;
+      
+      await exportTimetableToPDF({
+        viewMode: 'class',
+        title,
+        filename,
+      });
+      
+      showToast('Timetable exported successfully!', 'success');
+    } catch (error: any) {
+      showToast(error.message || 'Failed to export PDF', 'error');
+    } finally {
+      setExportingPDF(false);
+    }
+  };
+
   const getEntryForSlot = (day: string, time: string) => {
     return timetable.find(
       (entry) => entry.day === day && entry.timeSlot === time
@@ -788,91 +820,103 @@ export default function TimetableBuilder() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr>
-                      <th className="border p-2 bg-gray-100 font-semibold">Time</th>
-                      {DAYS.map((day) => (
-                        <th key={day} className="border p-2 bg-gray-100 font-semibold">
-                          {day}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {TIME_SLOTS.map((time) => (
-                      <tr key={time}>
-                        <td className="border p-2 bg-gray-50 font-medium">{time}</td>
-                        {DAYS.map((day) => {
-                          const entry = getEntryForSlot(day, time);
-                          const isSelected =
-                            selectedSlot?.day === day && selectedSlot?.time === time;
-                          const isBreak = isBreakSlot(time);
-                          const isHolidayDay = isHoliday(day);
-                          return (
-                            <td
-                              key={`${day}-${time}`}
-                              className={`border p-2 min-w-[150px] transition-colors ${
-                                isHolidayDay
-                                  ? 'bg-red-100 cursor-not-allowed opacity-80 border-red-200'
-                                  : isBreak
-                                  ? 'bg-gray-300 cursor-not-allowed opacity-60'
-                                  : isSelected
-                                  ? 'bg-blue-200 ring-2 ring-blue-500 cursor-pointer'
-                                  : entry
-                                  ? entry.status === 'conflict'
-                                    ? 'bg-red-100 cursor-pointer'
-                                    : 'bg-green-100 cursor-pointer'
-                                  : 'bg-white hover:bg-gray-50 cursor-pointer'
-                              }`}
-                              onClick={() => handleSlotClick(day, time)}
-                            >
-                              {isHolidayDay ? (
-                                <div className="text-center py-2">
-                                  <div className="text-gray-800 font-bold text-sm">
-                                    🏖️ HOLIDAY
-                                  </div>
-                                  <div className="text-xs text-gray-600 mt-1">
-                                    No Lectures
-                                  </div>
-                                </div>
-                              ) : isBreak ? (
-                                <div className="text-gray-700 font-bold text-sm text-center">
-                                  BREAK
-                                </div>
-                              ) : entry ? (
-                                <div className="space-y-1">
-                                  <div className="font-semibold text-sm">
-                                    {entry.subjectId?.subject_name || 'No subject'}
-                                  </div>
-                                  <div className="text-xs text-gray-600">
-                                    {entry.teacherId?.faculty_name || 'No teacher'}
-                                  </div>
-                                  <Button
-                                    size="sm"
-                                    variant="ghost"
-                                    className="h-6 px-2 text-xs"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      handleDeleteEntry(entry._id);
-                                    }}
-                                  >
-                                    <Trash2 className="h-3 w-3" />
-                                  </Button>
-                                </div>
-                              ) : (
-                                <div className="text-gray-400 text-xs text-center">
-                                  Click to add
-                                </div>
-                              )}
-                            </td>
-                          );
-                        })}
+              <div id="timetable-export-container">
+                {/* Export Header - Only visible in PDF */}
+                <div className="hidden print:block mb-4">
+                  <h2 className="text-xl font-bold mb-2">
+                    Weekly Timetable — {selectedProgram} {selectedClass} Sem-{selectedSemester} {selectedDivision}
+                  </h2>
+                  <p className="text-sm text-gray-600">
+                    Academic Year: {new Date().getFullYear()}-{new Date().getFullYear() + 1}
+                  </p>
+                </div>
+                
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="border p-2 bg-gray-100 font-semibold">Time</th>
+                        {DAYS.map((day) => (
+                          <th key={day} className="border p-2 bg-gray-100 font-semibold">
+                            {day}
+                          </th>
+                        ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {TIME_SLOTS.map((time) => (
+                        <tr key={time}>
+                          <td className="border p-2 bg-gray-50 font-medium">{time}</td>
+                          {DAYS.map((day) => {
+                            const entry = getEntryForSlot(day, time);
+                            const isSelected =
+                              selectedSlot?.day === day && selectedSlot?.time === time;
+                            const isBreak = isBreakSlot(time);
+                            const isHolidayDay = isHoliday(day);
+                            return (
+                              <td
+                                key={`${day}-${time}`}
+                                className={`border p-2 min-w-[150px] transition-colors ${
+                                  isHolidayDay
+                                    ? 'bg-red-100 cursor-not-allowed opacity-80 border-red-200'
+                                    : isBreak
+                                    ? 'bg-gray-300 cursor-not-allowed opacity-60'
+                                    : isSelected
+                                    ? 'bg-blue-200 ring-2 ring-blue-500 cursor-pointer'
+                                    : entry
+                                    ? entry.status === 'conflict'
+                                      ? 'bg-red-100 cursor-pointer'
+                                      : 'bg-green-100 cursor-pointer'
+                                    : 'bg-white hover:bg-gray-50 cursor-pointer'
+                                }`}
+                                onClick={() => handleSlotClick(day, time)}
+                              >
+                                {isHolidayDay ? (
+                                  <div className="text-center py-2">
+                                    <div className="text-red-800 font-bold text-sm">
+                                      🏖️ HOLIDAY
+                                    </div>
+                                    <div className="text-xs text-red-600 mt-1">
+                                      No Lectures
+                                    </div>
+                                  </div>
+                                ) : isBreak ? (
+                                  <div className="text-center py-2">
+                                    <div className="text-gray-700 font-bold text-sm">BREAK</div>
+                                  </div>
+                                ) : entry ? (
+                                  <div className="space-y-1">
+                                    <div className="font-semibold text-sm">
+                                      {entry.subjectId?.subject_name || 'No subject'}
+                                    </div>
+                                    <div className="text-xs text-gray-600">
+                                      {entry.teacherId?.faculty_name || 'No teacher'}
+                                    </div>
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      className="h-6 px-2 text-xs print:hidden"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteEntry(entry._id);
+                                      }}
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <div className="text-gray-400 text-xs text-center">
+                                    Click to add
+                                  </div>
+                                )}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -1080,9 +1124,18 @@ export default function TimetableBuilder() {
           </Card>
 
           {/* Action Buttons */}
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center flex-wrap">
             <Button onClick={handleValidate} variant="outline">
               Validate Timetable
+            </Button>
+            <Button 
+              onClick={handleExportPDF} 
+              disabled={exportingPDF || timetable.length === 0}
+              variant="outline"
+              className="bg-green-50 hover:bg-green-100 border-green-200"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              {exportingPDF ? 'Preparing PDF...' : 'Download as PDF'}
             </Button>
             <Button 
               onClick={handleResetTimetable} 
