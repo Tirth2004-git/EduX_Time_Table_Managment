@@ -1,0 +1,869 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "subject_name": "Compiler Design",
+    "subject_code": "IT601",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "credits": 3,
+    "lectureHours": 3,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 3,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f569"
+        },
+        "facultyName": "Dr. Priya Sharma",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff2c"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 3,
+    "allottedPeriods": 0,
+    "remainingPeriods": 3,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "subject_name": "Cryptography and Network Security",
+    "subject_code": "IT602",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "credits": 3,
+    "lectureHours": 3,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 3,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56a"
+        },
+        "facultyName": "Prof. Rahul Patel",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff2e"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f570"
+        },
+        "facultyName": "Dr. Dhruv Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff2f"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f577"
+        },
+        "facultyName": "Prof. Jigar Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff30"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 3,
+    "allottedPeriods": 0,
+    "remainingPeriods": 3,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "subject_name": "Software Engineering",
+    "subject_code": "IT603",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "credits": 3,
+    "lectureHours": 3,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 3,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f569"
+        },
+        "facultyName": "Dr. Priya Sharma",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff32"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56b"
+        },
+        "facultyName": "Dr. Amit Trivedi",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff33"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f57d"
+        },
+        "facultyName": "Prof. Hitesh Parmar",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff34"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 3,
+    "allottedPeriods": 0,
+    "remainingPeriods": 3,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "subject_name": "Web Technology",
+    "subject_code": "IT604",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "credits": 3,
+    "lectureHours": 3,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 3,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56b"
+        },
+        "facultyName": "Dr. Amit Trivedi",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff36"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f571"
+        },
+        "facultyName": "Prof. Anjali Desai",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff37"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f574"
+        },
+        "facultyName": "Dr. Harsh Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff38"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 3,
+    "allottedPeriods": 0,
+    "remainingPeriods": 3,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "subject_name": "Cloud Computing",
+    "subject_code": "IT605",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "credits": 3,
+    "lectureHours": 3,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 3,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56c"
+        },
+        "facultyName": "Prof. Nisha Mehta",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff3a"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f574"
+        },
+        "facultyName": "Dr. Harsh Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff3b"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f57a"
+        },
+        "facultyName": "Dr. Ritu Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff3c"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 3,
+    "allottedPeriods": 0,
+    "remainingPeriods": 3,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "subject_name": "Machine Learning",
+    "subject_code": "IT606",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "credits": 3,
+    "lectureHours": 3,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 3,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56d"
+        },
+        "facultyName": "Dr. Rakesh Singh",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff3e"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f572"
+        },
+        "facultyName": "Dr. Karan Mehta",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff3f"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f57b"
+        },
+        "facultyName": "Prof. Kunal Pandya",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff40"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 3,
+    "allottedPeriods": 0,
+    "remainingPeriods": 3,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "subject_name": "Data Warehousing and Data Mining",
+    "subject_code": "IT607",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "credits": 2,
+    "lectureHours": 2,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 2,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56a"
+        },
+        "facultyName": "Prof. Rahul Patel",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff42"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56e"
+        },
+        "facultyName": "Prof. Bhavesh Patel",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff43"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f573"
+        },
+        "facultyName": "Prof. Pooja Vyas",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff44"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 2,
+    "allottedPeriods": 0,
+    "remainingPeriods": 2,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "subject_name": "Internet of Things",
+    "subject_code": "IT608",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "credits": 2,
+    "lectureHours": 2,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 2,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56f"
+        },
+        "facultyName": "Prof. Sneha Joshi",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff46"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f578"
+        },
+        "facultyName": "Dr. Meera Joshi",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff47"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f581"
+        },
+        "facultyName": "Prof. Saurabh Jhala",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff48"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 2,
+    "allottedPeriods": 0,
+    "remainingPeriods": 2,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "subject_name": "Artificial Intelligence",
+    "subject_code": "IT609",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "credits": 2,
+    "lectureHours": 2,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 2,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56d"
+        },
+        "facultyName": "Dr. Rakesh Singh",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff4a"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f572"
+        },
+        "facultyName": "Dr. Karan Mehta",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff4b"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f57b"
+        },
+        "facultyName": "Prof. Kunal Pandya",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff4c"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 2,
+    "allottedPeriods": 0,
+    "remainingPeriods": 2,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "subject_name": "Big Data Analytics",
+    "subject_code": "IT610",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "credits": 2,
+    "lectureHours": 2,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 2,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56c"
+        },
+        "facultyName": "Prof. Nisha Mehta",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff4e"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56e"
+        },
+        "facultyName": "Prof. Bhavesh Patel",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff4f"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f573"
+        },
+        "facultyName": "Prof. Pooja Vyas",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff50"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 2,
+    "allottedPeriods": 0,
+    "remainingPeriods": 2,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "subject_name": "Mobile Application Development",
+    "subject_code": "IT611",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "credits": 2,
+    "lectureHours": 2,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 2,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56b"
+        },
+        "facultyName": "Dr. Amit Trivedi",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff52"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f571"
+        },
+        "facultyName": "Prof. Anjali Desai",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff53"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f575"
+        },
+        "facultyName": "Prof. Mehul Patel",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff54"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 2,
+    "allottedPeriods": 0,
+    "remainingPeriods": 2,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "subject_name": "Information Security",
+    "subject_code": "IT612",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "credits": 1,
+    "lectureHours": 1,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 1,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56a"
+        },
+        "facultyName": "Prof. Rahul Patel",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff56"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f570"
+        },
+        "facultyName": "Dr. Dhruv Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff57"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f577"
+        },
+        "facultyName": "Prof. Jigar Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff58"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 1,
+    "allottedPeriods": 0,
+    "remainingPeriods": 1,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f58e"
+    },
+    "subject_name": "Professional Ethics and IPR",
+    "subject_code": "IT613",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "credits": 1,
+    "lectureHours": 1,
+    "tutorialHours": 0,
+    "practicalHours": 0,
+    "weeklyHours": 1,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f569"
+        },
+        "facultyName": "Dr. Priya Sharma",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff5a"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f580"
+        },
+        "facultyName": "Dr. Bharti Dave",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff5b"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 1,
+    "allottedPeriods": 0,
+    "remainingPeriods": 1,
+    "type": "theory",
+    "mode": "Theory",
+    "subjectType": "Theory",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.947Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f58f"
+    },
+    "subject_name": "Mini Project Lab",
+    "subject_code": "IT614",
+    "teacherId": null,
+    "credits": 2,
+    "lectureHours": 0,
+    "tutorialHours": 0,
+    "practicalHours": 2,
+    "weeklyHours": 2,
+    "facultyAssigned": [],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 2,
+    "allottedPeriods": 0,
+    "remainingPeriods": 2,
+    "type": "lab",
+    "mode": "Lab",
+    "subjectType": "Lab",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f590"
+    },
+    "subject_name": "Major Project Lab",
+    "subject_code": "IT615",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "credits": 2,
+    "lectureHours": 0,
+    "tutorialHours": 0,
+    "practicalHours": 2,
+    "weeklyHours": 2,
+    "facultyAssigned": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56c"
+        },
+        "facultyName": "Prof. Nisha Mehta",
+        "isPrimary": true,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff5e"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56d"
+        },
+        "facultyName": "Dr. Rakesh Singh",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff5f"
+        }
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f574"
+        },
+        "facultyName": "Dr. Harsh Shah",
+        "isPrimary": false,
+        "_id": {
+          "$oid": "6a473b2d60a2d6000e52ff60"
+        }
+      }
+    ],
+    "department": "Information Technology",
+    "semester": 6,
+    "requiredPeriods": 2,
+    "allottedPeriods": 0,
+    "remainingPeriods": 2,
+    "type": "lab",
+    "mode": "Lab",
+    "subjectType": "Lab",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  }
+]

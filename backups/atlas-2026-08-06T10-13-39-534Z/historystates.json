@@ -1,0 +1,134 @@
+[
+  {
+    "_id": {
+      "$oid": "6a3cb524c445c18450232e61"
+    },
+    "userId": {
+      "$oid": "69a9d19e0a13276cfe4453c2"
+    },
+    "actionIndex": 1,
+    "actionType": "ADD",
+    "undoData": {
+      "operation": "DELETE",
+      "timetableId": [
+        {
+          "$oid": "6a3cb524c445c18450232e58"
+        }
+      ]
+    },
+    "redoData": {
+      "operation": "CREATE",
+      "document": [
+        {
+          "program": "Information Technology",
+          "className": "TY",
+          "semester": 5,
+          "division": "A",
+          "day": "Monday",
+          "timeSlot": "09:30-10:25",
+          "subjectId": {
+            "$oid": "6a3cb425cf175a01a5e2161b"
+          },
+          "teacherId": {
+            "$oid": "6a3cb425cf175a01a5e21610"
+          },
+          "classroomId": {
+            "$oid": "6a3cb425cf175a01a5e21647"
+          },
+          "status": "valid",
+          "isLab": false,
+          "duration": 1,
+          "createdBy": {
+            "$oid": "69a9d19e0a13276cfe4453c2"
+          },
+          "timetableVersionId": null,
+          "_id": {
+            "$oid": "6a3cb524c445c18450232e58"
+          },
+          "createdAt": {
+            "$date": "2026-06-25T04:57:08.040Z"
+          },
+          "updatedAt": {
+            "$date": "2026-06-25T04:57:08.040Z"
+          },
+          "__v": 0
+        }
+      ]
+    },
+    "description": "Add IT302 slot",
+    "isUndone": false,
+    "createdAt": {
+      "$date": "2026-06-25T04:57:08.252Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-25T04:57:08.252Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a422da8576514ab96ac7abb"
+    },
+    "userId": {
+      "$oid": "6a3e9ee2c4bf2f3eb526b3ce"
+    },
+    "actionIndex": 1,
+    "actionType": "ADD",
+    "undoData": {
+      "operation": "DELETE",
+      "timetableId": [
+        {
+          "$oid": "6a422da7576514ab96ac7ab2"
+        }
+      ]
+    },
+    "redoData": {
+      "operation": "CREATE",
+      "document": [
+        {
+          "program": "Information Technology",
+          "className": "TY",
+          "semester": 6,
+          "division": "B",
+          "day": "Thursday",
+          "timeSlot": "09:30-10:25",
+          "subjectId": {
+            "$oid": "6a3e9ee0c4bf2f3eb526b2e5"
+          },
+          "teacherId": {
+            "$oid": "6a3e9ee0c4bf2f3eb526b2d2"
+          },
+          "classroomId": {
+            "$oid": "6a3e9ee2c4bf2f3eb526b337"
+          },
+          "status": "valid",
+          "isLab": false,
+          "duration": 1,
+          "createdBy": {
+            "$oid": "6a3e9ee2c4bf2f3eb526b3ce"
+          },
+          "timetableVersionId": null,
+          "_id": {
+            "$oid": "6a422da7576514ab96ac7ab2"
+          },
+          "createdAt": {
+            "$date": "2026-06-29T08:32:39.306Z"
+          },
+          "updatedAt": {
+            "$date": "2026-06-29T08:32:39.306Z"
+          },
+          "__v": 0
+        }
+      ]
+    },
+    "description": "Add IT602 slot",
+    "isUndone": false,
+    "createdAt": {
+      "$date": "2026-06-29T08:32:40.521Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-29T08:32:40.521Z"
+    },
+    "__v": 0
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "name": "EduX IT Semester 6 2026-2027",
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "semester": 6,
+    "status": "published",
+    "publishedAt": {
+      "$date": "2026-07-03T04:31:42.472Z"
+    },
+    "publishedBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "lockedAt": null,
+    "lockedBy": null,
+    "previousVersionId": null,
+    "sessionGenerationRange": {
+      "startDate": {
+        "$date": "2026-07-01T00:00:00Z"
+      },
+      "endDate": {
+        "$date": "2027-05-31T23:59:59Z"
+      }
+    },
+    "validationReport": {
+      "score": 96,
+      "errors": [],
+      "warnings": []
+    },
+    "metadata": {
+      "program": "B.Tech Information Technology",
+      "description": "Production-grade Semester 6 timetable for EduX Institute of Technology."
+    },
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.479Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.479Z"
+    },
+    "__v": 0
+  }
+]

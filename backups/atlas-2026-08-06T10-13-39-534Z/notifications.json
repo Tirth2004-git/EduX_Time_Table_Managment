@@ -1,0 +1,291 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f975"
+    },
+    "recipientType": "admin",
+    "recipientId": null,
+    "teacherId": null,
+    "userId": null,
+    "title": "Timetable Published for Semester 6",
+    "message": "The final Semester 6 Information Technology timetable has been published for the 2026-2027 academic year.",
+    "type": "timetable_published",
+    "entityType": "TimetableVersion",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "channels": {
+      "inApp": true,
+      "email": true
+    },
+    "isRead": true,
+    "readAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f976"
+    },
+    "recipientType": "teacher",
+    "recipientId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "userId": null,
+    "title": "Leave approved for Dr. Priya Sharma",
+    "message": "Dr. Priya Sharma has a single day request marked as approved.",
+    "type": "leave_approved",
+    "entityType": "TeacherLeave",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f7e0"
+    },
+    "channels": {
+      "inApp": true,
+      "email": true
+    },
+    "isRead": true,
+    "readAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f977"
+    },
+    "recipientType": "teacher",
+    "recipientId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "userId": null,
+    "title": "Leave rejected for Prof. Rahul Patel",
+    "message": "Prof. Rahul Patel has a multiple day request marked as rejected.",
+    "type": "leave_rejected",
+    "entityType": "TeacherLeave",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f7e1"
+    },
+    "channels": {
+      "inApp": true,
+      "email": false
+    },
+    "isRead": false,
+    "readAt": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f978"
+    },
+    "recipientType": "teacher",
+    "recipientId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "userId": null,
+    "title": "Leave pending for Dr. Amit Trivedi",
+    "message": "Dr. Amit Trivedi has a single day request marked as pending.",
+    "type": "leave_status",
+    "entityType": "TeacherLeave",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f7e2"
+    },
+    "channels": {
+      "inApp": true,
+      "email": false
+    },
+    "isRead": false,
+    "readAt": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f979"
+    },
+    "recipientType": "teacher",
+    "recipientId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "userId": null,
+    "title": "Leave approved for Prof. Nisha Mehta",
+    "message": "Prof. Nisha Mehta has a multiple day request marked as approved.",
+    "type": "leave_approved",
+    "entityType": "TeacherLeave",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f7e3"
+    },
+    "channels": {
+      "inApp": true,
+      "email": true
+    },
+    "isRead": true,
+    "readAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f97a"
+    },
+    "recipientType": "admin",
+    "recipientId": null,
+    "teacherId": null,
+    "userId": null,
+    "title": "Lab Maintenance Window",
+    "message": "Programming Lab and Database Lab will remain unavailable on Wednesday afternoon for network and UPS maintenance.",
+    "type": "announcement",
+    "entityType": "Lab",
+    "entityId": null,
+    "channels": {
+      "inApp": true,
+      "email": true
+    },
+    "isRead": false,
+    "readAt": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f97b"
+    },
+    "recipientType": "admin",
+    "recipientId": null,
+    "teacherId": null,
+    "userId": null,
+    "title": "Mid-Semester Examination Notice",
+    "message": "Mid-semester examinations for Semester 6 Information Technology will begin in the third week of September.",
+    "type": "announcement",
+    "entityType": "AcademicYear",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "channels": {
+      "inApp": true,
+      "email": true
+    },
+    "isRead": true,
+    "readAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f97c"
+    },
+    "recipientType": "teacher",
+    "recipientId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "userId": null,
+    "title": "Teaching Slot Updated",
+    "message": "Your Cloud Computing slot on Monday has been updated to the final Semester 6 timetable.",
+    "type": "timetable_updated",
+    "entityType": "Timetable",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f70e"
+    },
+    "channels": {
+      "inApp": true,
+      "email": false
+    },
+    "isRead": true,
+    "readAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f97d"
+    },
+    "recipientType": "admin",
+    "recipientId": null,
+    "teacherId": null,
+    "userId": null,
+    "title": "Placement Drive Reminder",
+    "message": "The campus placement drive has been confirmed with four recruiting partners.",
+    "type": "announcement",
+    "entityType": "Event",
+    "entityId": {
+      "$oid": "6a473b2460a2d6000e52f96f"
+    },
+    "channels": {
+      "inApp": true,
+      "email": true
+    },
+    "isRead": false,
+    "readAt": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.972Z"
+    },
+    "__v": 0
+  }
+]

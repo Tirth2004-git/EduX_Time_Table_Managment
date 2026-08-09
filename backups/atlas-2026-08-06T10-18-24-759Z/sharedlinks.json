@@ -1,0 +1,19 @@
+[
+  {
+    "_id": {
+      "$oid": "6a2d8763be362be56ba6cf04"
+    },
+    "token": "1b20b9c97cdbeb96966e56a361b7c2d9",
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 5,
+    "division": "B",
+    "createdAt": {
+      "$date": "2026-06-13T16:37:56.013Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-13T16:37:56.013Z"
+    },
+    "__v": 0
+  }
+]

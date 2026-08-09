@@ -1,0 +1,470 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ea"
+    },
+    "scheduledSessionId": {
+      "$oid": "6a473b2460a2d6000e52f70e"
+    },
+    "leaveId": {
+      "$oid": "6a473b2460a2d6000e52f7e0"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "timetableId": {
+      "$oid": "6a473b2460a2d6000e52f70e"
+    },
+    "date": {
+      "$date": "2026-08-11T00:00:00Z"
+    },
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "aiCandidates": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56a"
+        },
+        "score": 100,
+        "breakdown": {
+          "subjectMatch": 35,
+          "departmentMatch": 25,
+          "availability": 20,
+          "workloadBalance": 15,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Free in the affected time slot",
+          "Same department",
+          "Lowest workload in pool"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56b"
+        },
+        "score": 92,
+        "breakdown": {
+          "subjectMatch": 32,
+          "departmentMatch": 25,
+          "availability": 18,
+          "workloadBalance": 14,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56c"
+        },
+        "score": 84,
+        "breakdown": {
+          "subjectMatch": 29,
+          "departmentMatch": 25,
+          "availability": 16,
+          "workloadBalance": 13,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56d"
+        },
+        "score": 76,
+        "breakdown": {
+          "subjectMatch": 26,
+          "departmentMatch": 25,
+          "availability": 14,
+          "workloadBalance": 12,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      }
+    ],
+    "substituteTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "status": "Assigned",
+    "reason": "Approved leave processed through automatic substitute allocation.",
+    "adminNotes": "Substitute allocated from the Information Technology faculty pool: Prof. Rahul Patel",
+    "assignedBy": null,
+    "assignedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7eb"
+    },
+    "scheduledSessionId": {
+      "$oid": "6a473b2460a2d6000e52f710"
+    },
+    "leaveId": {
+      "$oid": "6a473b2460a2d6000e52f7e3"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "timetableId": {
+      "$oid": "6a473b2460a2d6000e52f710"
+    },
+    "date": {
+      "$date": "2026-08-11T00:00:00Z"
+    },
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "aiCandidates": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f569"
+        },
+        "score": 100,
+        "breakdown": {
+          "subjectMatch": 35,
+          "departmentMatch": 25,
+          "availability": 20,
+          "workloadBalance": 15,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Free in the affected time slot",
+          "Same department",
+          "Lowest workload in pool"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56b"
+        },
+        "score": 92,
+        "breakdown": {
+          "subjectMatch": 32,
+          "departmentMatch": 25,
+          "availability": 18,
+          "workloadBalance": 14,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56d"
+        },
+        "score": 84,
+        "breakdown": {
+          "subjectMatch": 29,
+          "departmentMatch": 25,
+          "availability": 16,
+          "workloadBalance": 13,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56e"
+        },
+        "score": 76,
+        "breakdown": {
+          "subjectMatch": 26,
+          "departmentMatch": 25,
+          "availability": 14,
+          "workloadBalance": 12,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      }
+    ],
+    "substituteTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "status": "Assigned",
+    "reason": "Approved leave processed through automatic substitute allocation.",
+    "adminNotes": "Substitute allocated from the Information Technology faculty pool: Dr. Priya Sharma",
+    "assignedBy": null,
+    "assignedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ec"
+    },
+    "scheduledSessionId": {
+      "$oid": "6a473b2460a2d6000e52f73e"
+    },
+    "leaveId": {
+      "$oid": "6a473b2460a2d6000e52f7e6"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "timetableId": {
+      "$oid": "6a473b2460a2d6000e52f73e"
+    },
+    "date": {
+      "$date": "2026-08-11T00:00:00Z"
+    },
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "aiCandidates": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56b"
+        },
+        "score": 100,
+        "breakdown": {
+          "subjectMatch": 35,
+          "departmentMatch": 25,
+          "availability": 20,
+          "workloadBalance": 15,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Free in the affected time slot",
+          "Same department",
+          "Lowest workload in pool"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56c"
+        },
+        "score": 92,
+        "breakdown": {
+          "subjectMatch": 32,
+          "departmentMatch": 25,
+          "availability": 18,
+          "workloadBalance": 14,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56d"
+        },
+        "score": 84,
+        "breakdown": {
+          "subjectMatch": 29,
+          "departmentMatch": 25,
+          "availability": 16,
+          "workloadBalance": 13,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56e"
+        },
+        "score": 76,
+        "breakdown": {
+          "subjectMatch": 26,
+          "departmentMatch": 25,
+          "availability": 14,
+          "workloadBalance": 12,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      }
+    ],
+    "substituteTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "status": "Assigned",
+    "reason": "Approved leave processed through automatic substitute allocation.",
+    "adminNotes": "Substitute allocated from the Information Technology faculty pool: Dr. Amit Trivedi",
+    "assignedBy": null,
+    "assignedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ed"
+    },
+    "scheduledSessionId": {
+      "$oid": "6a473b2460a2d6000e52f75b"
+    },
+    "leaveId": {
+      "$oid": "6a473b2460a2d6000e52f7e9"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "timetableId": {
+      "$oid": "6a473b2460a2d6000e52f75b"
+    },
+    "date": {
+      "$date": "2026-08-11T00:00:00Z"
+    },
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "aiCandidates": [
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56c"
+        },
+        "score": 100,
+        "breakdown": {
+          "subjectMatch": 35,
+          "departmentMatch": 25,
+          "availability": 20,
+          "workloadBalance": 15,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Free in the affected time slot",
+          "Same department",
+          "Lowest workload in pool"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56d"
+        },
+        "score": 92,
+        "breakdown": {
+          "subjectMatch": 32,
+          "departmentMatch": 25,
+          "availability": 18,
+          "workloadBalance": 14,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56e"
+        },
+        "score": 84,
+        "breakdown": {
+          "subjectMatch": 29,
+          "departmentMatch": 25,
+          "availability": 16,
+          "workloadBalance": 13,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      },
+      {
+        "teacherId": {
+          "$oid": "6a473b2460a2d6000e52f56f"
+        },
+        "score": 76,
+        "breakdown": {
+          "subjectMatch": 26,
+          "departmentMatch": 25,
+          "availability": 14,
+          "workloadBalance": 12,
+          "preferenceMatch": 5
+        },
+        "reasons": [
+          "Available alternate faculty"
+        ],
+        "disqualifiers": []
+      }
+    ],
+    "substituteTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "status": "Assigned",
+    "reason": "Approved leave processed through automatic substitute allocation.",
+    "adminNotes": "Substitute allocated from the Information Technology faculty pool: Prof. Nisha Mehta",
+    "assignedBy": null,
+    "assignedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.967Z"
+    },
+    "__v": 0
+  }
+]

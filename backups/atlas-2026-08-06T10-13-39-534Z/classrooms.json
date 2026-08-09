@@ -1,0 +1,146 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "year": "2026-2027",
+    "roomNumber": "IT201",
+    "capacity": 68,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "building": "Academic Block A",
+    "floor": 2,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "year": "2026-2027",
+    "roomNumber": "IT202",
+    "capacity": 68,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "building": "Academic Block A",
+    "floor": 2,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "year": "2026-2027",
+    "roomNumber": "IT203",
+    "capacity": 68,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "building": "Academic Block A",
+    "floor": 2,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "year": "2026-2027",
+    "roomNumber": "IT204",
+    "capacity": 68,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "building": "Academic Block A",
+    "floor": 2,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "year": "2026-2027",
+    "roomNumber": "IT205",
+    "capacity": 68,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "building": "Academic Block A",
+    "floor": 2,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "year": "2026-2027",
+    "roomNumber": "IT206",
+    "capacity": 68,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "building": "Academic Block A",
+    "floor": 2,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  }
+]

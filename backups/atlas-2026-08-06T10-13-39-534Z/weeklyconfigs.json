@@ -1,0 +1,114 @@
+[
+  {
+    "_id": {
+      "$oid": "6971b421603a2de467d1804f"
+    },
+    "semester": 6,
+    "program": "Information Technology",
+    "className": "TY",
+    "division": "A",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-01-22T05:22:44.254Z"
+    },
+    "holidays": [
+      "Saturday"
+    ],
+    "updatedAt": {
+      "$date": "2026-01-22T05:22:44.254Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "697869e3603a2de467d1abad"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "C",
+    "className": "TY",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-01-27T07:31:44.144Z"
+    },
+    "holidays": [
+      "Saturday"
+    ],
+    "updatedAt": {
+      "$date": "2026-04-12T11:17:11.339Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "69ab179d5eed94f24cf3ea86"
+    },
+    "semester": 1,
+    "className": "FY",
+    "division": "A",
+    "program": "Information Technology",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-03-06T18:06:19.441Z"
+    },
+    "holidays": [
+      "Saturday"
+    ],
+    "updatedAt": {
+      "$date": "2026-03-08T16:14:01.988Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "69d9b496b28532d741b21198"
+    },
+    "program": "Information Technology",
+    "division": "B",
+    "className": "TY",
+    "semester": 6,
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-04-11T02:40:18.774Z"
+    },
+    "holidays": [
+      "Saturday"
+    ],
+    "updatedAt": {
+      "$date": "2026-04-11T05:00:15.715Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "69db717fb28532d741b27b73"
+    },
+    "division": "A",
+    "semester": 5,
+    "className": "TY",
+    "program": "Information Technology",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-04-12T10:18:36.651Z"
+    },
+    "holidays": [
+      "Friday"
+    ],
+    "updatedAt": {
+      "$date": "2026-04-12T10:18:36.651Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a2d7093beb0663eaa9202e0"
+    },
+    "semester": 5,
+    "division": "B",
+    "program": "Information Technology",
+    "className": "TY",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-06-13T15:00:35.090Z"
+    },
+    "holidays": [],
+    "updatedAt": {
+      "$date": "2026-06-13T15:04:22.196Z"
+    }
+  }
+]

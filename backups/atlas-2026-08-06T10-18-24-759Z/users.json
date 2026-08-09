@@ -1,0 +1,730 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "username": "admin.edux",
+    "email": "admin@edux.ac.in",
+    "password": "$2a$10$pxrIsRNsiKxhTx6Voc4Jt.3w/ejm.h394VSTkJzD/3vFRX/uzLO0u",
+    "role": "admin",
+    "teacherId": null,
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Academic Admin",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb00"
+    },
+    "username": "dr.priya.sharma1",
+    "email": "priya.sharma@edux.ac.in",
+    "password": "$2a$10$sq0z3BKpnev6rGRB5YsqneckogsQizSqRF0SQHfY2goSKTLi0Hg6m",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Priya Sharma",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb01"
+    },
+    "username": "prof.rahul.patel2",
+    "email": "rahul.patel@edux.ac.in",
+    "password": "$2a$10$kwC8cpoDAB.ijgr86PKuPuFct9FSP1AeH3XeZwkKKXm7FA2DAL/pu",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Rahul Patel",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb02"
+    },
+    "username": "dr.amit.trivedi3",
+    "email": "amit.trivedi@edux.ac.in",
+    "password": "$2a$10$Lh1SojTIu5VO7Vnz20.4lu8JHxFX7KoJwjD3WkF4HfZ..H2MK9y8q",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Amit Trivedi",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb03"
+    },
+    "username": "prof.nisha.mehta4",
+    "email": "nisha.mehta@edux.ac.in",
+    "password": "$2a$10$56HlDWSDJ.sA.dsVDJHxQu95lap6QO/KDqs8RmfZPISbLpNNMT0M6",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Nisha Mehta",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb04"
+    },
+    "username": "dr.rakesh.singh5",
+    "email": "rakesh.singh@edux.ac.in",
+    "password": "$2a$10$Op4Agqe6OKW17TQiXlu3/elMnd3qRFK3eBhEVTgJjI.B2sX.rPwMS",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Rakesh Singh",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb05"
+    },
+    "username": "prof.bhavesh.patel6",
+    "email": "bhavesh.patel@edux.ac.in",
+    "password": "$2a$10$EmyIFy2/1D/8uGC2sJQ.Ne9Iy6SYYumf9d/GIZNFQI9e4sfEK.AzK",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Bhavesh Patel",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb06"
+    },
+    "username": "prof.sneha.joshi7",
+    "email": "sneha.joshi@edux.ac.in",
+    "password": "$2a$10$1AknS7ENaRK0lOYsJyGd3.k04zEPOS4D3prEp4rDNAralqqb4rIN2",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Sneha Joshi",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb07"
+    },
+    "username": "dr.dhruv.shah8",
+    "email": "dhruv.shah@edux.ac.in",
+    "password": "$2a$10$Fwu4W7ogSaUA68eVBUMQsuaZtzOU/pxFNlITEY4lWYTbgHuECgm0i",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Dhruv Shah",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb08"
+    },
+    "username": "prof.anjali.desai9",
+    "email": "anjali.desai@edux.ac.in",
+    "password": "$2a$10$nFR289G8TQt92hSC2C8EH.BypdxRI4zh3ZVMttKphJGaWgkE8jk6e",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Anjali Desai",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb09"
+    },
+    "username": "dr.karan.mehta10",
+    "email": "karan.mehta@edux.ac.in",
+    "password": "$2a$10$YK7IBGDG5NPFC272k.MgEec1E1agqWTnvl5mbFhWdnMrlD7UvSzgi",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Karan Mehta",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb0a"
+    },
+    "username": "prof.pooja.vyas11",
+    "email": "pooja.vyas@edux.ac.in",
+    "password": "$2a$10$sZ7kpqYlsuyWrz7rJAYFu.N5/soeEyyEB3q5r56JgJOV.4bPRYKq.",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f573"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Pooja Vyas",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb0b"
+    },
+    "username": "dr.harsh.shah12",
+    "email": "harsh.shah@edux.ac.in",
+    "password": "$2a$10$OawugvxDIZXkjxAnMypSSO6gfbTkrx4l4q8vvX1jNJbXbjMQMEzCq",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f574"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Harsh Shah",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb0c"
+    },
+    "username": "prof.mehul.patel13",
+    "email": "mehul.patel@edux.ac.in",
+    "password": "$2a$10$qJkzY3Y3HKHO6zSCUIjWXeZslWq1rMecjIRgHhEyWKFdLQz6mh87i",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Mehul Patel",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb0d"
+    },
+    "username": "dr.pankti.shah14",
+    "email": "pankti.shah@edux.ac.in",
+    "password": "$2a$10$.TcXEN78QNl/gVo4CiZjxuIq1pcJfl8NzmDN0ybTmSuDrFTNe01Ey",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f576"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Pankti Shah",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb0e"
+    },
+    "username": "prof.jigar.shah15",
+    "email": "jigar.shah@edux.ac.in",
+    "password": "$2a$10$aydvM0z8JHR4YdFxmHd2puMh4glCA8sftom2xFzQH8cEA3VmvO0f6",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Jigar Shah",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb0f"
+    },
+    "username": "dr.meera.joshi16",
+    "email": "meera.joshi@edux.ac.in",
+    "password": "$2a$10$9T8tcV3WAn2WgbHAsnDfL.zNEoTxTdqK1qbYZnHW9GnH.syDEk/I6",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f578"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Meera Joshi",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb10"
+    },
+    "username": "prof.devang.gohil17",
+    "email": "devang.gohil@edux.ac.in",
+    "password": "$2a$10$sgPbgaQImM880uZZJ14fhud8lZefTPYgP2m4xzTaAHjaD63TzLx2m",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Devang Gohil",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb11"
+    },
+    "username": "dr.ritu.shah18",
+    "email": "ritu.shah@edux.ac.in",
+    "password": "$2a$10$p82GBYRPpHH0x9aMHs/6QuV3oAuc7SoUSd4tQCOh3Rzq0tIzRBVKC",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57a"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Ritu Shah",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb12"
+    },
+    "username": "prof.kunal.pandya19",
+    "email": "kunal.pandya@edux.ac.in",
+    "password": "$2a$10$AP6.9UjOPeHRRtdcPCtWEO6IYIjWM8VaFLKLIDmQos/dgNRHQ.PhC",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Kunal Pandya",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb13"
+    },
+    "username": "dr.aarti.soni20",
+    "email": "aarti.soni@edux.ac.in",
+    "password": "$2a$10$etkZFl/FJRUS5sKlJZ9ikOAlupno.qGCnkuSltg8UWPcO8dMrfPiy",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57c"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Aarti Soni",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb14"
+    },
+    "username": "prof.hitesh.parmar21",
+    "email": "hitesh.parmar@edux.ac.in",
+    "password": "$2a$10$SnjJX3V151YXUuaV512Xoer2oi3XHIhPvBZWcPKOgnN7xxgVPrWce",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57d"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Hitesh Parmar",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb15"
+    },
+    "username": "dr.mona.darji22",
+    "email": "mona.darji@edux.ac.in",
+    "password": "$2a$10$ZaMGzHHR6ZegkZ1WPDfCLutZR5TP8Fhw/OOYOKuD7OO5eHEHJ.l4G",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Mona Darji",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb16"
+    },
+    "username": "prof.nilesh.rana23",
+    "email": "nilesh.rana@edux.ac.in",
+    "password": "$2a$10$eGacyK49jHxmvLPHlsw2YubnlHAoScbQlcH.23LEJTqKXZhl1BqxC",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Nilesh Rana",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb17"
+    },
+    "username": "dr.bharti.dave24",
+    "email": "bharti.dave@edux.ac.in",
+    "password": "$2a$10$Q1GHl6Lht1wI3HpbN8JFQOV8Wm5.RrN.ieiCiZBD9AXuEfoj.SApC",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Bharti Dave",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52fb18"
+    },
+    "username": "prof.saurabh.jhala25",
+    "email": "saurabh.jhala@edux.ac.in",
+    "password": "$2a$10$bSm/txL26.7AwXbXx6teReKwinZ13c1ixPPJhkN702B98Am29fFra",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f581"
+    },
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Prof. Saurabh Jhala",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.017Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a4c628fef31f1eb92f76ae8"
+    },
+    "username": "admin",
+    "email": "admin@example.com",
+    "password": "$2a$10$bM0tzyzS2Jmp5gJc40bpG.ez2CvEvUcNkwtop3kv3tXXHUjBYVrU2",
+    "role": "admin",
+    "teacherId": null,
+    "department": null,
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Admin User",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "lastLoginAt": null,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-07-07T02:21:03.393Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-14T02:34:22.339Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a4c6290ef31f1eb92f76aee"
+    },
+    "username": "teacher",
+    "email": "teacher@example.com",
+    "password": "$2a$10$AiXZN0Eup3UcHf5e1Gz1n.8yq97NImWp4w00l/t56D5YlzXFEVMn6",
+    "role": "teacher",
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "department": null,
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Dr. Priya Sharma",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "lastLoginAt": null,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-07-07T02:21:04.102Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-14T02:34:23.075Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a4c6290ef31f1eb92f76af1"
+    },
+    "username": "student",
+    "email": "student@example.com",
+    "password": "$2a$10$0qTztV2Z.O9jv1nmAmgnW.vTbW1vo2cR3rEzH.hWmwYSE7frkoN4O",
+    "role": "student",
+    "teacherId": null,
+    "department": null,
+    "isVerified": true,
+    "otp": null,
+    "otpExpiry": null,
+    "name": "Student User",
+    "resetPasswordToken": null,
+    "resetPasswordExpiry": null,
+    "lastLoginAt": null,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-07-07T02:21:04.716Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-14T02:34:23.807Z"
+    },
+    "__v": 0
+  }
+]

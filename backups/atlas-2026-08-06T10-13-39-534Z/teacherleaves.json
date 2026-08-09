@@ -1,0 +1,443 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e0"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "startDate": {
+      "$date": "2026-08-11T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-08-11T00:00:00Z"
+    },
+    "leaveType": "single_day",
+    "halfDayPeriod": "morning",
+    "reason": "Attending an industry workshop at Nirma University",
+    "status": "Approved",
+    "comments": "Approved by department head.",
+    "reviewedBy": null,
+    "reviewedAt": {
+      "$date": "2026-08-10T00:00:00Z"
+    },
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-08-11T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f70e"
+        },
+        {
+          "$oid": "6a473b2460a2d6000e52f711"
+        }
+      ],
+      "sessionCount": 2
+    },
+    "workflowState": "completed",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e1"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "startDate": {
+      "$date": "2026-09-12T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-09-13T00:00:00Z"
+    },
+    "leaveType": "multiple_day",
+    "halfDayPeriod": null,
+    "reason": "Medical consultation and follow-up",
+    "status": "Rejected",
+    "comments": "Department timetable cannot accommodate the leave at this time.",
+    "reviewedBy": null,
+    "reviewedAt": {
+      "$date": "2026-09-11T00:00:00Z"
+    },
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-09-12T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f715"
+        },
+        {
+          "$oid": "6a473b2460a2d6000e52f719"
+        }
+      ],
+      "sessionCount": 2
+    },
+    "workflowState": "submitted",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e2"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "startDate": {
+      "$date": "2026-10-13T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-10-13T00:00:00Z"
+    },
+    "leaveType": "single_day",
+    "halfDayPeriod": null,
+    "reason": "Invited speaker for IEEE chapter event",
+    "status": "Pending",
+    "comments": "Approved by department head.",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-10-13T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f720"
+        }
+      ],
+      "sessionCount": 1
+    },
+    "workflowState": "submitted",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e3"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "startDate": {
+      "$date": "2026-11-14T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-11-15T00:00:00Z"
+    },
+    "leaveType": "multiple_day",
+    "halfDayPeriod": null,
+    "reason": "Family responsibility due to a wedding ceremony",
+    "status": "Approved",
+    "comments": "Approved by department head.",
+    "reviewedBy": null,
+    "reviewedAt": {
+      "$date": "2026-11-13T00:00:00Z"
+    },
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-11-14T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f726"
+        }
+      ],
+      "sessionCount": 1
+    },
+    "workflowState": "completed",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e4"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "startDate": {
+      "$date": "2026-08-15T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-08-15T00:00:00Z"
+    },
+    "leaveType": "single_day",
+    "halfDayPeriod": "morning",
+    "reason": "Conference presentation at SVNIT",
+    "status": "Rejected",
+    "comments": "Department timetable cannot accommodate the leave at this time.",
+    "reviewedBy": null,
+    "reviewedAt": {
+      "$date": "2026-08-14T00:00:00Z"
+    },
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-08-15T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f74f"
+        },
+        {
+          "$oid": "6a473b2460a2d6000e52f750"
+        }
+      ],
+      "sessionCount": 2
+    },
+    "workflowState": "submitted",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e5"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "startDate": {
+      "$date": "2026-09-16T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-09-17T00:00:00Z"
+    },
+    "leaveType": "multiple_day",
+    "halfDayPeriod": null,
+    "reason": "Attending an industry workshop at Nirma University",
+    "status": "Pending",
+    "comments": "Approved by department head.",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-09-16T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f732"
+        },
+        {
+          "$oid": "6a473b2460a2d6000e52f735"
+        }
+      ],
+      "sessionCount": 2
+    },
+    "workflowState": "submitted",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e6"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "startDate": {
+      "$date": "2026-10-17T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-10-17T00:00:00Z"
+    },
+    "leaveType": "single_day",
+    "halfDayPeriod": null,
+    "reason": "Medical consultation and follow-up",
+    "status": "Approved",
+    "comments": "Approved by department head.",
+    "reviewedBy": null,
+    "reviewedAt": {
+      "$date": "2026-10-16T00:00:00Z"
+    },
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-10-17T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f73e"
+        }
+      ],
+      "sessionCount": 1
+    },
+    "workflowState": "completed",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.964Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e7"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "startDate": {
+      "$date": "2026-11-18T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-11-19T00:00:00Z"
+    },
+    "leaveType": "multiple_day",
+    "halfDayPeriod": null,
+    "reason": "Invited speaker for IEEE chapter event",
+    "status": "Rejected",
+    "comments": "Department timetable cannot accommodate the leave at this time.",
+    "reviewedBy": null,
+    "reviewedAt": {
+      "$date": "2026-11-17T00:00:00Z"
+    },
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-11-18T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [],
+      "sessionCount": 0
+    },
+    "workflowState": "submitted",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.965Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.965Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e8"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "startDate": {
+      "$date": "2026-08-19T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-08-19T00:00:00Z"
+    },
+    "leaveType": "single_day",
+    "halfDayPeriod": "morning",
+    "reason": "Family responsibility due to a wedding ceremony",
+    "status": "Pending",
+    "comments": "Approved by department head.",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-08-19T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [
+        {
+          "$oid": "6a473b2460a2d6000e52f76a"
+        },
+        {
+          "$oid": "6a473b2460a2d6000e52f76d"
+        }
+      ],
+      "sessionCount": 2
+    },
+    "workflowState": "submitted",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.965Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.965Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7e9"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "startDate": {
+      "$date": "2026-09-20T00:00:00Z"
+    },
+    "endDate": {
+      "$date": "2026-09-21T00:00:00Z"
+    },
+    "leaveType": "multiple_day",
+    "halfDayPeriod": null,
+    "reason": "Conference presentation at SVNIT",
+    "status": "Approved",
+    "comments": "Approved by department head.",
+    "reviewedBy": null,
+    "reviewedAt": {
+      "$date": "2026-09-19T00:00:00Z"
+    },
+    "impactSummary": {
+      "affectedDates": [
+        {
+          "$date": "2026-09-20T00:00:00Z"
+        }
+      ],
+      "affectedSessionIds": [],
+      "sessionCount": 0
+    },
+    "workflowState": "completed",
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.965Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.965Z"
+    },
+    "__v": 0
+  }
+]

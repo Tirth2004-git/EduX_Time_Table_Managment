@@ -1,0 +1,8006 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f70e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Monday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f70f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Monday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f710"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Monday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f711"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Monday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f712"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Monday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58f"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f597"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f713"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Monday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58f"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f597"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f714"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Monday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f715"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Tuesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f716"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Tuesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f717"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Tuesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f718"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Tuesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f719"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Tuesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f71a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Tuesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f71b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Tuesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f71c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Wednesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f71d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Wednesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58e"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f71e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Wednesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f71f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Wednesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f720"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Wednesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f721"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Wednesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f722"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Wednesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f723"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Thursday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f724"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Thursday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f725"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Thursday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f726"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Thursday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f727"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Thursday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f728"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Thursday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f729"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Thursday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f72a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Friday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f72b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Friday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f72c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Friday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f72d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Friday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f72e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Friday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.960Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f72f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Friday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f730"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "A",
+    "day": "Friday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f591"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f731"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Monday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f732"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Monday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f733"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Monday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f734"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Monday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f735"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Monday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f736"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Monday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f737"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Monday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f738"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Tuesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f739"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Tuesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f73a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Tuesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f73b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Tuesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58e"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f73c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Tuesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f590"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f598"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f73d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Tuesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f590"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f598"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f73e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Tuesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f73f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Wednesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f740"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Wednesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f741"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Wednesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f742"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Wednesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f743"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Wednesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f744"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Wednesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f745"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Wednesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f746"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Thursday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f747"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Thursday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f748"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Thursday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f749"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Thursday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f74a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Thursday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f74b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Thursday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f74c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Thursday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f74d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Friday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f74e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Friday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f74f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Friday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f750"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Friday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f751"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Friday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f752"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Friday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f753"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "B",
+    "day": "Friday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f592"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f754"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Monday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f574"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f755"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Monday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f756"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Monday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f574"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f757"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Monday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f758"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Monday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f759"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Monday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f75a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Monday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f75b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Tuesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f75c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Tuesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f75d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Tuesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f75e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Tuesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f75f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Tuesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f760"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Tuesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f761"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Tuesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f762"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Wednesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f763"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Wednesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f574"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f764"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Wednesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f765"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Wednesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f766"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Wednesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58f"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f599"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f767"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Wednesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58f"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f599"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f768"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Wednesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f573"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f769"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Thursday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f76a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Thursday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f76b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Thursday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f76c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Thursday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f573"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f76d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Thursday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58e"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.961Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f76e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Thursday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f76f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Thursday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f770"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Friday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f573"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f771"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Friday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f772"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Friday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f773"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Friday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f573"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f774"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Friday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f775"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Friday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f776"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "C",
+    "day": "Friday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f593"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f777"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Monday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f778"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Monday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f779"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Monday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f578"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f77a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Monday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f77b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Monday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f77c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Monday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f576"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f77d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Monday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f77e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Tuesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f77f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Tuesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f780"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Tuesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f781"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Tuesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f782"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Tuesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f783"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Tuesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f576"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f784"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Tuesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f576"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f785"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Wednesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f786"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Wednesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58e"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f787"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Wednesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f788"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Wednesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f578"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f789"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Wednesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f78a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Wednesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f78b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Wednesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f78c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Thursday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f78d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Thursday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f78e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Thursday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f576"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f78f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Thursday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f790"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Thursday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f590"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f59a"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f791"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Thursday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f590"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f59a"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f792"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Thursday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f793"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Friday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f794"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Friday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f795"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Friday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f796"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Friday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f797"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Friday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f798"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Friday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f799"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "D",
+    "day": "Friday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f578"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f594"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f79a"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Monday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f79b"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Monday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f79c"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Monday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f79d"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Monday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f79e"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Monday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f79f"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Monday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a0"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Monday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a1"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Tuesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a2"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Tuesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a3"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Tuesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a4"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Tuesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a5"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Tuesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a6"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Tuesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a7"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Tuesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a8"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Wednesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58e"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7a9"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Wednesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7aa"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Wednesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ab"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Wednesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ac"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Wednesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ad"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Wednesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ae"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Wednesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57c"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7af"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Thursday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57a"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b0"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Thursday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b1"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Thursday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b2"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Thursday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b3"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Thursday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b4"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Thursday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b5"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Thursday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57d"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b6"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Friday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58f"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f59b"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b7"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Friday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58f"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f59b"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b8"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Friday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7b9"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Friday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ba"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Friday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7bb"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Friday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7bc"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "E",
+    "day": "Friday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f595"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7bd"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Monday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7be"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Monday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7bf"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Monday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c0"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Monday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c1"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Monday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c2"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Monday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f581"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c3"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Monday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c4"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Tuesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c5"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Tuesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c6"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Tuesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58a"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c7"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Tuesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c8"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Tuesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58e"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7c9"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Tuesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ca"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Tuesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f588"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7cb"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Wednesday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f582"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7cc"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Wednesday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7cd"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Wednesday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7ce"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Wednesday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7cf"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Wednesday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d0"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Wednesday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d1"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Wednesday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d2"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Thursday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f585"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d3"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Thursday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d4"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Thursday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58b"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d5"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Thursday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f586"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d6"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Thursday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f587"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d7"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Thursday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58c"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d8"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Thursday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f581"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7d9"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Friday",
+    "timeSlot": "09:00-09:55",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f583"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7da"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Friday",
+    "timeSlot": "09:55-10:50",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.962Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7db"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Friday",
+    "timeSlot": "10:50-11:45",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f58d"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7dc"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Friday",
+    "timeSlot": "11:45-12:30",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f589"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f581"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7dd"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Friday",
+    "timeSlot": "13:30-14:25",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f590"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f597"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7de"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Friday",
+    "timeSlot": "14:25-15:20",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f590"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": {
+      "$oid": "6a473b2460a2d6000e52f597"
+    },
+    "locationType": "lab",
+    "status": "valid",
+    "isLab": true,
+    "duration": 2,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f7df"
+    },
+    "program": "Information Technology",
+    "className": "TY",
+    "semester": 6,
+    "division": "F",
+    "day": "Friday",
+    "timeSlot": "15:20-16:15",
+    "subjectId": {
+      "$oid": "6a473b2460a2d6000e52f584"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "classroomId": {
+      "$oid": "6a473b2460a2d6000e52f596"
+    },
+    "labId": null,
+    "locationType": "classroom",
+    "status": "valid",
+    "isLab": false,
+    "duration": 1,
+    "createdBy": {
+      "$oid": "6a473b2460a2d6000e52f70d"
+    },
+    "timetableVersionId": {
+      "$oid": "6a473b2e60a2d6000e5300e8"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.963Z"
+    },
+    "__v": 0
+  }
+]

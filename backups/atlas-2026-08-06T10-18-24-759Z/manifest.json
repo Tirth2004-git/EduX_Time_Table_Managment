@@ -1,0 +1,138 @@
+{
+  "createdAt": "2026-08-06T10:18:37.064Z",
+  "database": "timetable-scheduler",
+  "collections": [
+    {
+      "name": "students",
+      "documents": 360
+    },
+    {
+      "name": "historystates",
+      "documents": 2
+    },
+    {
+      "name": "scheduledsessions",
+      "documents": 210
+    },
+    {
+      "name": "teacherleaves",
+      "documents": 10
+    },
+    {
+      "name": "semesters",
+      "documents": 0
+    },
+    {
+      "name": "timetableversions",
+      "documents": 1
+    },
+    {
+      "name": "users",
+      "documents": 29
+    },
+    {
+      "name": "timetables",
+      "documents": 210
+    },
+    {
+      "name": "substitutionrequests",
+      "documents": 4
+    },
+    {
+      "name": "weeklyconfigs",
+      "documents": 6
+    },
+    {
+      "name": "laboratories",
+      "documents": 0
+    },
+    {
+      "name": "notifications",
+      "documents": 9
+    },
+    {
+      "name": "facultysubjectassignments",
+      "documents": 0
+    },
+    {
+      "name": "divisions",
+      "documents": 0
+    },
+    {
+      "name": "events",
+      "documents": 6
+    },
+    {
+      "name": "dashboardsnapshots",
+      "documents": 1
+    },
+    {
+      "name": "labs",
+      "documents": 5
+    },
+    {
+      "name": "subjects",
+      "documents": 15
+    },
+    {
+      "name": "classrooms",
+      "documents": 6
+    },
+    {
+      "name": "teachersubjectmappings",
+      "documents": 0
+    },
+    {
+      "name": "holidays",
+      "documents": 8
+    },
+    {
+      "name": "departments",
+      "documents": 0
+    },
+    {
+      "name": "attendances",
+      "documents": 385
+    },
+    {
+      "name": "workloads",
+      "documents": 25
+    },
+    {
+      "name": "results",
+      "documents": 360
+    },
+    {
+      "name": "weeklytimetables",
+      "documents": 6
+    },
+    {
+      "name": "academicyears",
+      "documents": 1
+    },
+    {
+      "name": "schedulingconstraints",
+      "documents": 0
+    },
+    {
+      "name": "timetablerules",
+      "documents": 0
+    },
+    {
+      "name": "sharedlinks",
+      "documents": 1
+    },
+    {
+      "name": "teacherassignments",
+      "documents": 25
+    },
+    {
+      "name": "teachers",
+      "documents": 25
+    },
+    {
+      "name": "auditlogs",
+      "documents": 7
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2560a2d6000e52faff"
+    },
+    "facultyUtilization": 49.3,
+    "roomUtilization": 94.3,
+    "labUtilization": 60,
+    "averageAttendance": 90.4,
+    "averageCpi": 8,
+    "totalTeachers": 25,
+    "totalClassrooms": 6,
+    "totalLabs": 5,
+    "totalStudents": 360,
+    "departmentStatistics": [
+      {
+        "department": "Information Technology",
+        "teacherCount": 25,
+        "studentCount": 360,
+        "subjectCount": 15,
+        "utilization": 49.3
+      }
+    ],
+    "subjectStatistics": [
+      {
+        "subjectName": "Compiler Design",
+        "subjectCode": "IT601",
+        "weeklyHours": 3,
+        "allocatedSlots": 18
+      },
+      {
+        "subjectName": "Cryptography and Network Security",
+        "subjectCode": "IT602",
+        "weeklyHours": 3,
+        "allocatedSlots": 36
+      },
+      {
+        "subjectName": "Software Engineering",
+        "subjectCode": "IT603",
+        "weeklyHours": 3,
+        "allocatedSlots": 55
+      },
+      {
+        "subjectName": "Web Technology",
+        "subjectCode": "IT604",
+        "weeklyHours": 3,
+        "allocatedSlots": 73
+      },
+      {
+        "subjectName": "Cloud Computing",
+        "subjectCode": "IT605",
+        "weeklyHours": 3,
+        "allocatedSlots": 91
+      },
+      {
+        "subjectName": "Machine Learning",
+        "subjectCode": "IT606",
+        "weeklyHours": 3,
+        "allocatedSlots": 109
+      },
+      {
+        "subjectName": "Data Warehousing and Data Mining",
+        "subjectCode": "IT607",
+        "weeklyHours": 2,
+        "allocatedSlots": 121
+      },
+      {
+        "subjectName": "Internet of Things",
+        "subjectCode": "IT608",
+        "weeklyHours": 2,
+        "allocatedSlots": 139
+      },
+      {
+        "subjectName": "Artificial Intelligence",
+        "subjectCode": "IT609",
+        "weeklyHours": 2,
+        "allocatedSlots": 151
+      },
+      {
+        "subjectName": "Big Data Analytics",
+        "subjectCode": "IT610",
+        "weeklyHours": 2,
+        "allocatedSlots": 163
+      },
+      {
+        "subjectName": "Mobile Application Development",
+        "subjectCode": "IT611",
+        "weeklyHours": 2,
+        "allocatedSlots": 180
+      },
+      {
+        "subjectName": "Information Security",
+        "subjectCode": "IT612",
+        "weeklyHours": 1,
+        "allocatedSlots": 192
+      },
+      {
+        "subjectName": "Professional Ethics and IPR",
+        "subjectCode": "IT613",
+        "weeklyHours": 1,
+        "allocatedSlots": 198
+      },
+      {
+        "subjectName": "Mini Project Lab",
+        "subjectCode": "IT614",
+        "weeklyHours": 2,
+        "allocatedSlots": 204
+      },
+      {
+        "subjectName": "Major Project Lab",
+        "subjectCode": "IT615",
+        "weeklyHours": 2,
+        "allocatedSlots": 210
+      }
+    ],
+    "monthlyAttendanceTrend": [
+      {
+        "date": {
+          "$date": "2026-09-01T00:00:00Z"
+        },
+        "percentage": 88.4
+      },
+      {
+        "date": {
+          "$date": "2026-09-02T00:00:00Z"
+        },
+        "percentage": 88
+      },
+      {
+        "date": {
+          "$date": "2026-09-03T00:00:00Z"
+        },
+        "percentage": 91.5
+      },
+      {
+        "date": {
+          "$date": "2026-09-04T00:00:00Z"
+        },
+        "percentage": 86.8
+      },
+      {
+        "date": {
+          "$date": "2026-09-05T00:00:00Z"
+        },
+        "percentage": 85.5
+      },
+      {
+        "date": {
+          "$date": "2026-09-06T00:00:00Z"
+        },
+        "percentage": 93
+      },
+      {
+        "date": {
+          "$date": "2026-09-07T00:00:00Z"
+        },
+        "percentage": 83.4
+      },
+      {
+        "date": {
+          "$date": "2026-09-08T00:00:00Z"
+        },
+        "percentage": 95.7
+      },
+      {
+        "date": {
+          "$date": "2026-09-09T00:00:00Z"
+        },
+        "percentage": 90.7
+      },
+      {
+        "date": {
+          "$date": "2026-09-10T00:00:00Z"
+        },
+        "percentage": 88.7
+      },
+      {
+        "date": {
+          "$date": "2026-09-11T00:00:00Z"
+        },
+        "percentage": 92.4
+      },
+      {
+        "date": {
+          "$date": "2026-09-12T00:00:00Z"
+        },
+        "percentage": 93.4
+      },
+      {
+        "date": {
+          "$date": "2026-09-13T00:00:00Z"
+        },
+        "percentage": 97.9
+      },
+      {
+        "date": {
+          "$date": "2026-09-14T00:00:00Z"
+        },
+        "percentage": 94.6
+      },
+      {
+        "date": {
+          "$date": "2026-09-15T00:00:00Z"
+        },
+        "percentage": 83.9
+      },
+      {
+        "date": {
+          "$date": "2026-09-16T00:00:00Z"
+        },
+        "percentage": 87.3
+      },
+      {
+        "date": {
+          "$date": "2026-09-17T00:00:00Z"
+        },
+        "percentage": 92.2
+      },
+      {
+        "date": {
+          "$date": "2026-09-18T00:00:00Z"
+        },
+        "percentage": 90
+      },
+      {
+        "date": {
+          "$date": "2026-09-19T00:00:00Z"
+        },
+        "percentage": 91.9
+      },
+      {
+        "date": {
+          "$date": "2026-09-20T00:00:00Z"
+        },
+        "percentage": 89.3
+      },
+      {
+        "date": {
+          "$date": "2026-09-21T00:00:00Z"
+        },
+        "percentage": 93.6
+      },
+      {
+        "date": {
+          "$date": "2026-09-22T00:00:00Z"
+        },
+        "percentage": 86.2
+      },
+      {
+        "date": {
+          "$date": "2026-09-23T00:00:00Z"
+        },
+        "percentage": 85.2
+      },
+      {
+        "date": {
+          "$date": "2026-09-24T00:00:00Z"
+        },
+        "percentage": 86.1
+      },
+      {
+        "date": {
+          "$date": "2026-09-25T00:00:00Z"
+        },
+        "percentage": 94.1
+      },
+      {
+        "date": {
+          "$date": "2026-09-01T00:00:00Z"
+        },
+        "percentage": 84.1
+      },
+      {
+        "date": {
+          "$date": "2026-09-02T00:00:00Z"
+        },
+        "percentage": 95.3
+      },
+      {
+        "date": {
+          "$date": "2026-09-03T00:00:00Z"
+        },
+        "percentage": 87.7
+      },
+      {
+        "date": {
+          "$date": "2026-09-04T00:00:00Z"
+        },
+        "percentage": 96.2
+      },
+      {
+        "date": {
+          "$date": "2026-09-05T00:00:00Z"
+        },
+        "percentage": 92.3
+      }
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:33.016Z"
+    },
+    "__v": 0
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "name": "ai-timetable-scheduling-system-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seed": "node scripts/seed-json.js",
+    "migrate-erp": "node scripts/migrate-erp.js",
+    "migrate-subject-assignments": "node scripts/migrate-subject-assignments.js",
+    "backup-atlas": "node backend/scripts/backupDatabase.js",
+    "update-users": "node scripts/update-users.js",
+    "lint": "npm run lint --prefix frontend",
+    "test": "node --test backend/tests/*.test.js",
+    "install-all": "npm install && npm install --include=dev --prefix frontend",
+    "build": "npm run install-all && npm run build --prefix frontend"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.2.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.10.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
+  }
+}

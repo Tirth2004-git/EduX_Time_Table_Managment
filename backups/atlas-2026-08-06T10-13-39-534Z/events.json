@@ -1,0 +1,158 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f96f"
+    },
+    "name": "Campus Placement Drive",
+    "type": "placement_drive",
+    "date": {
+      "$date": "2026-08-14T00:00:00Z"
+    },
+    "startTime": "10:00",
+    "endTime": "17:00",
+    "venue": "Seminar Hall",
+    "organizer": "Department of Information Technology",
+    "description": "Campus Placement Drive for the B.Tech Information Technology Semester 6 cohort at EduX Institute of Technology.",
+    "department": "Information Technology",
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f970"
+    },
+    "name": "24-Hour Hackathon",
+    "type": "hackathon",
+    "date": {
+      "$date": "2026-09-18T00:00:00Z"
+    },
+    "startTime": "14:00",
+    "endTime": "16:30",
+    "venue": "Innovation Centre",
+    "organizer": "Department of Information Technology",
+    "description": "24-Hour Hackathon for the B.Tech Information Technology Semester 6 cohort at EduX Institute of Technology.",
+    "department": "Information Technology",
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f971"
+    },
+    "name": "Interdepartmental Coding Contest",
+    "type": "coding_contest",
+    "date": {
+      "$date": "2026-10-11T00:00:00Z"
+    },
+    "startTime": "10:00",
+    "endTime": "17:00",
+    "venue": "Seminar Hall",
+    "organizer": "Department of Information Technology",
+    "description": "Interdepartmental Coding Contest for the B.Tech Information Technology Semester 6 cohort at EduX Institute of Technology.",
+    "department": "Information Technology",
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f972"
+    },
+    "name": "Industry Expert Seminar on Cloud Engineering",
+    "type": "seminar",
+    "date": {
+      "$date": "2026-11-07T00:00:00Z"
+    },
+    "startTime": "14:00",
+    "endTime": "16:30",
+    "venue": "Innovation Centre",
+    "organizer": "Department of Information Technology",
+    "description": "Industry Expert Seminar on Cloud Engineering for the B.Tech Information Technology Semester 6 cohort at EduX Institute of Technology.",
+    "department": "Information Technology",
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f973"
+    },
+    "name": "Workshop on Generative AI Tools",
+    "type": "workshop",
+    "date": {
+      "$date": "2026-12-04T00:00:00Z"
+    },
+    "startTime": "10:00",
+    "endTime": "17:00",
+    "venue": "Seminar Hall",
+    "organizer": "Department of Information Technology",
+    "description": "Workshop on Generative AI Tools for the B.Tech Information Technology Semester 6 cohort at EduX Institute of Technology.",
+    "department": "Information Technology",
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f974"
+    },
+    "name": "Industrial Visit to GIFT City Data Center",
+    "type": "industrial_visit",
+    "date": {
+      "$date": "2027-02-15T00:00:00Z"
+    },
+    "startTime": "14:00",
+    "endTime": "16:30",
+    "venue": "Innovation Centre",
+    "organizer": "Department of Information Technology",
+    "description": "Industrial Visit to GIFT City Data Center for the B.Tech Information Technology Semester 6 cohort at EduX Institute of Technology.",
+    "department": "Information Technology",
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.971Z"
+    },
+    "__v": 0
+  }
+]

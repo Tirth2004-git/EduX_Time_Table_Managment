@@ -1,0 +1,162 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f597"
+    },
+    "labCode": "LAB-IT-01",
+    "labName": "Programming Lab",
+    "capacity": 36,
+    "availableSystems": 30,
+    "labAssistant": "Mr. Chirag Prajapati",
+    "equipment": [
+      "Dual-monitor desktop systems",
+      "High-speed campus network",
+      "Interactive display panel",
+      "UPS backup",
+      "Open-source development stack"
+    ],
+    "building": "Laboratory Block",
+    "floor": 1,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "inChargeTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f598"
+    },
+    "labCode": "LAB-IT-02",
+    "labName": "Database Lab",
+    "capacity": 38,
+    "availableSystems": 32,
+    "labAssistant": "Ms. Devanshi Soni",
+    "equipment": [
+      "Dual-monitor desktop systems",
+      "High-speed campus network",
+      "Interactive display panel",
+      "UPS backup",
+      "MySQL server rack"
+    ],
+    "building": "Laboratory Block",
+    "floor": 1,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "inChargeTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f599"
+    },
+    "labCode": "LAB-IT-03",
+    "labName": "Network Lab",
+    "capacity": 40,
+    "availableSystems": 34,
+    "labAssistant": "Mr. Nitin Rathod",
+    "equipment": [
+      "Dual-monitor desktop systems",
+      "High-speed campus network",
+      "Interactive display panel",
+      "UPS backup",
+      "Cisco packet tracer setup"
+    ],
+    "building": "Laboratory Block",
+    "floor": 1,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "inChargeTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f59a"
+    },
+    "labCode": "LAB-IT-04",
+    "labName": "Cloud Computing Lab",
+    "capacity": 42,
+    "availableSystems": 36,
+    "labAssistant": "Ms. Pooja Makwana",
+    "equipment": [
+      "Dual-monitor desktop systems",
+      "High-speed campus network",
+      "Interactive display panel",
+      "UPS backup",
+      "Kubernetes and cloud sandbox"
+    ],
+    "building": "Laboratory Block",
+    "floor": 1,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "inChargeTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f59b"
+    },
+    "labCode": "LAB-IT-05",
+    "labName": "AI Lab",
+    "capacity": 44,
+    "availableSystems": 38,
+    "labAssistant": "Mr. Jayesh Solanki",
+    "equipment": [
+      "Dual-monitor desktop systems",
+      "High-speed campus network",
+      "Interactive display panel",
+      "UPS backup",
+      "GPU-enabled AI workstation set"
+    ],
+    "building": "Laboratory Block",
+    "floor": 1,
+    "projector": true,
+    "smartBoard": true,
+    "ac": true,
+    "inChargeTeacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.948Z"
+    },
+    "__v": 0
+  }
+]

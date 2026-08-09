@@ -1,0 +1,210 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f59d"
+    },
+    "date": {
+      "$date": "2026-08-15T00:00:00Z"
+    },
+    "holidayName": "Makar Sankranti",
+    "type": "national",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f59e"
+    },
+    "date": {
+      "$date": "2026-09-02T00:00:00Z"
+    },
+    "holidayName": "Republic Day",
+    "type": "national",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f59f"
+    },
+    "date": {
+      "$date": "2026-10-02T00:00:00Z"
+    },
+    "holidayName": "Holi",
+    "type": "regional",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f5a0"
+    },
+    "date": {
+      "$date": "2026-10-20T00:00:00Z"
+    },
+    "holidayName": "Ram Navami",
+    "type": "regional",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f5a1"
+    },
+    "date": {
+      "$date": "2026-10-21T00:00:00Z"
+    },
+    "holidayName": "Good Friday",
+    "type": "institutional",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f5a2"
+    },
+    "date": {
+      "$date": "2026-11-01T00:00:00Z"
+    },
+    "holidayName": "Gudi Padwa",
+    "type": "institutional",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f5a3"
+    },
+    "date": {
+      "$date": "2026-12-25T00:00:00Z"
+    },
+    "holidayName": "Labour Day",
+    "type": "institutional",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52f5a4"
+    },
+    "date": {
+      "$date": "2027-01-14T00:00:00Z"
+    },
+    "holidayName": "Independence Day",
+    "type": "institutional",
+    "appliesTo": {
+      "scope": "all",
+      "programs": []
+    },
+    "academicYearId": {
+      "$oid": "6a473b2460a2d6000e52f59c"
+    },
+    "sessionsAffected": 0,
+    "createdBy": null,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.949Z"
+    },
+    "__v": 0
+  }
+]

@@ -1,0 +1,181 @@
+[
+  {
+    "_id": {
+      "$oid": "6a3cae17d87271b4affb337e"
+    },
+    "userId": {
+      "$oid": "69a9d19e0a13276cfe4453c2"
+    },
+    "actionType": "APPROVE",
+    "entityType": "TeacherLeave",
+    "entityId": {
+      "$oid": "6a3cacaca3ee4bae70b2ff89"
+    },
+    "timetableId": null,
+    "correlationId": "c5b85ecb-96a8-4a39-8c38-9e47e5df7369",
+    "details": {
+      "impactedSessions": 0,
+      "substitutionsCreated": 0
+    },
+    "ipAddress": "",
+    "createdAt": {
+      "$date": "2026-06-25T04:27:03.378Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-25T04:27:03.378Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a3cb4c9c445c18450232d9e"
+    },
+    "userId": {
+      "$oid": "69a9d19e0a13276cfe4453c2"
+    },
+    "actionType": "ADD",
+    "entityType": "",
+    "entityId": null,
+    "timetableId": null,
+    "correlationId": "",
+    "details": "Added slot for subject IT307 on Wednesday at 09:30-10:25",
+    "ipAddress": "",
+    "createdAt": {
+      "$date": "2026-06-25T04:55:37.135Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-25T04:55:37.135Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a3cb4dac445c18450232dbf"
+    },
+    "userId": {
+      "$oid": "69a9d19e0a13276cfe4453c2"
+    },
+    "actionType": "UNDO",
+    "entityType": "",
+    "entityId": null,
+    "timetableId": null,
+    "correlationId": "",
+    "details": "Reverted action: Add IT307 slot",
+    "ipAddress": "",
+    "createdAt": {
+      "$date": "2026-06-25T04:55:54.342Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-25T04:55:54.342Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a3cb524c445c18450232e5d"
+    },
+    "userId": {
+      "$oid": "69a9d19e0a13276cfe4453c2"
+    },
+    "actionType": "ADD",
+    "entityType": "",
+    "entityId": null,
+    "timetableId": null,
+    "correlationId": "",
+    "details": "Added slot for subject IT302 on Monday at 09:30-10:25",
+    "ipAddress": "",
+    "createdAt": {
+      "$date": "2026-06-25T04:57:08.164Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-25T04:57:08.164Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a3e9b7f66124b9e7c0afada"
+    },
+    "userId": {
+      "$oid": "6a3e9b1bd7633d16faf2aafb"
+    },
+    "actionType": "PUBLISH",
+    "entityType": "TimetableVersion",
+    "entityId": {
+      "$oid": "6a3e9b7c66124b9e7c0af694"
+    },
+    "timetableId": null,
+    "correlationId": "c6e9f335-fe7f-424b-9ac4-8df38d7b1340",
+    "details": {
+      "sessionsCreated": 1044,
+      "rangeStart": {
+        "$date": "2026-05-31T18:30:00Z"
+      },
+      "rangeEnd": {
+        "$date": "2027-05-30T18:30:00Z"
+      }
+    },
+    "ipAddress": "",
+    "createdAt": {
+      "$date": "2026-06-26T15:32:15.712Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-26T15:32:15.712Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a3e9f0489b17c2c459498e4"
+    },
+    "userId": {
+      "$oid": "6a3e9ee2c4bf2f3eb526b3ce"
+    },
+    "actionType": "PUBLISH",
+    "entityType": "TimetableVersion",
+    "entityId": {
+      "$oid": "6a3e9ef689b17c2c45948d41"
+    },
+    "timetableId": null,
+    "correlationId": "faa9d47e-21c9-4c94-87a5-5dbbfe59fc24",
+    "details": {
+      "sessionsCreated": 2928,
+      "rangeStart": {
+        "$date": "2026-05-31T18:30:00Z"
+      },
+      "rangeEnd": {
+        "$date": "2027-05-30T18:30:00Z"
+      }
+    },
+    "ipAddress": "",
+    "createdAt": {
+      "$date": "2026-06-26T15:47:16.680Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-26T15:47:16.680Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a422da7576514ab96ac7ab7"
+    },
+    "userId": {
+      "$oid": "6a3e9ee2c4bf2f3eb526b3ce"
+    },
+    "actionType": "ADD",
+    "entityType": "",
+    "entityId": null,
+    "timetableId": null,
+    "correlationId": "",
+    "details": "Added slot for subject IT602 on Thursday at 09:30-10:25",
+    "ipAddress": "",
+    "createdAt": {
+      "$date": "2026-06-29T08:32:39.922Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-29T08:32:39.922Z"
+    },
+    "__v": 0
+  }
+]

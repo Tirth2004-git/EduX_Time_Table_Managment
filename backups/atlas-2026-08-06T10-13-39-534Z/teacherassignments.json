@@ -1,0 +1,452 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301ca"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "A",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.881Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.881Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301cb"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "A",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301cc"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "A",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301cd"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "A",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301ce"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "B",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301cf"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "B",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d0"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "B",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d1"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "B",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d2"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "C",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d3"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "C",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d4"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f573"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "C",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d5"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f574"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "C",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d6"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "D",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.882Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d7"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f576"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "D",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d8"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "D",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301d9"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f578"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "D",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301da"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "E",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301db"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57a"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "E",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301dc"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "E",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301dd"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57c"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "E",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301de"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57d"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "E",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301df"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "F",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301e0"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "F",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.883Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301e1"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "F",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.884Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.884Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2e60a2d6000e5301e2"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f581"
+    },
+    "program": "Information Technology",
+    "semester": 6,
+    "division": "F",
+    "__v": 0,
+    "createdAt": {
+      "$date": "2026-07-03T04:31:42.884Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:42.884Z"
+    }
+  }
+]

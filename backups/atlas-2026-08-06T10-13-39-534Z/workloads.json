@@ -1,0 +1,686 @@
+[
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fae6"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f569"
+    },
+    "facultyName": "Dr. Priya Sharma",
+    "department": "Information Technology",
+    "theoryHours": 15,
+    "labHours": 4,
+    "totalWeeklyHours": 19,
+    "remainingHours": 0,
+    "subjectCount": 7,
+    "assignedSubjects": [
+      "Compiler Design",
+      "Software Engineering",
+      "Machine Learning",
+      "Internet of Things",
+      "Artificial Intelligence",
+      "Professional Ethics and IPR",
+      "Mini Project Lab"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fae7"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56a"
+    },
+    "facultyName": "Prof. Rahul Patel",
+    "department": "Information Technology",
+    "theoryHours": 7,
+    "labHours": 0,
+    "totalWeeklyHours": 7,
+    "remainingHours": 10,
+    "subjectCount": 3,
+    "assignedSubjects": [
+      "Cryptography and Network Security",
+      "Data Warehousing and Data Mining",
+      "Information Security"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fae8"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56b"
+    },
+    "facultyName": "Dr. Amit Trivedi",
+    "department": "Information Technology",
+    "theoryHours": 6,
+    "labHours": 0,
+    "totalWeeklyHours": 6,
+    "remainingHours": 12,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Web Technology",
+      "Mobile Application Development"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fae9"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56c"
+    },
+    "facultyName": "Prof. Nisha Mehta",
+    "department": "Information Technology",
+    "theoryHours": 5,
+    "labHours": 0,
+    "totalWeeklyHours": 5,
+    "remainingHours": 11,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Cloud Computing",
+      "Big Data Analytics"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.980Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faea"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56d"
+    },
+    "facultyName": "Dr. Rakesh Singh",
+    "department": "Information Technology",
+    "theoryHours": 21,
+    "labHours": 4,
+    "totalWeeklyHours": 25,
+    "remainingHours": 0,
+    "subjectCount": 9,
+    "assignedSubjects": [
+      "Compiler Design",
+      "Software Engineering",
+      "Web Technology",
+      "Cloud Computing",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Mobile Application Development",
+      "Professional Ethics and IPR",
+      "Major Project Lab"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faeb"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56e"
+    },
+    "facultyName": "Prof. Bhavesh Patel",
+    "department": "Information Technology",
+    "theoryHours": 4,
+    "labHours": 0,
+    "totalWeeklyHours": 4,
+    "remainingHours": 12,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Data Warehousing and Data Mining",
+      "Big Data Analytics"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faec"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f56f"
+    },
+    "facultyName": "Prof. Sneha Joshi",
+    "department": "Information Technology",
+    "theoryHours": 3,
+    "labHours": 0,
+    "totalWeeklyHours": 3,
+    "remainingHours": 12,
+    "subjectCount": 1,
+    "assignedSubjects": [
+      "Internet of Things"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faed"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f570"
+    },
+    "facultyName": "Dr. Dhruv Shah",
+    "department": "Information Technology",
+    "theoryHours": 5,
+    "labHours": 0,
+    "totalWeeklyHours": 5,
+    "remainingHours": 12,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Cryptography and Network Security",
+      "Information Security"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.981Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faee"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f571"
+    },
+    "facultyName": "Prof. Anjali Desai",
+    "department": "Information Technology",
+    "theoryHours": 21,
+    "labHours": 4,
+    "totalWeeklyHours": 25,
+    "remainingHours": 0,
+    "subjectCount": 9,
+    "assignedSubjects": [
+      "Compiler Design",
+      "Cryptography and Network Security",
+      "Software Engineering",
+      "Web Technology",
+      "Internet of Things",
+      "Mobile Application Development",
+      "Information Security",
+      "Professional Ethics and IPR",
+      "Mini Project Lab"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faef"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f572"
+    },
+    "facultyName": "Dr. Karan Mehta",
+    "department": "Information Technology",
+    "theoryHours": 5,
+    "labHours": 0,
+    "totalWeeklyHours": 5,
+    "remainingHours": 12,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Machine Learning",
+      "Artificial Intelligence"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf0"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f573"
+    },
+    "facultyName": "Prof. Pooja Vyas",
+    "department": "Information Technology",
+    "theoryHours": 4,
+    "labHours": 0,
+    "totalWeeklyHours": 4,
+    "remainingHours": 11,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Data Warehousing and Data Mining",
+      "Big Data Analytics"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf1"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f574"
+    },
+    "facultyName": "Dr. Harsh Shah",
+    "department": "Information Technology",
+    "theoryHours": 3,
+    "labHours": 0,
+    "totalWeeklyHours": 3,
+    "remainingHours": 14,
+    "subjectCount": 1,
+    "assignedSubjects": [
+      "Cloud Computing"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.982Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf2"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f575"
+    },
+    "facultyName": "Prof. Mehul Patel",
+    "department": "Information Technology",
+    "theoryHours": 21,
+    "labHours": 4,
+    "totalWeeklyHours": 25,
+    "remainingHours": 0,
+    "subjectCount": 9,
+    "assignedSubjects": [
+      "Compiler Design",
+      "Software Engineering",
+      "Web Technology",
+      "Cloud Computing",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Mobile Application Development",
+      "Professional Ethics and IPR",
+      "Major Project Lab"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf3"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f576"
+    },
+    "facultyName": "Dr. Pankti Shah",
+    "department": "Information Technology",
+    "theoryHours": 4,
+    "labHours": 0,
+    "totalWeeklyHours": 4,
+    "remainingHours": 12,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Data Warehousing and Data Mining",
+      "Big Data Analytics"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf4"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f577"
+    },
+    "facultyName": "Prof. Jigar Shah",
+    "department": "Information Technology",
+    "theoryHours": 5,
+    "labHours": 0,
+    "totalWeeklyHours": 5,
+    "remainingHours": 9,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Cryptography and Network Security",
+      "Information Security"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf5"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f578"
+    },
+    "facultyName": "Dr. Meera Joshi",
+    "department": "Information Technology",
+    "theoryHours": 3,
+    "labHours": 0,
+    "totalWeeklyHours": 3,
+    "remainingHours": 12,
+    "subjectCount": 1,
+    "assignedSubjects": [
+      "Internet of Things"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf6"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f579"
+    },
+    "facultyName": "Prof. Devang Gohil",
+    "department": "Information Technology",
+    "theoryHours": 18,
+    "labHours": 4,
+    "totalWeeklyHours": 22,
+    "remainingHours": 0,
+    "subjectCount": 8,
+    "assignedSubjects": [
+      "Compiler Design",
+      "Cryptography and Network Security",
+      "Web Technology",
+      "Internet of Things",
+      "Mobile Application Development",
+      "Information Security",
+      "Professional Ethics and IPR",
+      "Mini Project Lab"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf7"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57a"
+    },
+    "facultyName": "Dr. Ritu Shah",
+    "department": "Information Technology",
+    "theoryHours": 3,
+    "labHours": 0,
+    "totalWeeklyHours": 3,
+    "remainingHours": 13,
+    "subjectCount": 1,
+    "assignedSubjects": [
+      "Cloud Computing"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf8"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57b"
+    },
+    "facultyName": "Prof. Kunal Pandya",
+    "department": "Information Technology",
+    "theoryHours": 5,
+    "labHours": 0,
+    "totalWeeklyHours": 5,
+    "remainingHours": 10,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Machine Learning",
+      "Artificial Intelligence"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.983Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52faf9"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57c"
+    },
+    "facultyName": "Dr. Aarti Soni",
+    "department": "Information Technology",
+    "theoryHours": 4,
+    "labHours": 0,
+    "totalWeeklyHours": 4,
+    "remainingHours": 11,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Data Warehousing and Data Mining",
+      "Big Data Analytics"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fafa"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57d"
+    },
+    "facultyName": "Prof. Hitesh Parmar",
+    "department": "Information Technology",
+    "theoryHours": 3,
+    "labHours": 0,
+    "totalWeeklyHours": 3,
+    "remainingHours": 13,
+    "subjectCount": 1,
+    "assignedSubjects": [
+      "Software Engineering"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fafb"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57e"
+    },
+    "facultyName": "Dr. Mona Darji",
+    "department": "Information Technology",
+    "theoryHours": 20,
+    "labHours": 4,
+    "totalWeeklyHours": 24,
+    "remainingHours": 0,
+    "subjectCount": 9,
+    "assignedSubjects": [
+      "Compiler Design",
+      "Web Technology",
+      "Cloud Computing",
+      "Machine Learning",
+      "Data Warehousing and Data Mining",
+      "Artificial Intelligence",
+      "Big Data Analytics",
+      "Mobile Application Development",
+      "Major Project Lab"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fafc"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f57f"
+    },
+    "facultyName": "Prof. Nilesh Rana",
+    "department": "Information Technology",
+    "theoryHours": 5,
+    "labHours": 0,
+    "totalWeeklyHours": 5,
+    "remainingHours": 9,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Cryptography and Network Security",
+      "Information Security"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fafd"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f580"
+    },
+    "facultyName": "Dr. Bharti Dave",
+    "department": "Information Technology",
+    "theoryHours": 5,
+    "labHours": 0,
+    "totalWeeklyHours": 5,
+    "remainingHours": 8,
+    "subjectCount": 2,
+    "assignedSubjects": [
+      "Software Engineering",
+      "Professional Ethics and IPR"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6a473b2460a2d6000e52fafe"
+    },
+    "teacherId": {
+      "$oid": "6a473b2460a2d6000e52f581"
+    },
+    "facultyName": "Prof. Saurabh Jhala",
+    "department": "Information Technology",
+    "theoryHours": 3,
+    "labHours": 0,
+    "totalWeeklyHours": 3,
+    "remainingHours": 12,
+    "subjectCount": 1,
+    "assignedSubjects": [
+      "Internet of Things"
+    ],
+    "createdAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "updatedAt": {
+      "$date": "2026-07-03T04:31:32.984Z"
+    },
+    "__v": 0
+  }
+]
