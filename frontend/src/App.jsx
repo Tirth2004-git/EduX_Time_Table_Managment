@@ -15,7 +15,7 @@ import Import from './pages/Import';
 import Timetable from './pages/Timetable';
 import GlobalTimetable from './pages/GlobalTimetable';
 import SharedTimetable from './pages/SharedTimetable';
-import TeacherDashboard from './pages/TeacherDashboard';
+import TeacherPortal from './pages/TeacherDashboard';
 
 function App() {
   return (
@@ -78,12 +78,37 @@ function App() {
               }
             />
 
-            {/* Protected Teacher Routes */}
+            {/* Teacher portal: timetable is the primary teacher page. */}
             <Route
-              path="/teacher-dashboard"
+              path="/teacher-timetable"
               element={
                 <ProtectedRoute allowRoles={['teacher']}>
-                  <TeacherDashboard />
+                  <TeacherPortal initialTab="timetable" />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/teacher-dashboard" element={<Navigate to="/teacher-timetable" replace />} />
+            <Route
+              path="/teacher"
+              element={
+                <ProtectedRoute allowRoles={['teacher']}>
+                  <Navigate to="/teacher-timetable" replace />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/teacher-leaves"
+              element={
+                <ProtectedRoute allowRoles={['teacher']}>
+                  <TeacherPortal initialTab="leaves" />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/teacher-profile"
+              element={
+                <ProtectedRoute allowRoles={['teacher']}>
+                  <TeacherPortal initialTab="profile" />
                 </ProtectedRoute>
               }
             />

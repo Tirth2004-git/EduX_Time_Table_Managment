@@ -14,10 +14,6 @@ import {
   Sparkles, Send, Trash2, LayoutDashboard, RefreshCw, Check, X,
   Briefcase, Activity, CalendarDays, Inbox
 } from 'lucide-react';
-import {
-  ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend,
-  BarChart, Bar, XAxis, YAxis
-} from 'recharts';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const TIME_SLOTS = [
@@ -31,8 +27,6 @@ const TIME_SLOTS = [
   '15:25-16:20',
 ];
 
-const COLORS = ['#4F46E5', '#06B6D4', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
-
 const timeSlotToMinutes = (slot) => {
   if (!slot || !slot.includes('-')) return 0;
   const startStr = slot.split('-')[0].trim();
@@ -40,19 +34,17 @@ const timeSlotToMinutes = (slot) => {
   return hours * 60 + minutes;
 };
 
-export default function TeacherDashboard() {
+export default function TeacherDashboard({ initialTab = 'timetable' }) {
   const navigate = useNavigate();
   const { user, logout, loading: authLoading } = useAuth();
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   // Data States
-  const [dashboardData, setDashboardData] = useState(null);
   const [timetable, setTimetable] = useState([]);
   const [timetableError, setTimetableError] = useState('');
   const [leaves, setLeaves] = useState([]);
-  const [workloadData, setWorkloadData] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [profile, setProfile] = useState(null);
 
@@ -78,22 +70,15 @@ export default function TeacherDashboard() {
     setLoading(true);
     setDataError('');
     try {
-      if (activeTab === 'dashboard') {
-        console.log("Teacher dashboard API called");
-        const res = await teacherPortalApi.getDashboard();
-        setDashboardData(res.data.data);
-      } else if (activeTab === 'timetable') {
+      if (activeTab === 'timetable') {
         setTimetableError('');
         const res = await teacherPortalApi.getTimetable();
         setTimetable(res.data.timetable);
       } else if (activeTab === 'leaves') {
         const res = await teacherPortalApi.getLeaves();
         setLeaves(res.data.leaves);
-      } else if (activeTab === 'workload') {
-        const res = await teacherPortalApi.getWorkload();
-        setWorkloadData(res.data.data);
       } else if (activeTab === 'profile') {
-        const res = await teacherPortalApi.getProfile(user.teacher_id);
+        const res = await teacherPortalApi.getProfile();
         setProfile(res.data.profile);
       } else if (activeTab === 'notifications') {
         const res = await teacherPortalApi.getNotifications();
@@ -107,11 +92,11 @@ export default function TeacherDashboard() {
     } finally {
       setLoading(false);
     }
-  }, [activeTab, user]);
+  }, [activeTab]);
 
   useEffect(() => {
     if (authLoading) return;
-    if (!user || user.role !== 'teacher') {
+    if (!user || String(user.role).toLowerCase() !== 'teacher') {
       navigate('/login');
       return;
     }
@@ -189,7 +174,7 @@ export default function TeacherDashboard() {
     try {
       showToast('Generating timetable PDF...', 'info');
       await exportTimetableToPDF({
-        title: `Faculty Weekly Timetable - ${dashboardData?.facultyName || user?.name || 'Teacher'}`,
+        title: `Faculty Weekly Timetable - ${user?.name || 'Teacher'}`,
         filename: `timetable_${user?.name?.toLowerCase().replace(/\s+/g, '_') || 'teacher'}.pdf`,
       });
       showToast('Timetable PDF downloaded successfully!', 'success');
@@ -211,10 +196,8 @@ export default function TeacherDashboard() {
 
   // Sidebar Menu List
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'timetable', label: 'My Timetable', icon: Calendar },
     { id: 'leaves', label: 'Leaves Management', icon: CalendarDays },
-    { id: 'workload', label: 'Workload Analytics', icon: Briefcase },
     { id: 'profile', label: 'My Profile', icon: User },
   ];
 
@@ -261,7 +244,7 @@ export default function TeacherDashboard() {
             <User className="w-4 h-4 text-indigo-600" />
           </div>
           <div className="overflow-hidden">
-            <p className="text-xs font-bold text-slate-800 truncate">{dashboardData?.facultyName || user?.name || 'Faculty Member'}</p>
+            <p className="text-xs font-bold text-slate-800 truncate">{user?.name || 'Faculty Member'}</p>
             <p className="text-[10px] text-slate-500 truncate">{user?.email}</p>
           </div>
         </div>
@@ -276,6 +259,7 @@ export default function TeacherDashboard() {
                 key={item.id}
                 onClick={() => {
                   setActiveTab(item.id);
+                  navigate(`/teacher-${item.id}`);
                   setSidebarOpen(false);
                 }}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer border-0 ${
@@ -308,7 +292,7 @@ export default function TeacherDashboard() {
         {/* Top Header Panel */}
         <header className="hidden lg:flex h-20 items-center justify-between border-b border-slate-100 mb-8 shrink-0">
           <div>
-            <h1 className="text-xl font-extrabold text-slate-800 tracking-tight">Faculty Dashboard</h1>
+            <h1 className="text-xl font-extrabold text-slate-800 tracking-tight">My {activeTab === 'timetable' ? 'Timetable' : activeTab === 'leaves' ? 'Leaves' : 'Profile'}</h1>
             <p className="text-xs text-slate-500">Welcome to your scheduling console and academic planner.</p>
           </div>
           <div className="flex items-center gap-4">
@@ -344,236 +328,6 @@ export default function TeacherDashboard() {
               >
                 {/* ──────────────────────────────────────────────────────── */}
                 {/* 1. DASHBOARD TAB                                         */}
-                {/* ──────────────────────────────────────────────────────── */}
-                {activeTab === 'dashboard' && dataError && (
-                  <div className="flex-1 flex items-center justify-center p-12 bg-white rounded-3xl border border-red-200 shadow-sm min-h-[300px]">
-                    <div className="text-center space-y-4">
-                      <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto">
-                        <X className="w-6 h-6" />
-                      </div>
-                      <h3 className="text-lg font-bold text-slate-800">Unable to load dashboard</h3>
-                      <p className="text-sm text-slate-500">{dataError}</p>
-                      <Button onClick={loadData} variant="outline" className="mt-4">Try Again</Button>
-                    </div>
-                  </div>
-                )}
-                {activeTab === 'dashboard' && !dataError && dashboardData && (
-                  <div className="space-y-6">
-                    {/* Greeting Banner */}
-                    <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                      <div>
-                        <h2 className="text-2xl font-black text-slate-800">
-                          Hello, {dashboardData.facultyName || 'Professor'}!
-                        </h2>
-                        <p className="text-sm text-slate-500 mt-1">
-                          You have <span className="font-bold text-indigo-600">{dashboardData.todayClasses.length} lectures</span> scheduled for today.
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          variant="outline"
-                          onClick={() => setActiveTab('timetable')}
-                          className="rounded-xl font-bold border-slate-200 hover:bg-slate-50 cursor-pointer"
-                        >
-                          View Full Timetable
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Stats Metrics Cards Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {/* Next Class Info */}
-                      <Card className="rounded-3xl border-slate-200 shadow-sm relative overflow-hidden bg-white">
-                        <CardHeader className="p-6 pb-2">
-                          <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5" /> Next Upcoming Lecture
-                          </span>
-                        </CardHeader>
-                        <CardContent className="p-6 pt-2">
-                          {dashboardData.nextClass ? (
-                            <div className="space-y-3">
-                              <div>
-                                <h3 className="text-lg font-extrabold text-slate-800 truncate">
-                                  {dashboardData.nextClass.subjectId?.subject_name}
-                                </h3>
-                                <p className="text-xs font-semibold text-slate-500">
-                                  Div {dashboardData.nextClass.division} · {dashboardData.nextClass.program}
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-3 pt-2">
-                                <span className="px-3 py-1.5 rounded-xl bg-indigo-50 border border-indigo-100 text-xs font-bold text-indigo-700">
-                                  {dashboardData.nextClass.timeSlot}
-                                </span>
-                                <span className="px-3 py-1.5 rounded-xl bg-cyan-50 border border-cyan-100 text-xs font-bold text-cyan-700 flex items-center gap-1">
-                                  Classroom {dashboardData.nextClass.classroomId?.roomNumber || 'N/A'}
-                                </span>
-                              </div>
-                            </div>
-                          ) : (
-                            <p className="text-sm text-slate-500 font-semibold py-4">No more classes scheduled for today.</p>
-                          )}
-                        </CardContent>
-                      </Card>
-
-                      {/* Workload Meter */}
-                      <Card className="rounded-3xl border-slate-200 shadow-sm bg-white">
-                        <CardHeader className="p-6 pb-2">
-                          <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest flex items-center gap-1">
-                            <Activity className="w-3.5 h-3.5" /> Weekly Workload Load
-                          </span>
-                        </CardHeader>
-                        <CardContent className="p-6 pt-2 space-y-4">
-                          <div>
-                            <div className="flex justify-between items-end mb-1.5">
-                              <span className="text-2xl font-black text-slate-800">
-                                {dashboardData.workload.assignedHours} <span className="text-xs font-semibold text-slate-400">/ {dashboardData.workload.maxWorkload} hrs</span>
-                              </span>
-                              <span className="text-xs font-black text-emerald-600">{dashboardData.workload.utilization}%</span>
-                            </div>
-                            <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                              <div
-                                className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full"
-                                style={{ width: `${dashboardData.workload.utilization}%` }}
-                              />
-                            </div>
-                          </div>
-                          <p className="text-[10px] font-semibold text-slate-500">
-                            Based on weekly config settings and availability limits.
-                          </p>
-                        </CardContent>
-                      </Card>
-
-                      {/* Pending Leaves Overview */}
-                      <Card className="rounded-3xl border-slate-200 shadow-sm bg-white">
-                        <CardHeader className="p-6 pb-2">
-                          <span className="text-[10px] font-bold text-amber-600 uppercase tracking-widest flex items-center gap-1">
-                            <CalendarDays className="w-3.5 h-3.5" /> Active Leave Requests
-                          </span>
-                        </CardHeader>
-                        <CardContent className="p-6 pt-2 flex items-center justify-between">
-                          <div>
-                            <span className="text-4xl font-black text-slate-800">{dashboardData.pendingLeavesCount}</span>
-                            <p className="text-xs font-bold text-slate-500 mt-1">Pending Leave Requests</p>
-                          </div>
-                          <Button
-                            onClick={() => setActiveTab('leaves')}
-                            className="bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl px-4 py-2 border-slate-200 border cursor-pointer"
-                          >
-                            Manage
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    {/* Today's Lectures Table */}
-                    <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-4">
-                      <h3 className="text-base font-extrabold text-slate-800">Today&apos;s Lecture Schedule</h3>
-                      {dashboardData.todayClasses.length === 0 ? (
-                        <div className="text-center py-8 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
-                          <Calendar className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                          <p className="text-xs text-slate-500 font-semibold">You have no lectures scheduled for today.</p>
-                        </div>
-                      ) : (
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-left border-collapse">
-                            <thead>
-                              <tr className="border-b border-slate-100 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
-                                <th className="pb-3 pl-2">Time Slot</th>
-                                <th className="pb-3">Subject</th>
-                                <th className="pb-3">Class Context</th>
-                                <th className="pb-3">Room</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-50 text-sm text-slate-700">
-                              {dashboardData.todayClasses.map((cls) => (
-                                <tr key={cls._id} className="hover:bg-slate-50/50 group transition-colors">
-                                  <td className="py-3.5 pl-2 font-bold text-slate-900">{cls.timeSlot}</td>
-                                  <td className="py-3.5">
-                                    <span className="font-extrabold block text-slate-800 group-hover:text-indigo-600 transition-colors">
-                                      {cls.subjectId?.subject_name}
-                                    </span>
-                                    <span className="text-[10px] text-slate-500 uppercase font-semibold">
-                                      {cls.subjectId?.subject_code} · {cls.subjectId?.type}
-                                    </span>
-                                  </td>
-                                  <td className="py-3.5">
-                                    <span className="font-bold text-slate-700">{cls.program}</span>
-                                    <span className="text-xs text-slate-500 block">Class {cls.className} · Div {cls.division}</span>
-                                  </td>
-                                  <td className="py-3.5">
-                                    <span className="px-2 py-1 bg-slate-100 rounded-lg text-xs font-bold text-slate-600">
-                                      Room {cls.classroomId?.roomNumber || 'N/A'}
-                                    </span>
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Notifications Feed */}
-                    <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-4">
-                      <h3 className="text-base font-extrabold text-slate-800 flex items-center justify-between">
-                        <span>Recent Notifications</span>
-                        {dashboardData.recentNotifications.length > 0 && (
-                          <button
-                            onClick={() => setActiveTab('notifications')}
-                            className="text-xs font-bold text-indigo-600 hover:underline bg-transparent border-0 cursor-pointer"
-                          >
-                            View All
-                          </button>
-                        )}
-                      </h3>
-                      {dashboardData.recentNotifications.length === 0 ? (
-                        <p className="text-xs text-slate-500 font-semibold py-4 text-center">No recent alerts or updates.</p>
-                      ) : (
-                        <div className="space-y-3">
-                          {dashboardData.recentNotifications.map((notif) => (
-                            <div
-                              key={notif._id}
-                              className={`flex items-start gap-3 p-3.5 rounded-2xl border transition-all ${
-                                notif.isRead 
-                                  ? 'bg-slate-50/50 border-slate-100' 
-                                  : 'bg-indigo-50/30 border-indigo-100/50 shadow-sm shadow-indigo-100/10'
-                              }`}
-                            >
-                              <div className={`p-2 rounded-xl shrink-0 ${
-                                notif.type === 'leave_status' ? 'bg-amber-100 text-amber-600' :
-                                notif.type === 'substitution' ? 'bg-cyan-100 text-cyan-600' :
-                                'bg-indigo-100 text-indigo-600'
-                              }`}>
-                                <Bell className="w-3.5 h-3.5" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex justify-between items-start gap-2">
-                                  <h4 className="text-sm font-extrabold text-slate-800 truncate">{notif.title}</h4>
-                                  <span className="text-[10px] font-semibold text-slate-400 whitespace-nowrap">
-                                    {new Date(notif.createdAt).toLocaleDateString()}
-                                  </span>
-                                </div>
-                                <p className="text-xs text-slate-600 mt-1 leading-relaxed">{notif.message}</p>
-                              </div>
-                              {!notif.isRead && (
-                                <button
-                                  onClick={() => handleMarkRead(notif._id)}
-                                  className="text-[10px] font-bold text-indigo-600 hover:underline bg-transparent border-0 cursor-pointer self-center"
-                                >
-                                  Read
-                                </button>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* ──────────────────────────────────────────────────────── */}
-                {/* 2. MY TIMETABLE TAB                                      */}
-                {/* ──────────────────────────────────────────────────────── */}
                 {activeTab === 'timetable' && (
                   <div className="space-y-6">
                     {timetableError ? (
@@ -941,142 +695,6 @@ export default function TeacherDashboard() {
                   </div>
                 )}
 
-                {/* ──────────────────────────────────────────────────────── */}
-                {/* 4. WORKLOAD ANALYTICS TAB                                */}
-                {/* ──────────────────────────────────────────────────────── */}
-                {activeTab === 'workload' && workloadData && (
-                  <div className="space-y-6">
-                    {/* Visual metrics cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <Card className="rounded-3xl border-slate-200 bg-white p-6 shadow-sm flex items-center justify-between">
-                        <div>
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Weekly Limit</span>
-                          <span className="text-3xl font-black text-slate-800 block mt-1">
-                            {workloadData.maxWorkload} <span className="text-sm font-semibold text-slate-400">hours</span>
-                          </span>
-                        </div>
-                        <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl">
-                          <Clock className="w-6 h-6" />
-                        </div>
-                      </Card>
-
-                      <Card className="rounded-3xl border-slate-200 bg-white p-6 shadow-sm flex items-center justify-between">
-                        <div>
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Allotted Load</span>
-                          <span className="text-3xl font-black text-slate-800 block mt-1">
-                            {workloadData.totalAssigned} <span className="text-sm font-semibold text-slate-400">hours</span>
-                          </span>
-                        </div>
-                        <div className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl">
-                          <CheckSquare className="w-6 h-6" />
-                        </div>
-                      </Card>
-
-                      <Card className="rounded-3xl border-slate-200 bg-white p-6 shadow-sm flex items-center justify-between">
-                        <div>
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Workload Utilization</span>
-                          <span className="text-3xl font-black text-slate-800 block mt-1">
-                            {workloadData.utilization}%
-                          </span>
-                        </div>
-                        <div className={`p-3 rounded-2xl ${
-                          workloadData.utilization > 90 ? 'bg-rose-50 text-rose-600' :
-                          workloadData.utilization > 70 ? 'bg-amber-50 text-amber-600' :
-                          'bg-emerald-50 text-emerald-600'
-                        }`}>
-                          <Activity className="w-6 h-6" />
-                        </div>
-                      </Card>
-                    </div>
-
-                    {/* Chart panel */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      {/* Workload Distribution Chart */}
-                      <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-4">
-                        <h3 className="text-base font-extrabold text-slate-800">Subject Load Allocation</h3>
-                        <p className="text-xs text-slate-500">Visual breakdown of teaching hours assigned per subject.</p>
-                        {workloadData.subjectDistribution.length === 0 ? (
-                          <p className="text-xs text-slate-500 font-semibold py-12 text-center">No assigned subjects available.</p>
-                        ) : (
-                          <div className="h-64">
-                            <ResponsiveContainer width="100%" height="100%">
-                              <PieChart>
-                                <Pie
-                                  data={workloadData.subjectDistribution}
-                                  cx="50%"
-                                  cy="50%"
-                                  innerRadius={60}
-                                  outerRadius={80}
-                                  paddingAngle={5}
-                                  dataKey="hours"
-                                  nameKey="name"
-                                >
-                                  {workloadData.subjectDistribution.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                  ))}
-                                </Pie>
-                                <Tooltip
-                                  contentStyle={{
-                                    borderRadius: '12px',
-                                    border: '1px solid #E2E8F0',
-                                    fontFamily: 'sans-serif',
-                                    fontSize: '12px',
-                                    fontWeight: 'bold'
-                                  }}
-                                />
-                                <Legend wrapperStyle={{ fontFamily: 'sans-serif', fontSize: '11px' }} />
-                              </PieChart>
-                            </ResponsiveContainer>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Workload Progress Table */}
-                      <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-4">
-                        <h3 className="text-base font-extrabold text-slate-800">Subject Distribution Details</h3>
-                        <p className="text-xs text-slate-500">Exact hours and percentage load allocation by subject.</p>
-                        {workloadData.subjectDistribution.length === 0 ? (
-                          <p className="text-xs text-slate-500 font-semibold py-12 text-center">No subjects found.</p>
-                        ) : (
-                          <div className="space-y-4 pt-2">
-                            {workloadData.subjectDistribution.map((sub, index) => {
-                              const pct = workloadData.totalAssigned > 0 
-                                ? Math.round((sub.hours / workloadData.totalAssigned) * 100) 
-                                : 0;
-                              return (
-                                <div key={sub.code} className="space-y-1.5">
-                                  <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                                    <div className="flex items-center gap-2">
-                                      <div
-                                        className="w-2.5 h-2.5 rounded-full shrink-0"
-                                        style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                                      />
-                                      <span>{sub.name} ({sub.code})</span>
-                                    </div>
-                                    <span>{sub.hours} hrs ({pct}%)</span>
-                                  </div>
-                                  <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                    <div
-                                      className="h-full rounded-full"
-                                      style={{
-                                        width: `${pct}%`,
-                                        backgroundColor: COLORS[index % COLORS.length]
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* ──────────────────────────────────────────────────────── */}
-                {/* 5. COVER / SUBSTITUTIONS TAB                             */}
-                {/* ──────────────────────────────────────────────────────── */}
                 {activeTab === 'substitutions' && (
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Request Cover form */}
@@ -1403,9 +1021,9 @@ export default function TeacherDashboard() {
                         <div>
                           <h2 className="text-2xl font-black text-slate-800">{profile.name}</h2>
                           <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-slate-500 mt-2">
-                            <span className="flex items-center gap-1.5"><Briefcase className="w-4 h-4 text-indigo-400" /> {profile.designation}</span>
+                            <span className="flex items-center gap-1.5"><Briefcase className="w-4 h-4 text-indigo-400" /> {profile.designation || 'Not available'}</span>
                             <span className="text-slate-300">•</span>
-                            <span className="flex items-center gap-1.5"><CalendarDays className="w-4 h-4 text-indigo-400" /> {profile.department}</span>
+                            <span className="flex items-center gap-1.5"><CalendarDays className="w-4 h-4 text-indigo-400" /> {profile.department || 'Not available'}</span>
                           </div>
                         </div>
 
@@ -1413,19 +1031,19 @@ export default function TeacherDashboard() {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-100">
                           <div>
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Teacher ID</p>
-                            <p className="text-sm font-bold text-slate-800">{profile.teacher_id}</p>
+                            <p className="text-sm font-bold text-slate-800">{profile.teacher_id || 'Not available'}</p>
                           </div>
                           <div>
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email</p>
-                            <p className="text-sm font-bold text-slate-800">{profile.email || 'N/A'}</p>
+                            <p className="text-sm font-bold text-slate-800">{profile.email || 'Not available'}</p>
                           </div>
                           <div>
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Mobile</p>
-                            <p className="text-sm font-bold text-slate-800">{profile.mobile || 'N/A'}</p>
+                            <p className="text-sm font-bold text-slate-800">{profile.mobile || 'Not available'}</p>
                           </div>
                           <div>
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Experience</p>
-                            <p className="text-sm font-bold text-slate-800">{profile.experience || 0} Years</p>
+                            <p className="text-sm font-bold text-slate-800">{profile.experience == null ? 'Not available' : `${profile.experience} Years`}</p>
                           </div>
                         </div>
 
@@ -1434,21 +1052,45 @@ export default function TeacherDashboard() {
                           <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                             <BookOpen className="w-4 h-4 text-slate-400" /> Assigned Subjects list
                           </h3>
-                          {profile.assignedSubjects && profile.assignedSubjects.length === 0 ? (
-                            <p className="text-xs text-slate-500 font-semibold italic">No subjects currently assigned.</p>
+                          {!profile.subjects?.length ? (
+                            <p className="text-xs text-slate-500 font-semibold italic">No subjects assigned yet.</p>
                           ) : (
                             <div className="flex flex-wrap gap-2.5">
-                              {profile.assignedSubjects && profile.assignedSubjects.map(sub => (
+                              {profile.subjects.map(sub => (
                                 <span
-                                  key={sub._id}
+                                  key={sub.id}
                                   className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700 flex items-center gap-2"
                                 >
                                   <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0" />
-                                  <span>{sub.subject_name} ({sub.subject_code})</span>
+                                  <span>{sub.name || 'Not available'}{sub.code ? ` (${sub.code})` : ''}</span>
                                 </span>
                               ))}
                             </div>
                           )}
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-slate-100">
+                          {[
+                            ['Weekly Limit', `${Number(profile.teaching_hours) || 0} hours`],
+                            ['Assigned Hours', `${Number(profile.assignedHours) || 0} hours`],
+                            ['Remaining Hours', `${Number(profile.remainingHours) || 0} hours`],
+                          ].map(([label, value]) => (
+                            <div key={label} className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+                              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{label}</p>
+                              <p className="text-lg font-black text-slate-800 mt-1">{value}</p>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="space-y-3 pt-6 border-t border-slate-100">
+                          <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Assigned Divisions</h3>
+                          {!profile.divisions?.length ? (
+                            <p className="text-xs text-slate-500 font-semibold italic">No divisions assigned.</p>
+                          ) : profile.divisions.map((division) => (
+                            <span key={`${division.semester}-${division.name}`} className="inline-flex mr-2 px-3 py-2 rounded-xl bg-indigo-50 border border-indigo-100 text-xs font-bold text-indigo-700">
+                              {division.semester ? `Semester ${division.semester} — ` : ''}Division {division.name}
+                            </span>
+                          ))}
                         </div>
                       </div>
                     </Card>

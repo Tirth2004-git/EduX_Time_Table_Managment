@@ -12,7 +12,7 @@ export default function Home() {
         if (user.role === 'admin') {
           navigate('/dashboard', { replace: true });
         } else if (user.role === 'teacher') {
-          navigate('/teacher-dashboard', { replace: true });
+          navigate('/teacher-timetable', { replace: true });
         } else {
           navigate('/timetable', { replace: true });
         }

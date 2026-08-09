@@ -1,5 +1,14 @@
 const Timetable = require('../models/Timetable');
 const User = require('../models/User');
+// Register referenced schemas before using populate. Some routes load these
+// models lazily, which otherwise makes the student discovery endpoint fail.
+require('../models/Department');
+require('../models/Semester');
+require('../models/Division');
+require('../models/Subject');
+require('../models/Teacher');
+require('../models/Classroom');
+require('../models/Laboratory');
 
 const SLOT_TYPE_ALIASES = Object.freeze({
   THEORY: 'LECTURE',
@@ -232,6 +241,7 @@ exports.saveGeneratedTimetable = async (req, res) => {
     }
 
     const mode = req.body.mode || 'full';
+    const publicationStatus = req.path.endsWith('/draft') ? 'draft' : 'published';
 
     // Clear existing generated scheduled entries for this division only on full mode
     if (mode === 'full') {
@@ -254,6 +264,7 @@ exports.saveGeneratedTimetable = async (req, res) => {
       day: entry.day,
       timeSlot: entry.period,
       slot_type: entry.type,
+      publicationStatus,
       isLab: entry.type === 'LAB',
       duration: entry.duration || (entry.type === 'LAB' ? 2 : 1),
       createdBy: 'AI'
@@ -295,16 +306,37 @@ exports.getDivisionTimetable = async (req, res) => {
 // Fetch Timetable API - Student
 exports.getStudentTimetable = async (req, res) => {
   try {
-    const { id } = req.params; // this is user id
-    const user = await User.findById(id);
+    if (String(req.user?.role || '').toLowerCase() !== 'student') {
+      return res.status(403).json({ success: false, message: 'Student access is required.' });
+    }
+
+    const user = await User.findById(req.user.userId).populate({
+      path: 'division_id',
+      populate: [
+        { path: 'department', select: 'department_name short_name' },
+        { path: 'semester', select: 'semester_number academic_year' },
+      ],
+    });
     
     if (!user || user.role !== 'student') {
        return res.status(404).json({ success: false, message: 'Student not found' });
     }
 
-    const divisionId = user.division_id;
+    const division = user.division_id;
+    const divisionId = division?._id;
     if (!divisionId) {
-       return res.status(400).json({ success: false, message: 'Student division not assigned' });
+      return res.status(200).json({
+        success: true,
+        entries: [],
+        academicProfile: {
+          studentId: user.student_id || null,
+          name: user.name,
+          email: user.email,
+          department: null,
+          semester: null,
+          division: null,
+        },
+      });
     }
 
     const entries = await Timetable.find({ division: divisionId })
@@ -314,10 +346,90 @@ exports.getStudentTimetable = async (req, res) => {
       .populate('laboratory', 'room_number roomNumber room_name lab_name lab_id capacity')
       .lean();
 
-    res.status(200).json({ success: true, entries, divisionId });
+    res.status(200).json({
+      success: true,
+      entries,
+      academicProfile: {
+        studentId: user.student_id || null,
+        name: user.name,
+        email: user.email,
+        department: division?.department ? {
+          id: division.department._id,
+          name: division.department.department_name || division.department.short_name,
+        } : null,
+        semester: division?.semester ? {
+          id: division.semester._id,
+          number: division.semester.semester_number,
+          academicYear: division.semester.academic_year,
+        } : null,
+        division: division ? { id: division._id, name: division.division_name } : null,
+      },
+    });
   } catch (error) {
     console.error('Error fetching student timetable:', error);
     res.status(500).json({ success: false, message: 'Server Error fetching timetable' });
+  }
+};
+
+const requireStudent = (req, res) => {
+  if (String(req.user?.role || '').toLowerCase() !== 'student') {
+    res.status(403).json({ success: false, message: 'Student access is required.' });
+    return false;
+  }
+  return true;
+};
+
+const publishedFilter = { publicationStatus: 'published' };
+// Legacy imports stored semester/division as display values (for example, 4
+// and "A"). They cannot be populated as the current reference-based schema.
+// Student accounts created through the current registration flow use these
+// three ObjectId references, so discovery intentionally uses the same shape.
+const academicReferenceFilter = {
+  department: { $regex: '^[a-fA-F0-9]{24}$' },
+  semester: { $regex: '^[a-fA-F0-9]{24}$' },
+  division: { $regex: '^[a-fA-F0-9]{24}$' },
+};
+
+// Read-only discovery data for the universal student timetable viewer.
+exports.getAvailableStudentTimetables = async (req, res) => {
+  try {
+    if (!requireStudent(req, res)) return;
+    const entries = await Timetable.find({ ...publishedFilter, ...academicReferenceFilter })
+      .select('department semester division')
+      .populate('department', 'department_name short_name')
+      .populate('semester', 'semester_number academic_year')
+      .populate('division', 'division_name')
+      .lean();
+    const combinations = [...new Map(entries.filter((entry) => entry.department && entry.semester && entry.division).map((entry) => {
+      const item = {
+        department: { id: String(entry.department._id), name: entry.department.department_name || entry.department.short_name },
+        semester: { id: String(entry.semester._id), number: entry.semester.semester_number, academicYear: entry.semester.academic_year },
+        division: { id: String(entry.division._id), name: entry.division.division_name },
+      };
+      return [`${item.department.id}:${item.semester.id}:${item.division.id}`, item];
+    })).values()];
+    res.json({ success: true, combinations });
+  } catch (error) {
+    console.error('Unable to discover published student timetables:', error);
+    res.status(500).json({ success: false, message: 'Unable to load available timetables.' });
+  }
+};
+
+exports.getPublishedStudentTimetable = async (req, res) => {
+  try {
+    if (!requireStudent(req, res)) return;
+    const { department, semester, division } = req.query;
+    if (!department || !semester || !division) return res.status(400).json({ error: 'Department, semester, and division are required.' });
+    const entries = await Timetable.find({ ...publishedFilter, department, semester, division })
+      .populate('subject', 'subject_name subject_code name type')
+      .populate('teacher', 'name email faculty_name')
+      .populate('classroom', 'roomNumber room_name')
+      .populate('laboratory', 'roomNumber lab_name')
+      .lean();
+    res.json({ success: true, entries });
+  } catch (error) {
+    console.error('Unable to load published student timetable:', error);
+    res.status(500).json({ success: false, message: 'Unable to load timetable.' });
   }
 };
 

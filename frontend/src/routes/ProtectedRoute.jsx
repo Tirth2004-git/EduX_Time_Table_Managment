@@ -19,7 +19,7 @@ export function ProtectedRoute({ children, allowRoles }) {
     return <Navigate to="/login" replace />;
   }
 
-  if (allowRoles && !allowRoles.includes(user.role)) {
+  if (allowRoles && !allowRoles.map((role) => role.toLowerCase()).includes(String(user.role || '').toLowerCase())) {
     return <Navigate to="/login" replace />;
   }
 
@@ -42,7 +42,7 @@ export function PublicRoute({ children }) {
 
   if (isAuthenticated && user) {
     if (user.role === 'admin') return <Navigate to="/dashboard" replace />;
-    if (user.role === 'teacher') return <Navigate to="/teacher-dashboard" replace />;
+    if (user.role === 'teacher') return <Navigate to="/teacher-timetable" replace />;
     return <Navigate to="/timetable" replace />;
   }
 

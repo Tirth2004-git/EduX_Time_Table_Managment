@@ -108,6 +108,12 @@ export default function TeacherLeaveManagement() {
   const formatDate = (dateStr) =>
     new Date(dateStr).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 
+  const teacherDetails = (leave) => {
+    const teacher = leave?.teacherId;
+    if (!teacher || typeof teacher !== 'object') return { name: 'Unknown Faculty', id: '', email: '' };
+    return { name: teacher.name || teacher.faculty_name || 'Unknown Faculty', id: teacher.teacher_id || teacher.teacherID || '', email: teacher.email || '' };
+  };
+
   const statusBadge = (status) => {
     const colors = {
       Pending: 'bg-amber-50 text-amber-700 border-amber-100',
@@ -134,9 +140,10 @@ export default function TeacherLeaveManagement() {
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 space-y-4 shadow-2xl">
             <h3 className="text-lg font-bold">Leave Impact Preview</h3>
             <p className="text-sm text-slate-600">
-              {impactData.leave?.teacherId?.faculty_name} ·{' '}
+              {teacherDetails(impactData.leave).name}{teacherDetails(impactData.leave).id ? ` · ${teacherDetails(impactData.leave).id}` : ''}{' '}
               {formatDate(impactData.leave?.startDate)} – {formatDate(impactData.leave?.endDate)}
             </p>
+            {teacherDetails(impactData.leave).email && <p className="text-xs text-slate-500">{teacherDetails(impactData.leave).email}</p>}
             <div className="grid grid-cols-3 gap-3 text-center">
               <div className="p-3 rounded-xl bg-indigo-50">
                 <div className="text-2xl font-black text-indigo-700">{impactData.impact?.sessionCount || 0}</div>
@@ -183,7 +190,7 @@ export default function TeacherLeaveManagement() {
                 disabled={actionLoading}
                 className="rounded-xl bg-emerald-600 hover:bg-emerald-700 cursor-pointer"
               >
-                <Check className="w-4 h-4 mr-1" /> Approve & Generate Substitutes
+                <Check className="w-4 h-4 mr-1" /> {actionLoading ? 'Approving…' : 'Approve'}
               </Button>
             </div>
           </div>
@@ -229,7 +236,7 @@ export default function TeacherLeaveManagement() {
             <UserCheck className="w-4 h-4 text-indigo-600" />
             <div>
               <h2 className="text-sm font-bold">Leave Queue</h2>
-              <p className="text-xs text-slate-400">Review → Approve → Auto substitute generation</p>
+              <p className="text-xs text-slate-400">Review and decide faculty leave requests</p>
             </div>
           </div>
           {loading ? (
@@ -250,13 +257,17 @@ export default function TeacherLeaveManagement() {
               <tbody>
                 {leaves.map((leave) => (
                   <tr key={leave._id} className="border-t border-slate-100 hover:bg-slate-50">
-                    <td className="px-5 py-3 font-bold">{leave.teacherId?.faculty_name}</td>
+                    <td className="px-5 py-3">
+                      <p className="font-bold text-slate-800">{teacherDetails(leave).name}</p>
+                      {teacherDetails(leave).id && <p className="text-[10px] font-semibold text-slate-400">{teacherDetails(leave).id}</p>}
+                      {teacherDetails(leave).email && <p className="text-[10px] text-slate-400 truncate max-w-[180px]">{teacherDetails(leave).email}</p>}
+                    </td>
                     <td className="px-5 py-3 text-xs">
                       {formatDate(leave.startDate)} – {formatDate(leave.endDate)}
                     </td>
                     <td className="px-5 py-3">{statusBadge(leave.status)}</td>
                     <td className="px-5 py-3 text-xs text-slate-500">
-                      {leave.impactSummary?.sessionCount ?? '—'} sessions
+                      {leave.impactSummary?.sessionCount ?? 0} sessions
                     </td>
                     <td className="px-5 py-3 text-right space-x-1">
                       {leave.status === 'Pending' && (

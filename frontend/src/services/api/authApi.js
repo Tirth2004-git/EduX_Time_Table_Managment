@@ -3,7 +3,7 @@ import api from './index';
 export const authApi = {
   login: (email, password) => api.post('/auth/login', { email, password }),
   getDemoTeachers: () => api.get('/demo/teachers'),
-  demoTeacherLogin: (teacherId) => api.post('/demo/teacher-login', { teacherId }),
+  demoTeacherLogin: (teacherId) => api.post('/auth/demo/teacher', { teacherId }),
   register: (data) => api.post('/auth/register', data),
   sendOtp: (email) => api.post('/auth/send-otp', { email }),
   verifyOtp: (email, otp) => api.post('/auth/verify-otp', { email, otp }),

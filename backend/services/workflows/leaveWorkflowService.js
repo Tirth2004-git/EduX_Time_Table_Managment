@@ -1,15 +1,11 @@
-const mongoose = require('mongoose');
 const TeacherLeave = require('../../models/TeacherLeave');
 const Teacher = require('../../models/Teacher');
-const SubstitutionRequest = require('../../models/SubstitutionRequest');
 const ScheduledSession = require('../../models/ScheduledSession');
 const { findAffectedSessions } = require('../sessionGeneratorService');
-const { rankCandidates } = require('../substituteEngineService');
 const { generateCorrelationId, logAudit } = require('../auditService');
 const {
   sendLeaveSubmitted,
   sendLeaveReviewed,
-  sendSubstituteRequested,
 } = require('../notificationService');
 const { startOfDay, endOfDay } = require('../../utils/dateUtils');
 
@@ -17,6 +13,9 @@ async function calculateLeaveImpact(leaveId) {
   const leave = await TeacherLeave.findById(leaveId).populate('teacherId');
   if (!leave) throw new Error('Leave not found');
 
+  if (!leave.teacherId) {
+    return { leave, sessions: [], impact: { affectedDates: [], affectedSessionIds: [], sessionCount: 0, subjects: [], divisions: [] } };
+  }
   const sessions = await findAffectedSessions(leave.teacherId._id, leave.startDate, leave.endDate);
   const affectedDates = [...new Set(sessions.map((s) => startOfDay(s.date).toISOString()))].map(
     (d) => new Date(d)
@@ -62,96 +61,35 @@ async function submitLeave({ teacherId, startDate, endDate, reason, leaveType, h
 }
 
 async function approveLeave(leaveId, adminUserId, comments = '') {
-  const session = await mongoose.startSession();
-  session.startTransaction();
   const correlationId = generateCorrelationId();
 
   try {
-    const leave = await TeacherLeave.findById(leaveId).populate('teacherId').session(session);
+    const leave = await TeacherLeave.findById(leaveId).populate('teacherId');
     if (!leave) throw new Error('Leave not found');
     if (leave.status !== 'Pending') throw new Error('Only pending leaves can be approved');
 
     const originalTeacher = leave.teacherId;
+    if (!originalTeacher) throw new Error('This leave request has no linked faculty record and cannot be approved.');
     const impactedSessions = await ScheduledSession.find({
       originalTeacherId: originalTeacher._id,
       date: { $gte: startOfDay(leave.startDate), $lte: endOfDay(leave.endDate) },
-      status: { $in: ['scheduled', 'substituted'] },
-      isLocked: false,
-    }).session(session);
+    }).lean();
 
     const affectedDates = [
       ...new Set(impactedSessions.map((s) => startOfDay(s.date).toISOString())),
     ].map((d) => new Date(d));
 
-    await ScheduledSession.updateMany(
-      { _id: { $in: impactedSessions.map((s) => s._id) } },
-      { $set: { status: 'leave_impacted', leaveId: leave._id } },
-      { session }
-    );
-
-    const substitutionRequests = [];
-
-    for (const schedSession of impactedSessions) {
-      const candidates = await rankCandidates(schedSession, originalTeacher);
-      const existing = await SubstitutionRequest.findOne({
-        scheduledSessionId: schedSession._id,
-        status: 'Pending',
-      }).session(session);
-
-      if (existing) {
-        existing.aiCandidates = candidates.map((c) => ({
-          teacherId: c.teacherId,
-          score: c.score,
-          breakdown: c.breakdown,
-          reasons: c.reasons,
-          disqualifiers: c.disqualifiers,
-        }));
-        await existing.save({ session });
-        substitutionRequests.push(existing);
-      } else {
-        const subReq = await SubstitutionRequest.create(
-          [
-            {
-              scheduledSessionId: schedSession._id,
-              leaveId: leave._id,
-              teacherId: originalTeacher._id,
-              timetableId: schedSession.templateSlotId,
-              date: schedSession.date,
-              timeSlot: schedSession.timeSlot,
-              subjectId: schedSession.subjectId,
-              program: schedSession.program,
-              className: schedSession.className,
-              semester: schedSession.semester,
-              division: schedSession.division,
-              aiCandidates: candidates.map((c) => ({
-                teacherId: c.teacherId,
-                score: c.score,
-                breakdown: c.breakdown,
-                reasons: c.reasons,
-                disqualifiers: c.disqualifiers,
-              })),
-              status: 'Pending',
-              reason: leave.reason,
-            },
-          ],
-          { session }
-        );
-        substitutionRequests.push(subReq[0]);
-        await sendSubstituteRequested(subReq[0], schedSession);
-      }
-    }
-
     leave.status = 'Approved';
     leave.comments = comments;
     leave.reviewedBy = adminUserId;
     leave.reviewedAt = new Date();
-    leave.workflowState = 'substitutes_generated';
+    leave.workflowState = 'completed';
     leave.impactSummary = {
       affectedDates,
       affectedSessionIds: impactedSessions.map((s) => s._id),
       sessionCount: impactedSessions.length,
     };
-    await leave.save({ session });
+    await leave.save();
 
     await sendLeaveReviewed(leave, originalTeacher, 'Approved', comments);
 
@@ -163,18 +101,12 @@ async function approveLeave(leaveId, adminUserId, comments = '') {
       correlationId,
       details: {
         impactedSessions: impactedSessions.length,
-        substitutionsCreated: substitutionRequests.length,
+        substitutionsCreated: 0,
       },
     });
 
-    await session.commitTransaction();
-    return { leave, impactedSessions, substitutionRequests };
-  } catch (err) {
-    await session.abortTransaction();
-    throw err;
-  } finally {
-    session.endSession();
-  }
+    return { leave, impactedSessions };
+  } catch (err) { throw err; }
 }
 
 async function rejectLeave(leaveId, adminUserId, comments = '') {

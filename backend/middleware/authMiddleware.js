@@ -28,14 +28,15 @@ const protect = (requireAdmin = false) => {
         return res.status(403).json({ error: 'Account is not verified' });
       }
 
-      if (requireAdmin && user.role !== 'admin') {
+      const role = String(user.role || '').toLowerCase();
+      if (requireAdmin && role !== 'admin') {
         return res.status(403).json({ error: 'Forbidden - Admin access required' });
       }
 
       req.user = {
         userId: user._id.toString(),
         email: user.email,
-        role: user.role,
+        role,
         teacherId: user.teacher_id ? user.teacher_id.toString() : null
       };
 

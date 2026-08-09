@@ -200,7 +200,8 @@ exports.getTeachers = async (req, res, next) => {
       // Calculate assigned and remaining hours from Timetable
       const assignedHours = await Timetable.countDocuments({ teacher: teachers[i]._id });
       teachers[i].assignedHours = assignedHours;
-      teachers[i].max_hours_per_week = teachers[i].max_hours_per_week || 40;
+      teachers[i].max_hours_per_week = Number(teachers[i].max_hours_per_week) || Number(teachers[i].teaching_hours) || 0;
+      teachers[i].teaching_hours = teachers[i].max_hours_per_week;
       teachers[i].remainingHours = Math.max(0, teachers[i].max_hours_per_week - assignedHours);
       
       // Ensure teacherID property exists for frontend
@@ -259,7 +260,7 @@ exports.createTeacher = async (req, res, next) => {
         password,
         role: 'teacher',
         isVerified: true,
-        teacherId: teacher._id
+        teacher_id: teacher._id
       });
     }
 
@@ -291,7 +292,7 @@ exports.updateTeacher = async (req, res, next) => {
 
     // Update or create linked User account
     const User = require('../models/User');
-    let linkedUser = await User.findOne({ teacherId: teacher._id });
+    let linkedUser = await User.findOne({ teacher_id: teacher._id });
     
     if (linkedUser) {
       if (email && email !== linkedUser.email) {
@@ -323,7 +324,7 @@ exports.updateTeacher = async (req, res, next) => {
         password,
         role: 'teacher',
         isVerified: true,
-        teacherId: teacher._id
+        teacher_id: teacher._id
       });
     }
 
@@ -345,7 +346,7 @@ exports.deleteTeacher = async (req, res, next) => {
 
     // Delete associated user account
     const User = require('../models/User');
-    await User.deleteMany({ teacherId: req.params.id });
+    await User.deleteMany({ teacher_id: req.params.id });
     
     // Delete associated teacher assignments
     const TeacherAssignment = require('../models/TeacherAssignment');

@@ -12,7 +12,7 @@ exports.getLeaves = async (req, res, next) => {
     const { status } = req.query;
     const filter = status ? { status } : {};
     const leaves = await TeacherLeave.find(filter)
-      .populate('teacherId', 'faculty_name department teacherID')
+      .populate('teacherId', 'name faculty_name teacher_id teacherID email department')
       .populate('reviewedBy', 'name email')
       .sort({ startDate: -1 });
     res.json({ success: true, leaves });
@@ -39,7 +39,7 @@ exports.createLeave = async (req, res, next) => {
 
     const populatedLeave = await TeacherLeave.findById(leave._id).populate(
       'teacherId',
-      'faculty_name department teacherID'
+      'name faculty_name teacher_id teacherID email department'
     );
 
     res.status(201).json({
@@ -83,10 +83,9 @@ exports.reviewLeave = async (req, res, next) => {
       result = await approveLeave(req.params.id, req.user.userId, comments || '');
       res.json({
         success: true,
-        message: `Leave approved. ${result.substitutionRequests.length} substitute requests created.`,
+        message: 'Leave approved successfully.',
         leave: result.leave,
         impactedSessions: result.impactedSessions,
-        substitutionRequests: result.substitutionRequests,
       });
     } else {
       const leave = await rejectLeave(req.params.id, req.user.userId, comments || '');

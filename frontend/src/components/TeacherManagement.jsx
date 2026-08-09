@@ -170,8 +170,9 @@ export default function TeacherManagement() {
     t.teacherID?.toLowerCase().includes(search.toLowerCase())
   );
 
-  const totalHours = teachers.reduce((s, t) => s + t.teaching_hours, 0);
-  const assignedHours = teachers.reduce((s, t) => s + (t.assignedHours || 0), 0);
+  const safeNumber = (value) => Number.isFinite(Number(value)) ? Number(value) : 0;
+  const totalHours = teachers.reduce((sum, teacher) => sum + safeNumber(teacher.max_hours_per_week ?? teacher.teaching_hours), 0);
+  const assignedHours = teachers.reduce((sum, teacher) => sum + safeNumber(teacher.assignedHours), 0);
   const fullLoad = teachers.filter(t => t.remainingHours === 0).length;
 
   const inputCls =
@@ -494,8 +495,9 @@ export default function TeacherManagement() {
               </thead>
               <tbody>
                 {filtered.map((teacher, idx) => {
-                  const pct = teacher.teaching_hours > 0
-                    ? Math.round(((teacher.assignedHours || 0) / teacher.teaching_hours) * 100)
+                  const weeklyLimit = safeNumber(teacher.max_hours_per_week ?? teacher.teaching_hours);
+                  const pct = weeklyLimit > 0
+                    ? Math.round((safeNumber(teacher.assignedHours) / weeklyLimit) * 100)
                     : 0;
                   const isFull = teacher.remainingHours === 0;
                   return (
@@ -550,7 +552,7 @@ export default function TeacherManagement() {
                       </td>
 
                       {/* Total Hours */}
-                      <td className="px-5 py-4 text-slate-700 font-bold">{teacher.teaching_hours}h</td>
+                      <td className="px-5 py-4 text-slate-700 font-bold">{weeklyLimit}h</td>
 
                       {/* Assigned with progress */}
                       <td className="px-5 py-4">

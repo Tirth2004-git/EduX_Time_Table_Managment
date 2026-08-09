@@ -152,49 +152,6 @@ export default function TimetableBuilder() {
   const [activeRightTab, setActiveRightTab] = useState('copilot'); // 'copilot' or 'history'
   const [auditLogs, setAuditLogs] = useState([]);
   const [auditLoading, setAuditLoading] = useState(false);
-
-  // Keyboard shortcut listeners for Undo / Redo
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-      if (e.ctrlKey && e.key.toLowerCase() === 'z') {
-        e.preventDefault();
-        handleUndo();
-      } else if (e.ctrlKey && e.key.toLowerCase() === 'y') {
-        e.preventDefault();
-        handleRedo();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [timetable]);
-
-  const handleUndo = async () => {
-    setLoading(true);
-    try {
-      const response = await timetableApi.undo();
-      showToast(response.data.message || 'Undo successful', 'success');
-      await Promise.all([fetchTimetable(), fetchSubjects(), fetchAssignedTeachers(), fetchAuditLogs()]);
-    } catch (err) {
-      showToast(err.response?.data?.error || err.message || 'Undo failed', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRedo = async () => {
-    setLoading(true);
-    try {
-      const response = await timetableApi.redo();
-      showToast(response.data.message || 'Redo successful', 'success');
-      await Promise.all([fetchTimetable(), fetchSubjects(), fetchAssignedTeachers(), fetchAuditLogs()]);
-    } catch (err) {
-      showToast(err.response?.data?.error || err.message || 'Redo failed', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const fetchSubjects = async () => {
     if (!selectedProgram || !selectedSemester) {
       setSubjects([]);
@@ -987,50 +944,6 @@ export default function TimetableBuilder() {
       setAutoGenerating(false);
     }
   };
-
-  const handleValidate = async () => {
-    if (!selectedProgram || !selectedSemester || !selectedDivision) {
-      alert('Please select program, class, semester, and division');
-      return;
-    }
-    try {
-      const isPresent = (value) => value !== undefined && value !== null && String(value).trim() !== '';
-      const validationEntries = timetable.map((entry) => {
-        const slot = entry.timeSlot || entry.slot;
-        const [startTime, endTime] = String(slot || '').split('-');
-        return {
-          subjectId: entry.subjectId?._id || entry.subjectId,
-          teacherId: entry.teacherId?._id || entry.teacherId,
-          classroomId: entry.classroomId?._id || entry.classroomId || entry.classroom?._id || classroomId,
-          day: entry.day,
-          startTime,
-          endTime,
-          type: entry.isLab ? 'LAB' : entry.slot_type === 'LIBRARY' ? 'LIBRARY' : entry.slot_type === 'FREE' ? 'FREE' : 'THEORY',
-        };
-      });
-      const incomplete = validationEntries.find((entry) => !Object.values(entry).every(isPresent));
-      if (incomplete) {
-        showToast(`Cannot validate timetable. Missing teacher/classroom/subject information for ${incomplete.day || 'Unknown day'} ${incomplete.startTime || 'unknown time'} slot`, 'error');
-        return;
-      }
-      const response = await timetableApi.validate({
-        departmentId: selectedProgram,
-        semesterId: selectedSemester,
-        divisionId: selectedDivision,
-        entries: validationEntries,
-      });
-      setConflicts((response.data.conflicts || []).map((conflict) => {
-        const resource = conflict.teacher || conflict.room || conflict.division;
-        return `${conflict.type}: ${resource} at ${conflict.slot}`;
-      }));
-      setWarnings(response.data.warnings || []);
-      showToast(response.data.valid ? 'Schedule is fully conflict free!' : 'Schedule contains conflict warnings', response.data.valid ? 'success' : 'warning');
-    } catch (error) {
-      console.error('Error validating timetable:', error);
-      showToast(error.response?.data?.message || error.response?.data?.error || error.message || 'Unable to validate timetable', 'error');
-    }
-  };
-
   const handleCopyTimetable = async () => {
     try {
       setCopying(true);
@@ -1868,35 +1781,6 @@ export default function TimetableBuilder() {
 
                 {/* Top Toolbar Actions */}
                 <div className="flex flex-wrap items-center gap-2">
-                  {/* Undo Button */}
-                  <button
-                    onClick={handleUndo}
-                    disabled={loading}
-                    className="flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer bg-white"
-                    title="Undo last action (Ctrl+Z)"
-                  >
-                    <Undo className="w-4 h-4" />
-                  </button>
-
-                  {/* Redo Button */}
-                  <button
-                    onClick={handleRedo}
-                    disabled={loading}
-                    className="flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer bg-white"
-                    title="Redo last action (Ctrl+Y)"
-                  >
-                    <Redo className="w-4 h-4" />
-                  </button>
-
-                  <div className="h-4 w-px bg-slate-200 mx-1"></div>
-
-                  <button
-                    onClick={handleValidate}
-                    className="px-4 py-2 rounded-xl border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-all cursor-pointer bg-white"
-                  >
-                    Validate Grid
-                  </button>
-
                   <button
                     onClick={handleSaveTimetable}
                     disabled={saving || conflicts.length > 0}
@@ -2234,28 +2118,8 @@ export default function TimetableBuilder() {
             <div className="lg:col-span-1 space-y-6">
               
               <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                {/* Tabs Header */}
-                <div className="grid grid-cols-2 border-b border-slate-100 bg-slate-50/50">
-                  <button
-                    onClick={() => setActiveRightTab('copilot')}
-                    className={`py-3 text-xs font-bold uppercase tracking-wider border-b-2 flex items-center justify-center gap-1.5 transition-colors cursor-pointer border-0 bg-transparent ${
-                      activeRightTab === 'copilot'
-                        ? 'border-indigo-600 text-indigo-650 bg-white'
-                        : 'border-transparent text-slate-450 hover:text-slate-700'
-                    }`}
-                  >
-                    <Bot className="w-4 h-4" /> AI Copilot
-                  </button>
-                  <button
-                    onClick={() => setActiveRightTab('history')}
-                    className={`py-3 text-xs font-bold uppercase tracking-wider border-b-2 flex items-center justify-center gap-1.5 transition-colors cursor-pointer border-0 bg-transparent ${
-                      activeRightTab === 'history'
-                        ? 'border-indigo-600 text-indigo-650 bg-white'
-                        : 'border-transparent text-slate-450 hover:text-slate-700'
-                    }`}
-                  >
-                    <History className="w-4 h-4" /> Activity Log
-                  </button>
+                <div className="border-b border-slate-100 bg-slate-50/50 py-3 text-center text-xs font-bold uppercase tracking-wider text-indigo-650">
+                  <Bot className="inline-block w-4 h-4 mr-1.5" /> AI Copilot
                 </div>
 
                 {/* Tab content wrapper */}
@@ -2283,38 +2147,13 @@ export default function TimetableBuilder() {
                         </button>
                       </div>
 
-                      {/* Real-time Validation conflicts feed */}
+                      {/* Neutral sync status. Conflict detection remains enforced by save APIs. */}
                       <div className="space-y-3">
-                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Real-time Safety Alert</h4>
-                        <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
-                          {conflicts.length === 0 && warnings.length === 0 ? (
-                            <div className="rounded-xl border border-emerald-100 bg-emerald-50/20 p-4 text-center">
-                              <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto mb-1.5" />
-                              <p className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Schedule Valid</p>
-                              <p className="text-[10px] text-emerald-600 mt-0.5">No overlap conflicts detected</p>
-                            </div>
-                          ) : (
-                            <>
-                              {conflicts.map((error, idx) => (
-                                <div key={idx} className="flex gap-2.5 items-start bg-red-50/40 border border-red-100 rounded-xl p-3">
-                                  <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-                                  <div>
-                                    <span className="text-[9px] font-bold text-red-600 uppercase tracking-wide">Slot Conflict</span>
-                                    <p className="text-xs text-red-700 leading-relaxed mt-0.5">{error}</p>
-                                  </div>
-                                </div>
-                              ))}
-                              {warnings.map((warning, idx) => (
-                                <div key={idx} className="flex gap-2.5 items-start bg-amber-50/40 border border-amber-100 rounded-xl p-3">
-                                  <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                                  <div>
-                                    <span className="text-[9px] font-bold text-amber-600 uppercase tracking-wide">Constraint warning</span>
-                                    <p className="text-xs text-amber-700 leading-relaxed mt-0.5">{warning}</p>
-                                  </div>
-                                </div>
-                              ))}
-                            </>
-                          )}
+                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Real-time Status</h4>
+                        <div className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-center">
+                          <CheckCircle2 className="w-7 h-7 text-indigo-500 mx-auto mb-1.5" />
+                          <p className="text-xs font-bold text-slate-700 uppercase tracking-wider">Schedule information synced</p>
+                          <p className="text-[10px] text-slate-500 mt-0.5">Changes are checked when saved or published.</p>
                         </div>
                       </div>
 

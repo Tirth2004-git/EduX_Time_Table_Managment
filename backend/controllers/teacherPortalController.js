@@ -5,7 +5,6 @@ const TeacherLeave = require('../models/TeacherLeave');
 const Subject = require('../models/Subject');
 const SubstitutionRequest = require('../models/SubstitutionRequest');
 const Notification = require('../models/Notification');
-const { getTeacherWorkload } = require('../services/workloadEngine');
 const { submitLeave, cancelLeave } = require('../services/workflows/leaveWorkflowService');
 const { startOfDay, endOfDay, getWeekRange, getDayName } = require('../utils/dateUtils');
 
@@ -92,78 +91,6 @@ async function getRecurringTeacherSlots(teacherId, day) {
     .sort({ day: 1, timeSlot: 1 });
   return templates.map(enrichTemplateForTeacher);
 }
-
-exports.getDashboard = async (req, res, next) => {
-  try {
-    const teacherId = getTeacherId(req, res);
-    if (!teacherId) return;
-
-    const teacher = await Teacher.findById(teacherId);
-    if (!teacher) return res.status(404).json({ error: 'Teacher not found.' });
-
-    const today = startOfDay(new Date());
-    const todayEnd = endOfDay(new Date());
-
-    const todaySessions = await ScheduledSession.find({
-      $or: [{ originalTeacherId: teacherId }, { effectiveTeacherId: teacherId }],
-      date: { $gte: today, $lte: todayEnd },
-    })
-      .populate('subjectId', 'subject_name subject_code type')
-      .populate('originalTeacherId', 'faculty_name')
-      .populate('effectiveTeacherId', 'faculty_name')
-      .populate('classroomId', 'room_name room_id capacity');
-
-    todaySessions.sort((a, b) => timeSlotToMinutes(a.timeSlot) - timeSlotToMinutes(b.timeSlot));
-    const todayClasses = todaySessions.length
-      ? todaySessions.map((s) => enrichSessionForTeacher(s, teacherId))
-      : await getRecurringTeacherSlots(teacherId, getDayName(today));
-
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    const nextClass =
-      todayClasses.find(
-        (c) => timeSlotToMinutes(c.timeSlot) > currentMinutes
-      ) || null;
-
-    const { start, end } = getWeekRange();
-    const workloadData = await getTeacherWorkload(teacherId, start, end);
-    const maxWorkload = teacher.preferences?.maxWorkload || teacher.teaching_hours || 40;
-    const utilization = Math.min(
-      Math.round((workloadData.totalAssigned / maxWorkload) * 100),
-      100
-    );
-
-    const pendingLeavesCount = await TeacherLeave.countDocuments({
-      teacherId,
-      status: 'Pending',
-    });
-
-    const recentNotifications = await Notification.find({
-      $or: [{ teacherId }, { recipientId: teacherId }],
-    })
-      .sort({ createdAt: -1 })
-      .limit(5);
-
-    res.json({
-      success: true,
-      data: {
-        todayClasses,
-        nextClass,
-        workload: {
-          assignedHours: workloadData.totalAssigned,
-          maxWorkload,
-          utilization,
-        },
-        pendingLeavesCount,
-        recentNotifications,
-        facultyName: teacher.faculty_name,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 exports.getTimetable = async (req, res, next) => {
   try {
     const teacherId = getTeacherId(req, res);
@@ -247,34 +174,6 @@ exports.cancelLeave = async (req, res, next) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-exports.getWorkload = async (req, res, next) => {
-  try {
-    const teacherId = getTeacherId(req, res);
-    if (!teacherId) return;
-
-    const teacher = await Teacher.findById(teacherId);
-    const { start, end } = getWeekRange();
-    const workloadData = await getTeacherWorkload(teacherId, start, end);
-    const maxWorkload = teacher.preferences?.maxWorkload || teacher.teaching_hours || 40;
-    const utilization = Math.round((workloadData.totalAssigned / maxWorkload) * 100);
-
-    res.json({
-      success: true,
-      data: {
-        totalAssigned: workloadData.totalAssigned,
-        maxWorkload,
-        utilization,
-        subjectDistribution: workloadData.subjectDistribution,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-
-
 exports.getNotifications = async (req, res, next) => {
   try {
     const teacherId = getTeacherId(req, res);
@@ -309,14 +208,26 @@ exports.getProfile = async (req, res, next) => {
     const teacherId = getTeacherId(req, res);
     if (!teacherId) return;
     const teacher = await Teacher.findById(teacherId).populate('department');
+    if (!teacher) return res.status(404).json({ error: 'Teacher not found.' });
     
     const TeacherSubjectMapping = require('../models/TeacherSubjectMapping');
-    const assignments = await TeacherSubjectMapping.find({ teacher_id: teacherId }).lean();
+    const assignments = await TeacherSubjectMapping.find({ teacher_id: teacherId })
+      .populate('semester', 'semester_number')
+      .populate('department', 'department_name short_name')
+      .lean();
     const subjectIds = [...new Set(assignments.map(a => a.subject_id?.toString()).filter(Boolean))];
     const subjects = await Subject.find({ _id: { $in: subjectIds } }).lean();
 
     const assignedHours = await Timetable.countDocuments({ teacher: teacherId });
-    const remainingHours = Math.max(0, (teacher.teaching_hours || 40) - assignedHours);
+    const weeklyLimit = Number(teacher.preferences?.maxWorkload) || Number(teacher.teaching_hours) || Number(teacher.max_hours_per_week) || 40;
+    const remainingHours = Math.max(0, weeklyLimit - assignedHours);
+    const divisions = [...new Set(assignments.flatMap((assignment) =>
+      (assignment.allowed_divisions || []).map((division) => ({
+        name: division,
+        semester: assignment.semester?.semester_number ?? null,
+        department: assignment.department?.department_name || assignment.department?.short_name || null,
+      }))
+    ).map((division) => JSON.stringify(division)))].map(JSON.parse);
 
     res.json({
       success: true,
@@ -325,14 +236,15 @@ exports.getProfile = async (req, res, next) => {
         teacher_id: teacher.teacher_id || teacher.teacherID,
         name: teacher.faculty_name || teacher.name,
         email: req.user?.email || teacher.email, // email usually from user or teacher
-        designation: teacher.designation || 'Faculty Member',
-        department: teacher.department?.department_name || teacher.department?.short_name || 'N/A',
-        mobile: teacher.mobile || teacher.teacher_number || 'N/A',
-        classroom: teacher.classroom,
-        experience: teacher.experience_years || 0,
-        teaching_hours: teacher.teaching_hours || 40,
+        designation: teacher.designation || null,
+        department: teacher.department?.department_name || teacher.department?.short_name || null,
+        mobile: teacher.mobile || teacher.teacher_number || null,
+        classroom: teacher.classroom || null,
+        experience: Number(teacher.experience_years) || null,
+        teaching_hours: weeklyLimit,
         assignedHours,
         remainingHours,
+        divisions,
         subjects: subjects.map((s) => ({
           id: s._id.toString(),
           name: s.subject_name,

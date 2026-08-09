@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getTeachers, getEligibleTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, importTeachers, assignSubjectsToTeacher, getTeacherProfile } = require('../controllers/teacherController');
+const { getTeachers, getEligibleTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, importTeachers, assignSubjectsToTeacher } = require('../controllers/teacherController');
 const { protect } = require('../middleware/authMiddleware');
 const multer = require('multer');
 const fs = require('fs');
@@ -15,9 +15,6 @@ const upload = multer({ dest: 'uploads/' });
 
 // Protect routes
 router.use(protect());
-
-// Profile route can be accessed by the teacher themselves
-router.get('/profile/:teacherId', getTeacherProfile);
 
 // Require admin authentication for other CRUD operations
 router.use((req, res, next) => {

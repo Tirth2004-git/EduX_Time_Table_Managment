@@ -30,18 +30,19 @@ export default function Login() {
 
   const handleQuickLogin = (role) => {
     setSelectedRole(role);
+    if (role === 'teacher') {
+      openTeacherDemoLogin();
+      return;
+    }
     let email = '';
     let password = '';
     
     if (role === 'admin') {
-      email = 'admin@edux.com';
-      password = 'Admin@123';
-    } else if (role === 'teacher') {
-      email = 'teacher@edux.com';
-      password = 'Teacher@123';
+      email = import.meta.env.VITE_DEMO_ADMIN_EMAIL || 'admin@edux.com';
+      password = import.meta.env.VITE_DEMO_ADMIN_PASSWORD || 'Admin@123';
     } else if (role === 'student') {
-      email = 'student@edux.com';
-      password = 'Student@123';
+      email = import.meta.env.VITE_DEMO_STUDENT_EMAIL || 'student@edux.com';
+      password = import.meta.env.VITE_DEMO_STUDENT_PASSWORD || 'Student@123';
     }
     
     setShowDemoTeachers(false);
@@ -70,7 +71,7 @@ export default function Login() {
     setError('');
     try {
       const result = await loginDemoTeacher(teacherId);
-      if (result?.user) navigate('/teacher-dashboard');
+      if (result?.user) navigate('/teacher-timetable');
     } catch (err) {
       setError(err.message || 'Unable to continue as teacher.');
       setLoading(false);
@@ -88,7 +89,7 @@ export default function Login() {
         if (result.user.role === 'admin') {
           navigate('/dashboard');
         } else if (result.user.role === 'teacher') {
-          navigate('/teacher-dashboard');
+          navigate('/teacher-timetable');
         } else {
           navigate('/timetable');
         }

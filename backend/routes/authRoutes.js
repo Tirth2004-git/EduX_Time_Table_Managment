@@ -3,11 +3,13 @@ const router = express.Router();
 const { register, sendOtp, verifyOtp, login, logout, getMe, updateProfile, changePassword, refreshSession, forgotPassword, resetPassword } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
 const { authLimiter, loginLimiter } = require('../middleware/rateLimiter');
+const { loginAsDemoTeacher } = require('../controllers/demoController');
 
 router.post('/register', authLimiter, register);
 router.post('/send-otp', authLimiter, sendOtp);
 router.post('/verify-otp', authLimiter, verifyOtp);
 router.post('/login', loginLimiter, login);
+router.post('/demo/teacher', loginLimiter, loginAsDemoTeacher);
 router.post('/refresh', refreshSession);
 router.post('/logout', protect(), logout);
 router.get('/me', protect(), getMe);

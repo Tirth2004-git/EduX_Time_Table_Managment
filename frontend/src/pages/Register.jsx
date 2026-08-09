@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
 import authApi from '../services/api/authApi';
+import api from '../services/api';
 import {
   Mail,
   Lock,
   User,
-  AtSign,
   ArrowRight,
   Loader2,
   Calendar,
@@ -41,13 +42,38 @@ export default function Register() {
   const [resendingOtp, setResendingOtp] = useState(false);
   const [pendingEmail, setPendingEmail] = useState('');
   const [step, setStep] = useState('register');
+  const { setUser } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
   const [otpValues, setOtpValues] = useState(['', '', '', '', '', '']);
   const [verified, setVerified] = useState(false);
+  const [academicData, setAcademicData] = useState({ departments: [], semesters: [], divisions: [] });
+  const [academicSelection, setAcademicSelection] = useState({ department: '', semester: '', divisionId: '' });
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { register: registerOtp, handleSubmit: handleSubmitOtp, setValue, formState: { errors: otpErrors } } = useForm();
+  useEffect(() => {
+    Promise.all([api.get('/departments'), api.get('/semesters'), api.get('/divisions')])
+      .then(([departments, semesters, divisions]) => {
+        setAcademicData({
+          departments: departments.data.data || departments.data.departments || departments.data || [],
+          semesters: semesters.data.data || semesters.data.semesters || semesters.data || [],
+          divisions: divisions.data.data || divisions.data.divisions || divisions.data || [],
+        });
+      })
+      .catch(() => setError('Unable to load academic options. Please try again.'));
+  }, []);
+  const semesters = useMemo(
+    () => academicData.semesters.filter((semester) => String(semester.department?._id || semester.department) === academicSelection.department),
+    [academicData.semesters, academicSelection.department],
+  );
+  const divisions = useMemo(
+    () => academicData.divisions.filter((division) =>
+      String(division.department?._id || division.department) === academicSelection.department &&
+      String(division.semester?._id || division.semester) === academicSelection.semester,
+    ),
+    [academicData.divisions, academicSelection],
+  );
 
   const handleOtpChange = (index, value) => {
     if (!/^\d*$/.test(value)) return;
@@ -71,10 +97,22 @@ export default function Register() {
     setError('');
     setMessage('');
     try {
-      const response = await authApi.register(data);
+      const response = await authApi.register({
+        ...data,
+        departmentId: academicSelection.department,
+        semesterId: academicSelection.semester,
+        divisionId: academicSelection.divisionId,
+      });
       if (response.data && response.data.error) {
         setError(response.data.error || 'Registration failed');
         setLoading(false);
+        return;
+      }
+      if (response.data?.user && response.data?.token) {
+        localStorage.setItem('auth-token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        setUser(response.data.user);
+        navigate('/timetable', { replace: true });
         return;
       }
       setPendingEmail(data.email);
@@ -259,7 +297,7 @@ export default function Register() {
                   {/* Full Name */}
                   <div className="slide-up s3 space-y-1.5">
                     <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                      Full Name <span className="normal-case text-slate-300 font-normal">(optional)</span>
+                      Full Name
                     </label>
                     <div className={fieldCls('name', false)}>
                       <User className={`absolute left-3.5 w-4 h-4 transition-colors ${focusedField === 'name' ? 'text-blue-500' : 'text-slate-300'}`} />
@@ -267,32 +305,12 @@ export default function Register() {
                         type="text"
                         placeholder="John Doe"
                         className="w-full pl-10 pr-4 py-3 bg-transparent text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none rounded-xl"
-                        {...register('name')}
+                        {...register('name', { required: 'Full name is required' })}
                         onFocus={() => setFocusedField('name')}
                         onBlur={() => setFocusedField(null)}
                       />
                     </div>
-                  </div>
-
-                  {/* Username */}
-                  <div className="slide-up s3 space-y-1.5">
-                    <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                      Username
-                    </label>
-                    <div className={fieldCls('username', !!errors.username)}>
-                      <AtSign className={`absolute left-3.5 w-4 h-4 transition-colors ${focusedField === 'username' ? 'text-blue-500' : 'text-slate-300'}`} />
-                      <input
-                        type="text"
-                        placeholder="johndoe"
-                        className="w-full pl-10 pr-4 py-3 bg-transparent text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none rounded-xl"
-                        {...register('username', { required: 'Username is required' })}
-                        onFocus={() => setFocusedField('username')}
-                        onBlur={() => setFocusedField(null)}
-                      />
-                    </div>
-                    {errors.username && (
-                      <p className="text-xs text-red-500 font-medium pl-1">{errors.username.message}</p>
-                    )}
+                    {errors.name && <p className="text-xs text-red-500 font-medium pl-1">{errors.name.message}</p>}
                   </div>
 
                   {/* Email */}
@@ -314,6 +332,13 @@ export default function Register() {
                     {errors.email && (
                       <p className="text-xs text-red-500 font-medium pl-1">{errors.email.message}</p>
                     )}
+                  </div>
+
+                  <div className="space-y-3 pt-2">
+                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Academic Information</p>
+                    <select required value={academicSelection.department} onChange={(event) => setAcademicSelection({ department: event.target.value, semester: '', divisionId: '' })} className="w-full rounded-xl border-2 border-blue-100 px-3 py-3 text-sm text-slate-700"><option value="">Select Department / Branch</option>{academicData.departments.map((department) => <option key={department._id} value={department._id}>{department.department_name || department.short_name}</option>)}</select>
+                    <select required disabled={!academicSelection.department} value={academicSelection.semester} onChange={(event) => setAcademicSelection({ ...academicSelection, semester: event.target.value, divisionId: '' })} className="w-full rounded-xl border-2 border-blue-100 px-3 py-3 text-sm text-slate-700 disabled:bg-slate-50"><option value="">Select Semester</option>{semesters.map((semester) => <option key={semester._id} value={semester._id}>Semester {semester.semester_number}{semester.academic_year ? ` (${semester.academic_year})` : ''}</option>)}</select>
+                    <select required disabled={!academicSelection.semester} value={academicSelection.divisionId} onChange={(event) => setAcademicSelection({ ...academicSelection, divisionId: event.target.value })} className="w-full rounded-xl border-2 border-blue-100 px-3 py-3 text-sm text-slate-700 disabled:bg-slate-50"><option value="">Select Division</option>{divisions.map((division) => <option key={division._id} value={division._id}>{division.division_name}</option>)}</select>
                   </div>
 
                   {/* Password */}

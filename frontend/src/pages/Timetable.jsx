@@ -42,9 +42,9 @@ export default function Timetable() {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-semibold text-slate-900">Timetable Viewer</h1>
+            <h1 className="text-lg font-semibold text-slate-900">EduX Student Portal</h1>
             <p className="text-xs text-slate-600">
-              Signed in as {user.name || user.username} ({user.role})
+              Welcome, {user.name || 'Student'} · Signed in as Student
             </p>
           </div>
           <div className="flex gap-2">
@@ -66,7 +66,7 @@ export default function Timetable() {
       </header>
 
       {user.role === 'student' ? (
-        <StudentTimetablePreview studentId={user.student?.student_id} />
+        <StudentTimetablePreview />
       ) : (
         <GlobalTimetablePreview />
       )}

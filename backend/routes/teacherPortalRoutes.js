@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const {
-  getDashboard,
   getTimetable,
   getLeaves,
   applyLeave,
   cancelLeave,
-  getWorkload,
   getNotifications,
   markNotificationRead,
   getProfile,
@@ -18,9 +16,7 @@ const { authorizeRoles } = require('../middleware/roleMiddleware');
 router.use(protect());
 router.use(authorizeRoles('teacher'));
 
-router.get('/dashboard', getDashboard);
 router.get('/timetable', getTimetable);
-router.get('/workload', getWorkload);
 router.get('/profile', getProfile);
 
 router.route('/leaves')

@@ -48,6 +48,11 @@ const TimetableSchema = new mongoose.Schema(
       enum: ['valid', 'conflict'],
       default: 'valid',
     },
+    publicationStatus: {
+      type: String,
+      enum: ['draft', 'published'],
+      default: 'published',
+    },
     isLab: {
       type: Boolean,
       default: false,

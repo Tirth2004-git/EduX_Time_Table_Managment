@@ -9,6 +9,8 @@
     "client": "npm run dev --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "seed": "node scripts/seed-json.js",
+    "seed:demo": "node backend/scripts/seedDemoUsers.js",
+    "migrate-publication-status": "node backend/scripts/migratePublicationStatus.js",
     "migrate-erp": "node scripts/migrate-erp.js",
     "migrate-subject-assignments": "node scripts/migrate-subject-assignments.js",
     "backup-atlas": "node backend/scripts/backupDatabase.js",

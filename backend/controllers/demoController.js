@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const enabled = () =>
-  process.env.NODE_ENV !== 'production' && process.env.ENABLE_DEMO_LOGIN === 'true';
+  process.env.NODE_ENV !== 'production' && process.env.ENABLE_DEMO_LOGIN !== 'false';
 
 const unavailable = (res) => res.status(404).json({ error: 'Demo login is disabled.' });
 
@@ -17,15 +17,18 @@ const cookieOptions = (maxAge) => ({
 exports.getDemoTeachers = async (req, res, next) => {
   try {
     if (!enabled()) return unavailable(res);
-    const users = await User.find({ role: 'teacher', isVerified: true, linkedTeacherId: { $ne: null } })
-      .populate('linkedTeacherId', 'faculty_name name department designation')
+    const users = await User.find({ role: 'teacher', isVerified: true, teacher_id: { $ne: null } })
+      .populate({ path: 'teacher_id', select: 'teacher_id faculty_name name email subjects department designation', populate: { path: 'subjects', select: 'subject_name subject_code' } })
       .sort({ name: 1 });
     res.json({
-      teachers: users.filter((user) => user.linkedTeacherId).map((user) => ({
-        id: user.linkedTeacherId._id,
-        name: user.linkedTeacherId.faculty_name || user.linkedTeacherId.name,
-        department: user.linkedTeacherId.department,
-        designation: user.linkedTeacherId.designation || 'Faculty Member',
+      teachers: users.filter((user) => user.teacher_id).map((user) => ({
+        id: user.teacher_id._id,
+        facultyId: user.teacher_id.teacher_id || '—',
+        name: user.teacher_id.faculty_name || user.teacher_id.name || user.name,
+        email: user.teacher_id.email || user.email,
+        subjects: user.teacher_id.subjects || [],
+        department: user.teacher_id.department,
+        designation: user.teacher_id.designation || 'Faculty Member',
       })),
     });
   } catch (error) { next(error); }
@@ -35,7 +38,7 @@ exports.loginAsDemoTeacher = async (req, res, next) => {
   try {
     if (!enabled()) return unavailable(res);
     const { teacherId } = req.body;
-    const user = await User.findOne({ role: 'teacher', isVerified: true, linkedTeacherId: teacherId });
+    const user = await User.findOne({ role: 'teacher', isVerified: true, teacher_id: teacherId });
     if (!user) return res.status(404).json({ error: 'Teacher demo account is unavailable.' });
 
     const token = jwt.sign(

@@ -5,7 +5,9 @@ const {
   validateGeneratedTimetable,
   getDivisionTimetable,
   getStudentTimetable: getStudentTimetableEntry,
-  getTeacherTimetable
+  getTeacherTimetable,
+  getAvailableStudentTimetables,
+  getPublishedStudentTimetable
 } = require('../controllers/timetableEntryController');
 const {
   listTimetable,
@@ -47,9 +49,11 @@ router.get('/shared/:token', getSharedTimetable);
 // Auth required for all other timetable operations
 router.use(protect());
 
-// Student Route
-// Override student timetable to use DB entries
-router.get('/student/:id', getStudentTimetableEntry);
+// Student timetable is resolved from the authenticated user.  No student id
+// from the browser is trusted for this endpoint.
+router.get('/student/me', getStudentTimetableEntry);
+router.get('/student/available', getAvailableStudentTimetables);
+router.get('/student/view', getPublishedStudentTimetable);
 
 // New DB Persistence Routes
 router.post('/generate', protect(true), saveGeneratedTimetable);

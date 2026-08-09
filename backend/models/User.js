@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['admin', 'teacher', 'student'], required: true },
   teacher_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', default: null },
   student_id: { type: String, default: null },
+  // A student's registered academic identity.  These are deliberately kept
+  // separate from the timetable currently being viewed in the portal.
+  department_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', default: null },
+  semester_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Semester', default: null },
   division_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Division', default: null },
   isVerified: { type: Boolean, default: true }
 });

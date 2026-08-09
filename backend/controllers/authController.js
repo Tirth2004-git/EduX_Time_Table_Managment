@@ -45,9 +45,9 @@ const getOtpExpiryDate = (minutes = 5) => {
 // @access  Public
 exports.register = async (req, res, next) => {
   try {
-    const { name, username, email, password } = req.body;
+    const { name, email, password, departmentId, semesterId, divisionId } = req.body;
 
-    if (!username || !email || !password) {
+    if (!name || !email || !password || !departmentId || !semesterId || !divisionId) {
       return res.status(400).json({ error: 'Please provide all required fields' });
     }
 
@@ -59,29 +59,34 @@ exports.register = async (req, res, next) => {
     // Since User doesn't have username, maybe we can search by email or name.
     // The previous implementation checked username, but we'll remove it.
 
-    const otp = generateOtpCode();
-    const otpExpiry = getOtpExpiryDate(5);
-
-    // Create user (password is automatically hashed via pre-save hook)
+    // Public registration is always a student account. Privileged roles are
+    // provisioned only by administrators or the demo seed.
+    const Division = require('../models/Division');
+    const division = await Division.findOne({ _id: divisionId, department: departmentId, semester: semesterId });
+    if (!division) return res.status(400).json({ error: 'Please select a valid department, semester, and division.' });
     const user = new User({
       name,
       email,
       password,
-      otp,
-      otpExpiry,
-      isVerified: false,
-      role: 'teacher' // default registration role if not specified
+      isVerified: true,
+      role: 'student',
+      department_id: division.department,
+      semester_id: division.semester,
+      division_id: division._id
     });
 
     await user.save();
 
-    // Send OTP email (non-blocking)
-    sendOtpEmail(email, otp, username);
+    const tokenPayload = { userId: user._id, role: user.role };
+    const token = generateAccessToken(tokenPayload);
+    const refreshToken = generateRefreshToken(tokenPayload);
+    res.cookie(AUTH_COOKIE_NAME, token, getCookieOptions(ACCESS_MAX_AGE_MS));
+    res.cookie(REFRESH_COOKIE_NAME, refreshToken, getCookieOptions(REFRESH_MAX_AGE_MS));
 
     res.status(201).json({
       success: true,
-      message: 'Registration successful. Please verify your email with the OTP sent.',
-      email
+      message: 'Registration successful.', token,
+      user: { id: user._id.toString(), name: user.name, email: user.email, role: user.role, department_id: user.department_id, semester_id: user.semester_id, division_id: user.division_id }
     });
   } catch (error) {
     next(error);
@@ -167,14 +172,17 @@ exports.verifyOtp = async (req, res, next) => {
 // @access  Public
 exports.login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const email = String(req.body.email || '').trim().toLowerCase();
+    const { password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ success: false, message: 'Please provide email and password' });
     }
 
+    if (process.env.NODE_ENV !== 'production') console.info(`[AUTH] Login request for ${email}`);
     const user = await User.findOne({ email }).select('+password +isVerified');
     if (!user) {
+      if (process.env.NODE_ENV !== 'production') console.info('[AUTH] User found: false');
       return res.status(401).json({ success: false, message: 'User not found' });
     }
 
@@ -186,6 +194,7 @@ exports.login = async (req, res, next) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     
     if (!isPasswordValid) {
+      if (process.env.NODE_ENV !== 'production') console.info(`[AUTH] User found: true; password valid: false; role: ${user.role}`);
       return res.status(401).json({ success: false, message: 'Wrong password' });
     }
 
@@ -195,6 +204,7 @@ exports.login = async (req, res, next) => {
     };
     const token = generateAccessToken(tokenPayload);
     const refreshToken = generateRefreshToken(tokenPayload);
+    if (process.env.NODE_ENV !== 'production') console.info(`[AUTH] Login successful; role: ${user.role}`);
 
     res.cookie(AUTH_COOKIE_NAME, token, getCookieOptions(ACCESS_MAX_AGE_MS));
     res.cookie(REFRESH_COOKIE_NAME, refreshToken, getCookieOptions(REFRESH_MAX_AGE_MS));
@@ -209,6 +219,8 @@ exports.login = async (req, res, next) => {
         role: user.role,
         teacher_id: user.teacher_id,
         student_id: user.student_id,
+        department_id: user.department_id,
+        semester_id: user.semester_id,
         division_id: user.division_id
       }
     });
@@ -260,6 +272,8 @@ exports.getMe = async (req, res, next) => {
         name: user.name,
         teacher_id: user.teacher_id,
         student_id: user.student_id,
+        department_id: user.department_id,
+        semester_id: user.semester_id,
         division_id: user.division_id
       }
     });
@@ -438,4 +452,3 @@ exports.resetPassword = async (req, res, next) => {
     next(error);
   }
 };
-

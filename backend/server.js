@@ -12,6 +12,8 @@ const errorHandler = require('./middleware/errorHandler');
 const { apiLimiter } = require('./middleware/rateLimiter');
 
 const app = express();
+let server;
+let isShuttingDown = false;
 
 // Security Middlewares
 app.use(helmet());
@@ -80,13 +82,47 @@ if (process.env.NODE_ENV === 'production') {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000;
+
+const shutdown = (signal) => {
+  if (isShuttingDown) {
+    return;
+  }
+
+  isShuttingDown = true;
+  console.log(`\n🛑 Received ${signal}. Shutting down backend server...`);
+
+  if (server) {
+    server.close((error) => {
+      if (error) {
+        console.error(`❌ Error closing server: ${error.message}`);
+        process.exit(1);
+      }
+      console.log('✅ Backend server stopped.');
+      process.exit(0);
+    });
+  } else {
+    process.exit(0);
+  }
+};
+
+const handleServerError = (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`❌ Port ${PORT} is already in use. Please stop the existing backend process before starting another one.`);
+    process.exit(1);
+  }
+
+  console.error(`❌ Server startup failed: ${error.message}`);
+  process.exit(1);
+};
+
 const startServer = async () => {
   try {
     validateRuntimeConfig();
     await connectDB();
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    server = app.listen(PORT, () => {
+      console.log(`🚀 Backend Server running on http://localhost:${PORT}`);
     });
+    server.on('error', handleServerError);
   } catch (error) {
     console.error(`❌ Server startup failed: ${error.message}`);
     process.exit(1);
@@ -94,4 +130,5 @@ const startServer = async () => {
 };
 
 startServer();
-// Trigger nodemon restart
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));
