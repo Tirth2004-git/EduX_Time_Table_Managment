@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { X, Sparkles, Check, AlertTriangle, ChevronDown, ChevronUp, Search, Info } from 'lucide-react';
 import { calculateTimetableCapacity } from '@/utils/timetableCalculations';
+import { showToast } from '@/components/ui/toast';
 
 export default function SmartGenerateModal({
   open,
@@ -19,8 +20,8 @@ export default function SmartGenerateModal({
   const labSubjectsAll = validSubjects.filter(s => s.type === 'lab' || s.type === 'Laboratory' || s.requires_lab);
 
   // States
-  const [includeTheory, setIncludeTheory] = useState(false);
-  const [includeLabs, setIncludeLabs] = useState(false);
+  const [includeTheory, setIncludeTheory] = useState(true);
+  const [includeLabs, setIncludeLabs] = useState(true);
   const [includeLibrary, setIncludeLibrary] = useState(false);
   
   const [selectedTheory, setSelectedTheory] = useState(
@@ -53,7 +54,8 @@ export default function SmartGenerateModal({
   const selectedLabsList = labSubjectsAll.filter(s => selectedLabs.has(s._id));
   
   const totalTheoryPeriods = selectedTheoryList.reduce((acc, s) => acc + (s.requiredPeriods || s.weekly_periods || 3), 0);
-  const totalLabPeriods = selectedLabsList.reduce((acc, s) => acc + (s.lab_duration_slots || 2), 0);
+  const totalLabPeriods = selectedLabsList.reduce((acc, s) => acc + (s.lab_duration_slots || s.weekly_periods || 2), 0);
+  const totalRequiredPeriods = totalTheoryPeriods + totalLabPeriods + (includeLibrary ? libraryPeriodsRequired : 0);
   
   const { totalSlots, occupiedSlots, remainingSlots } = calculateTimetableCapacity(
     config?.holidays ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].filter(d => !config.holidays.includes(d)) : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -92,7 +94,7 @@ export default function SmartGenerateModal({
 
   const handleGenerateClick = () => {
     if (!includeTheory && !includeLabs && !includeLibrary) {
-      toast.error('Please select timetable components before generating.');
+      showToast('Please select timetable components before generating.', 'error');
       return;
     }
 
@@ -191,32 +193,41 @@ export default function SmartGenerateModal({
         </div>
 
         {/* Top Summary */}
-        <div className="bg-slate-50 border-b border-slate-200 p-4 shrink-0 flex gap-4">
-          <div className="flex-1 bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center gap-3">
+        <div className="bg-slate-50 border-b border-slate-200 p-4 shrink-0 grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+          <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-lg">
               {selectedTheory.size + selectedLabs.size}
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-bold uppercase tracking-wider">Selected Subjects</p>
-              <p className="text-slate-800 font-bold">{selectedTheory.size} Theory, {selectedLabs.size} Labs</p>
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">Selected Subjects</p>
+              <p className="text-slate-800 font-bold text-xs">{selectedTheory.size} Theory, {selectedLabs.size} Labs</p>
             </div>
           </div>
-          <div className="flex-1 bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center gap-3">
+          <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-lg">
-              {occupiedSlots}
+              {totalRequiredPeriods}
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-bold uppercase tracking-wider">Projected Occupied</p>
-              <p className="text-slate-800 font-bold">{occupiedSlots} / {totalSlots}</p>
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">Required Sessions</p>
+              <p className="text-slate-800 font-bold text-xs">{totalRequiredPeriods} / {totalSlots || 36} slots</p>
             </div>
           </div>
-          <div className="flex-1 bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold text-lg">
-              {requiredTeachers}
+          <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 font-bold text-lg">
+              {Math.min(100, Math.round((totalRequiredPeriods / Math.max(1, totalSlots || 36)) * 100))}%
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-bold uppercase tracking-wider">Required Faculty</p>
-              <p className="text-slate-800 font-bold">Unique Teachers</p>
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">Projected Density</p>
+              <p className="text-slate-800 font-bold text-xs">{(totalSlots || 36) - totalRequiredPeriods} Free slots</p>
+            </div>
+          </div>
+          <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold text-lg">
+              {requiredTeachers || selectedTheory.size + selectedLabs.size}
+            </div>
+            <div>
+              <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">Faculty Mapped</p>
+              <p className="text-slate-800 font-bold text-xs">{config?.mode === 'fill' ? 'Smart Fill' : 'Full Rebuild'}</p>
             </div>
           </div>
         </div>

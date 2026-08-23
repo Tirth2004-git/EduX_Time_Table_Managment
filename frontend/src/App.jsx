@@ -88,6 +88,7 @@ function App() {
               }
             />
             <Route path="/teacher-dashboard" element={<Navigate to="/teacher-timetable" replace />} />
+            <Route path="/teacher/dashboard" element={<Navigate to="/teacher-timetable" replace />} />
             <Route
               path="/teacher"
               element={
@@ -101,6 +102,14 @@ function App() {
               element={
                 <ProtectedRoute allowRoles={['teacher']}>
                   <TeacherPortal initialTab="leaves" />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/teacher-elearning"
+              element={
+                <ProtectedRoute allowRoles={['teacher']}>
+                  <TeacherPortal initialTab="elearning" />
                 </ProtectedRoute>
               }
             />

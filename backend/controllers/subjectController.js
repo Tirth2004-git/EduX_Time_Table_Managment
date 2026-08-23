@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Subject = require('../models/Subject');
 const Department = require('../models/Department');
 const Semester = require('../models/Semester');
@@ -5,7 +6,7 @@ const Teacher = require('../models/Teacher');
 const TeacherSubjectMapping = require('../models/TeacherSubjectMapping');
 
 async function syncTeacherAssignments(subject, teacherIds = []) {
-  const ids = [...new Set(teacherIds.filter(Boolean).map(String))];
+  const ids = [...new Set(teacherIds.filter(id => id && mongoose.Types.ObjectId.isValid(id)).map(String))];
   await TeacherSubjectMapping.deleteMany({ subject_id: subject._id });
   await Subject.updateOne({ _id: subject._id }, { $set: { assignedTeachers: ids } });
 
@@ -174,22 +175,63 @@ exports.createSubject = async (req, res, next) => {
   try {
     const data = { ...req.body };
     
-    if (data.teacherId && data.teacherId.trim() === '') {
+    // Normalize department if program name or string given
+    if (data.program && !data.department) {
+      const deptDoc = await Department.findOne({
+        $or: [
+          { _id: mongoose.Types.ObjectId.isValid(data.program) ? data.program : null },
+          { department_name: data.program },
+          { short_name: data.program }
+        ]
+      });
+      if (deptDoc) data.department = deptDoc._id;
+    } else if (data.department && typeof data.department === 'string' && !mongoose.Types.ObjectId.isValid(data.department)) {
+      const deptDoc = await Department.findOne({
+        $or: [
+          { department_name: data.department },
+          { short_name: data.department }
+        ]
+      });
+      if (deptDoc) data.department = deptDoc._id;
+    }
+
+    // Normalize semester if number or string given
+    if (data.semester && (typeof data.semester === 'number' || (typeof data.semester === 'string' && !mongoose.Types.ObjectId.isValid(data.semester)))) {
+      const semNum = Number(String(data.semester).replace(/\D/g, ''));
+      const semDoc = await Semester.findOne({
+        department: data.department,
+        semester_number: semNum
+      });
+      if (semDoc) data.semester = semDoc._id;
+    }
+
+    data.weekly_periods = Number(data.weekly_periods || data.requiredPeriods || 4);
+    data.credits = Number(data.credits || 4);
+    data.type = data.type || 'Theory';
+    data.requires_lab = data.requires_lab !== undefined ? Boolean(data.requires_lab) : (String(data.type).toLowerCase() === 'lab' || String(data.type).toLowerCase() === 'laboratory');
+    data.required_room_type = data.required_room_type || (data.requires_lab ? 'Laboratory' : 'Classroom');
+
+    if (data.teacherId && typeof data.teacherId === 'string' && data.teacherId.trim() === '') {
       data.teacherId = null;
     }
     
     const teacherIds = data.teacherIds || (data.teacherId ? [data.teacherId] : []);
     delete data.teacherIds;
+    delete data.teacherId;
+    delete data.program;
+    delete data.requiredPeriods;
+
     const subject = await Subject.create(data);
     await syncTeacherAssignments(subject, teacherIds);
     await subject.save();
 
-    const populatedSubject = await Subject.findById(mongoose.Types.ObjectId.isValid(subject._id) ? subject._id : null)
+    const populatedSubject = await Subject.findById(subject._id)
       .populate({
         path: 'assignedTeachers',
         select: 'teacher_id name department status',
         populate: { path: 'department', select: 'department_name short_name' }
-      });
+      })
+      .populate('department semester');
 
     res.status(201).json({
       message: 'Subject created successfully',

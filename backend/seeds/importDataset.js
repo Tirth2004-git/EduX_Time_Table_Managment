@@ -125,7 +125,7 @@ async function importDataset() {
         password: t.password_hash, // will be hashed by User schema pre-save hook
         role: 'teacher',
         isVerified: true,
-        linkedTeacherId: doc._id
+        teacher_id: doc._id
       });
     }
 

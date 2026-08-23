@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import teacherPortalApi from '@/services/api/teacherPortalApi';
 import { exportTimetableToPDF } from '@/utils/pdfExport';
+import TeacherContent from '@/components/Elearning/TeacherContent';
 import { showToast, ToastContainer } from '@/components/ui/toast';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -198,6 +199,7 @@ export default function TeacherDashboard({ initialTab = 'timetable' }) {
   const menuItems = [
     { id: 'timetable', label: 'My Timetable', icon: Calendar },
     { id: 'leaves', label: 'Leaves Management', icon: CalendarDays },
+    { id: 'elearning', label: 'My Content', icon: BookOpen },
     { id: 'profile', label: 'My Profile', icon: User },
   ];
 
@@ -292,8 +294,14 @@ export default function TeacherDashboard({ initialTab = 'timetable' }) {
         {/* Top Header Panel */}
         <header className="hidden lg:flex h-20 items-center justify-between border-b border-slate-100 mb-8 shrink-0">
           <div>
-            <h1 className="text-xl font-extrabold text-slate-800 tracking-tight">My {activeTab === 'timetable' ? 'Timetable' : activeTab === 'leaves' ? 'Leaves' : 'Profile'}</h1>
-            <p className="text-xs text-slate-500">Welcome to your scheduling console and academic planner.</p>
+            <h1 className="text-xl font-extrabold text-slate-800 tracking-tight">
+              {activeTab === 'elearning' ? 'My Content' : `My ${activeTab === 'timetable' ? 'Timetable' : activeTab === 'leaves' ? 'Leaves' : activeTab === 'preferences' ? 'Preferences' : activeTab === 'notifications' ? 'Notifications' : 'Profile'}`}
+            </h1>
+            <p className="text-xs text-slate-500">
+              {activeTab === 'elearning' 
+                ? 'Manage learning materials, assignments and quizzes for your assigned subjects.' 
+                : 'Welcome to your scheduling console and academic planner.'}
+            </p>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
@@ -327,7 +335,15 @@ export default function TeacherDashboard({ initialTab = 'timetable' }) {
                 className="flex-1 flex flex-col"
               >
                 {/* ──────────────────────────────────────────────────────── */}
+                {/* 0. MY CONTENT (E-LEARNING) TAB                            */}
+                {/* ──────────────────────────────────────────────────────── */}
+                {activeTab === 'elearning' && (
+                  <TeacherContent />
+                )}
+
+                {/* ──────────────────────────────────────────────────────── */}
                 {/* 1. DASHBOARD TAB                                         */}
+                {/* ──────────────────────────────────────────────────────── */}
                 {activeTab === 'timetable' && (
                   <div className="space-y-6">
                     {timetableError ? (

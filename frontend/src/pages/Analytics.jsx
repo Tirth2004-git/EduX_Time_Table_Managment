@@ -70,9 +70,9 @@ export default function Analytics({ isTab = false }) {
         <div className="flex items-center gap-2">
           <select aria-label="Semester" value={semester} onChange={(event) => setSemester(event.target.value)} className="h-10 rounded-xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 outline-none focus:ring-2 focus:ring-indigo-500">
             <option value="all">All semesters</option>
-            {[1, 2, 3, 4, 5, 6].map((value) => <option key={value} value={value}>Semester {value}</option>)}
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((value) => <option key={value} value={value}>Semester {value}</option>)}
           </select>
-          <Button variant="outline" className="gap-2 rounded-xl" disabled={loading} onClick={fetchAnalytics}>{loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCcw className="h-4 w-4" />}Refresh</Button>
+          <Button variant="outline" className="gap-2 rounded-xl cursor-pointer" disabled={loading} onClick={fetchAnalytics}>{loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCcw className="h-4 w-4" />}{loading ? 'Refreshing...' : 'Refresh'}</Button>
         </div>
       </div>
 

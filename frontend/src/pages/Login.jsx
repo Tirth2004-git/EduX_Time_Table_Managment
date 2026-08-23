@@ -1,9 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
-import { Mail, Lock, ArrowRight, Loader2, Calendar, GraduationCap, BookOpen, Users, UserRound } from 'lucide-react';
-import authApi from '@/services/api/authApi';
+import authApi from '../services/api/authApi';
+import {
+  Mail,
+  Lock,
+  ArrowRight,
+  Loader2,
+  Calendar,
+  GraduationCap,
+  BookOpen,
+  Users,
+  Search,
+  ChevronRight,
+  ArrowLeft,
+  CheckCircle2,
+  AlertCircle,
+  RefreshCw,
+  Building2,
+} from 'lucide-react';
 
 const FLOATING_ICONS = [
   { icon: Calendar,       size: 'w-6 h-6',  pos: 'top-[12%] left-[8%]',   delay: '0s',    duration: '6s'  },
@@ -16,89 +31,116 @@ const FLOATING_ICONS = [
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login, loginDemoTeacher, loading: checkingSession } = useAuth();
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const { login, loading: checkingSession } = useAuth();
+
+  // Role state: 'admin' | 'teacher' | 'student'
+  const [selectedRole, setSelectedRole] = useState('admin');
+
+  // Teacher list state
+  const [teachers, setTeachers] = useState([]);
+  const [loadingTeachers, setLoadingTeachers] = useState(false);
+  const [teachersError, setTeachersError] = useState('');
+  const [teacherSearch, setTeacherSearch] = useState('');
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
+
+  // Form input state
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
-  const [demoTeachers, setDemoTeachers] = useState([]);
-  const [demoLoading, setDemoLoading] = useState(false);
-  const [showDemoTeachers, setShowDemoTeachers] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  // Fetch teachers when Teacher role is activated
+  useEffect(() => {
+    if (selectedRole === 'teacher' && teachers.length === 0 && !loadingTeachers) {
+      fetchTeachers();
+    }
+  }, [selectedRole]);
 
-  const handleQuickLogin = (role) => {
+  const fetchTeachers = async () => {
+    setLoadingTeachers(true);
+    setTeachersError('');
+    try {
+      const res = await authApi.getTeachers();
+      const list = res.data.data || res.data.teachers || res.data || [];
+      setTeachers(list);
+    } catch (err) {
+      console.error('Failed to load teachers:', err);
+      setTeachersError('Unable to load teachers list. Please try again.');
+    } finally {
+      setLoadingTeachers(false);
+    }
+  };
+
+  const handleRoleSelect = (role) => {
     setSelectedRole(role);
+    setError('');
+    setPassword('');
     if (role === 'teacher') {
-      openTeacherDemoLogin();
+      setSelectedTeacher(null);
+      setEmail('');
+    } else {
+      setSelectedTeacher(null);
+      setEmail('');
+    }
+  };
+
+  const handleSelectTeacherCard = (teacher) => {
+    setSelectedTeacher(teacher);
+    setEmail(teacher.email || '');
+    setPassword('');
+    setError('');
+  };
+
+  const handleBackToTeacherList = () => {
+    setSelectedTeacher(null);
+    setEmail('');
+    setPassword('');
+    setError('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email.trim()) {
+      setError('Email address is required.');
       return;
     }
-    let email = '';
-    let password = '';
-    
-    if (role === 'admin') {
-      email = import.meta.env.VITE_DEMO_ADMIN_EMAIL || 'admin@edux.com';
-      password = import.meta.env.VITE_DEMO_ADMIN_PASSWORD || 'Admin@123';
-    } else if (role === 'student') {
-      email = import.meta.env.VITE_DEMO_STUDENT_EMAIL || 'student@edux.com';
-      password = import.meta.env.VITE_DEMO_STUDENT_PASSWORD || 'Student@123';
+    if (!password) {
+      setError('Password is required.');
+      return;
     }
-    
-    setShowDemoTeachers(false);
-    
-    setValue('email', email, { shouldValidate: true });
-    setValue('password', password, { shouldValidate: true });
-    onSubmit({ email, password });
-  };
 
-  const openTeacherDemoLogin = async () => {
-    setError('');
-    setDemoLoading(true);
-    try {
-      const response = await authApi.getDemoTeachers();
-      setDemoTeachers(response.data.teachers || []);
-      setShowDemoTeachers(true);
-    } catch (err) {
-      setError(err.response?.data?.error || 'Teacher demo login is unavailable.');
-    } finally {
-      setDemoLoading(false);
-    }
-  };
-
-  const handleDemoTeacherLogin = async (teacherId) => {
     setLoading(true);
     setError('');
+
     try {
-      const result = await loginDemoTeacher(teacherId);
-      if (result?.user) navigate('/teacher-timetable');
-    } catch (err) {
-      setError(err.message || 'Unable to continue as teacher.');
-      setLoading(false);
-    }
-  };
-
-
-
-  const onSubmit = async (data) => {
-    setLoading(true);
-    setError('');
-    try {
-      const result = await login(data.email, data.password);
+      const result = await login(email.trim(), password);
       if (result && result.user) {
-        if (result.user.role === 'admin') {
+        const userRole = String(result.user.role || '').toLowerCase();
+        if (userRole === 'admin') {
           navigate('/dashboard');
-        } else if (result.user.role === 'teacher') {
+        } else if (userRole === 'teacher') {
           navigate('/teacher-timetable');
         } else {
           navigate('/timetable');
         }
       }
     } catch (err) {
-      setError(err.message || 'An error occurred during login');
+      setError(err.message || 'Invalid email or password.');
       setLoading(false);
     }
   };
+
+  // Filtered teachers list by search query
+  const filteredTeachers = teachers.filter((t) => {
+    const q = teacherSearch.toLowerCase();
+    const nameMatch = (t.name || '').toLowerCase().includes(q);
+    const emailMatch = (t.email || '').toLowerCase().includes(q);
+    const deptMatch = (t.department || '').toLowerCase().includes(q) || (t.departmentShort || '').toLowerCase().includes(q);
+    const desigMatch = (t.designation || '').toLowerCase().includes(q);
+    return nameMatch || emailMatch || deptMatch || desigMatch;
+  });
 
   if (checkingSession) {
     return (
@@ -142,10 +184,8 @@ export default function Login() {
       `}</style>
 
       <div className="min-h-screen flex font-sans overflow-hidden bg-slate-50">
-
         {/* ── Left Panel ── */}
         <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 flex-col items-center justify-center p-12 overflow-hidden">
-
           {/* Blobs */}
           <div className="blob absolute -top-20 -left-20 w-72 h-72 bg-white/10" />
           <div className="blob absolute -bottom-16 -right-16 w-64 h-64 bg-blue-400/20" style={{ animationDelay: '4s' }} />
@@ -163,7 +203,8 @@ export default function Login() {
           ))}
 
           {/* Dot grid */}
-          <div className="absolute inset-0 opacity-10"
+          <div
+            className="absolute inset-0 opacity-10"
             style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }}
           />
 
@@ -201,13 +242,11 @@ export default function Login() {
 
         {/* ── Right Panel ── */}
         <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-slate-50 p-6 lg:p-12 relative overflow-hidden">
-
           {/* Subtle bg shapes */}
           <div className="absolute top-0 right-0 w-72 h-72 bg-blue-100 rounded-full opacity-30 blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-56 h-56 bg-indigo-100 rounded-full opacity-30 blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-          <div className="relative w-full max-w-md space-y-8">
-
+          <div className="relative w-full max-w-md space-y-6">
             {/* Mobile logo */}
             <div className="lg:hidden flex flex-col items-center slide-up stagger-1">
               <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-200 mb-3">
@@ -217,180 +256,457 @@ export default function Login() {
             </div>
 
             {/* Card */}
-            <div className="bg-white rounded-3xl shadow-xl shadow-blue-100/60 border border-blue-100 p-8 space-y-6 slide-up stagger-2">
-
+            <div className="bg-white rounded-3xl shadow-xl shadow-blue-100/60 border border-blue-100 p-6 sm:p-8 space-y-6 slide-up stagger-2">
               {/* Header */}
               <div className="space-y-1">
                 <h2 className="text-2xl font-extrabold text-slate-800">Welcome back 👋</h2>
                 <p className="text-sm text-slate-500">Sign in to your account to continue</p>
               </div>
 
-              {/* Quick Login Buttons */}
+              {/* Role Switcher Buttons */}
               <div className="space-y-2.5 pt-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">Quick Login As</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">
+                  Quick Login As
+                </p>
                 <div className="grid grid-cols-3 gap-2">
                   <button
                     type="button"
-                    onClick={() => handleQuickLogin('admin')}
-                    className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-100 hover:border-blue-200 bg-slate-50 hover:bg-blue-50 text-slate-700 hover:text-blue-600 transition-all duration-200 hover:shadow-md hover:shadow-blue-50 active:scale-[0.96] group cursor-pointer"
+                    onClick={() => handleRoleSelect('admin')}
+                    className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
+                      selectedRole === 'admin'
+                        ? 'border-blue-500 bg-blue-50/90 text-blue-700 ring-2 ring-blue-400/30 shadow-md shadow-blue-50 font-bold'
+                        : 'border-slate-100 hover:border-blue-200 bg-slate-50 hover:bg-blue-50 text-slate-700 hover:text-blue-600'
+                    }`}
                   >
-                    <Users className="w-5 h-5 mb-1.5 text-slate-400 group-hover:text-blue-500 transition-colors" />
+                    <Users className={`w-5 h-5 mb-1.5 transition-colors ${selectedRole === 'admin' ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-500'}`} />
                     <span className="text-xs font-bold">Admin</span>
                   </button>
+
                   <button
                     type="button"
-                    onClick={() => handleQuickLogin('teacher')}
-                    disabled={demoLoading}
-                    className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-100 hover:border-indigo-200 bg-slate-50 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 transition-all duration-200 hover:shadow-md hover:shadow-indigo-50 active:scale-[0.96] group cursor-pointer"
+                    onClick={() => handleRoleSelect('teacher')}
+                    className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
+                      selectedRole === 'teacher'
+                        ? 'border-indigo-500 bg-indigo-50/90 text-indigo-700 ring-2 ring-indigo-400/30 shadow-md shadow-indigo-50 font-bold'
+                        : 'border-slate-100 hover:border-indigo-200 bg-slate-50 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600'
+                    }`}
                   >
-                    {demoLoading ? <Loader2 className="w-5 h-5 mb-1.5 animate-spin" /> : <BookOpen className="w-5 h-5 mb-1.5 text-slate-400 group-hover:text-indigo-500 transition-colors" />}
+                    <BookOpen className={`w-5 h-5 mb-1.5 transition-colors ${selectedRole === 'teacher' ? 'text-indigo-600' : 'text-slate-400 group-hover:text-indigo-500'}`} />
                     <span className="text-xs font-bold">Teacher</span>
                   </button>
+
                   <button
                     type="button"
-                    onClick={() => handleQuickLogin('student')}
-                    className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-100 hover:border-emerald-200 bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-600 transition-all duration-200 hover:shadow-md hover:shadow-emerald-50 active:scale-[0.96] group cursor-pointer"
+                    onClick={() => handleRoleSelect('student')}
+                    className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
+                      selectedRole === 'student'
+                        ? 'border-emerald-500 bg-emerald-50/90 text-emerald-700 ring-2 ring-emerald-400/30 shadow-md shadow-emerald-50 font-bold'
+                        : 'border-slate-100 hover:border-emerald-200 bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-600'
+                    }`}
                   >
-                    <GraduationCap className="w-5 h-5 mb-1.5 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+                    <GraduationCap className={`w-5 h-5 mb-1.5 transition-colors ${selectedRole === 'student' ? 'text-emerald-600' : 'text-slate-400 group-hover:text-emerald-500'}`} />
                     <span className="text-xs font-bold">Student</span>
                   </button>
                 </div>
               </div>
 
-              {selectedRole === 'teacher' && showDemoTeachers && (
-                <div className="space-y-3 rounded-2xl border border-indigo-100 bg-indigo-50/40 p-4">
-                  <div>
-                    <p className="text-xs font-extrabold text-indigo-900">Select Teacher</p>
-                    <p className="text-[11px] text-indigo-700 mt-0.5">Development demo access only.</p>
-                  </div>
-                  {demoTeachers.length === 0 ? (
-                    <p className="text-xs text-slate-500">No teacher demo accounts are available.</p>
-                  ) : demoTeachers.map((teacher) => (
-                    <button
-                      key={teacher.id}
-                      type="button"
-                      disabled={loading}
-                      onClick={() => handleDemoTeacherLogin(teacher.id)}
-                      className="w-full flex items-center gap-3 rounded-xl border border-white bg-white p-3 text-left hover:border-indigo-300 hover:shadow-sm transition-all disabled:opacity-50"
-                    >
-                      <span className="w-9 h-9 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0"><UserRound className="w-4 h-4" /></span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-xs font-bold text-slate-800 truncate">{teacher.name}</span>
-                        <span className="block text-[11px] text-slate-500 truncate">{teacher.designation} · {teacher.department}</span>
-                      </span>
-                      <span className="text-[10px] font-bold text-indigo-600">Login As Teacher</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-
-              {/* Error */}
+              {/* Error Banner */}
               {error && (
-                <div className="fade-in flex items-start gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
-                  <span className="text-red-400 text-base mt-0.5">⚠</span>
-                  <p className="text-sm text-red-600 font-medium">{error}</p>
+                <div className="fade-in flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-700 text-xs font-semibold">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-500 mt-0.5" />
+                  <span>{error}</span>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-
-                {/* Email */}
-                <div className="slide-up stagger-3 space-y-1.5">
-                  <label htmlFor="email" className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                    Email Address
-                  </label>
-                  <div className={`relative flex items-center rounded-xl border-2 transition-all duration-200 ${
-                    focusedField === 'email'
-                      ? 'border-blue-500 shadow-md shadow-blue-100'
-                      : errors.email
-                      ? 'border-red-300 bg-red-50'
-                      : 'border-blue-100 hover:border-blue-300'
-                  } bg-white`}>
-                    <Mail className={`absolute left-3.5 w-4 h-4 transition-colors ${focusedField === 'email' ? 'text-blue-500' : 'text-slate-300'}`} />
-                    <input
-                      id="email"
-                      type="email"
-                      placeholder="admin@example.com"
-                      className="w-full pl-10 pr-4 py-3 bg-transparent text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none rounded-xl"
-                      {...register('email', { required: 'Email is required' })}
-                      onFocus={() => setFocusedField('email')}
-                      onBlur={() => setFocusedField(null)}
-                    />
+              {/* ═════════════════════════════════════════════════════════ */}
+              {/* 1. ADMIN LOGIN FORM                                      */}
+              {/* ═════════════════════════════════════════════════════════ */}
+              {selectedRole === 'admin' && (
+                <div className="space-y-4 fade-in">
+                  <div className="rounded-xl border border-blue-200 bg-blue-50/70 p-3 text-xs font-medium text-blue-900">
+                    <span className="font-bold">Admin Login</span> · Enter your administrative email and password.
                   </div>
-                  {errors.email && (
-                    <p className="text-xs text-red-500 font-medium pl-1">{errors.email.message}</p>
-                  )}
-                </div>
 
-                {/* Password */}
-                <div className="slide-up stagger-4 space-y-1.5">
-                  <label htmlFor="password" className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                    Password
-                  </label>
-                  <div className={`relative flex items-center rounded-xl border-2 transition-all duration-200 ${
-                    focusedField === 'password'
-                      ? 'border-blue-500 shadow-md shadow-blue-100'
-                      : errors.password
-                      ? 'border-red-300 bg-red-50'
-                      : 'border-blue-100 hover:border-blue-300'
-                  } bg-white`}>
-                    <Lock className={`absolute left-3.5 w-4 h-4 transition-colors ${focusedField === 'password' ? 'text-blue-500' : 'text-slate-300'}`} />
-                    <input
-                      id="password"
-                      type={showPassword ? 'text' : 'password'}
-                      placeholder="••••••••"
-                      className="w-full pl-10 pr-12 py-3 bg-transparent text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none rounded-xl"
-                      {...register('password', { required: 'Password is required' })}
-                      onFocus={() => setFocusedField('password')}
-                      onBlur={() => setFocusedField(null)}
-                    />
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Email */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                        Email Address
+                      </label>
+                      <div className={`relative flex items-center rounded-xl border-2 transition-all ${
+                        focusedField === 'admin-email'
+                          ? 'border-blue-500 shadow-md shadow-blue-100'
+                          : 'border-slate-200 hover:border-blue-200'
+                      } bg-white`}>
+                        <Mail className={`absolute left-3.5 w-4 h-4 ${focusedField === 'admin-email' ? 'text-blue-500' : 'text-slate-400'}`} />
+                        <input
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="admin@example.com"
+                          onFocus={() => setFocusedField('admin-email')}
+                          onBlur={() => setFocusedField(null)}
+                          className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Password */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                        Password
+                      </label>
+                      <div className={`relative flex items-center rounded-xl border-2 transition-all ${
+                        focusedField === 'admin-pass'
+                          ? 'border-blue-500 shadow-md shadow-blue-100'
+                          : 'border-slate-200 hover:border-blue-200'
+                      } bg-white`}>
+                        <Lock className={`absolute left-3.5 w-4 h-4 ${focusedField === 'admin-pass' ? 'text-blue-500' : 'text-slate-400'}`} />
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          required
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="••••••••"
+                          onFocus={() => setFocusedField('admin-pass')}
+                          onBlur={() => setFocusedField(null)}
+                          className="w-full pl-10 pr-12 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((v) => !v)}
+                          className="absolute right-3.5 text-slate-400 hover:text-blue-600 text-xs font-semibold bg-transparent border-0 cursor-pointer"
+                        >
+                          {showPassword ? 'Hide' : 'Show'}
+                        </button>
+                      </div>
+                      <div className="flex justify-end pt-1">
+                        <Link to="/forgot-password" className="text-xs text-blue-600 hover:underline font-semibold">
+                          Forgot password?
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Submit */}
                     <button
-                      type="button"
-                      onClick={() => setShowPassword(v => !v)}
-                      className="absolute right-3.5 text-slate-300 hover:text-blue-500 transition-colors text-xs font-semibold select-none bg-transparent border-0 cursor-pointer"
+                      type="submit"
+                      disabled={loading}
+                      className="w-full py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-sm font-bold shadow-lg shadow-blue-200 hover:shadow-blue-300 flex items-center justify-center gap-2 transition-all cursor-pointer border-0"
                     >
-                      {showPassword ? 'Hide' : 'Show'}
+                      {loading ? (
+                        <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</>
+                      ) : (
+                        <>Sign In <ArrowRight className="w-4 h-4" /></>
+                      )}
                     </button>
-                  </div>
-                  {errors.password && (
-                    <p className="text-xs text-red-500 font-medium pl-1">{errors.password.message}</p>
+                  </form>
+                </div>
+              )}
+
+              {/* ═════════════════════════════════════════════════════════ */}
+              {/* 2. TEACHER SELECTION & LOGIN FLOW                        */}
+              {/* ═════════════════════════════════════════════════════════ */}
+              {selectedRole === 'teacher' && (
+                <div className="space-y-4 fade-in">
+                  {!selectedTeacher ? (
+                    /* ── Teacher List Selection View ── */
+                    <div className="space-y-3.5">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-sm font-extrabold text-slate-800">Select Teacher</h3>
+                          <p className="text-xs text-slate-500">Choose your profile from the registered faculty</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={fetchTeachers}
+                          title="Refresh faculty list"
+                          className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors border-0 bg-transparent cursor-pointer"
+                        >
+                          <RefreshCw className={`w-3.5 h-3.5 ${loadingTeachers ? 'animate-spin' : ''}`} />
+                        </button>
+                      </div>
+
+                      {/* Search Bar */}
+                      <div className="relative flex items-center">
+                        <Search className="w-4 h-4 text-slate-400 absolute left-3.5" />
+                        <input
+                          type="text"
+                          placeholder="Search teacher by name, email, department..."
+                          value={teacherSearch}
+                          onChange={(e) => setTeacherSearch(e.target.value)}
+                          className="w-full pl-10 pr-3.5 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white"
+                        />
+                      </div>
+
+                      {/* Teacher Cards Container */}
+                      <div className="max-h-[300px] overflow-y-auto space-y-2 pr-1">
+                        {loadingTeachers ? (
+                          <div className="py-12 text-center space-y-2">
+                            <Loader2 className="w-6 h-6 text-indigo-600 animate-spin mx-auto" />
+                            <p className="text-xs font-semibold text-slate-500">Loading teachers...</p>
+                          </div>
+                        ) : teachersError ? (
+                          <div className="p-4 rounded-xl bg-red-50 border border-red-100 text-center space-y-2">
+                            <p className="text-xs font-bold text-red-600">{teachersError}</p>
+                            <button
+                              type="button"
+                              onClick={fetchTeachers}
+                              className="px-3 py-1 rounded-lg bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition-colors border-0 cursor-pointer"
+                            >
+                              Retry
+                            </button>
+                          </div>
+                        ) : filteredTeachers.length === 0 ? (
+                          <div className="py-10 text-center space-y-1 text-slate-400">
+                            <Users className="w-8 h-8 mx-auto text-slate-300" />
+                            <p className="text-xs font-bold text-slate-600">No registered teachers found</p>
+                            <p className="text-[11px]">
+                              {teacherSearch ? 'Try a different search query.' : 'Faculty profiles will appear here.'}
+                            </p>
+                          </div>
+                        ) : (
+                          filteredTeachers.map((teacher) => (
+                            <div
+                              key={teacher.id || teacher.email}
+                              onClick={() => handleSelectTeacherCard(teacher)}
+                              className="p-3.5 rounded-2xl border border-slate-100 hover:border-indigo-200 bg-slate-50/70 hover:bg-indigo-50/50 transition-all duration-200 flex items-center justify-between gap-3 cursor-pointer group hover:shadow-sm"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-10 h-10 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold text-sm shrink-0">
+                                  {teacher.name ? teacher.name.charAt(0).toUpperCase() : 'T'}
+                                </div>
+                                <div className="min-w-0">
+                                  <h4 className="text-xs font-extrabold text-slate-900 group-hover:text-indigo-700 transition-colors truncate">
+                                    {teacher.name}
+                                  </h4>
+                                  <p className="text-[11px] text-slate-500 truncate">{teacher.email}</p>
+                                  <div className="flex items-center gap-1.5 mt-0.5">
+                                    <span className="inline-flex px-2 py-0.2 rounded-md bg-white border border-slate-200 text-[10px] font-semibold text-slate-600 truncate">
+                                      {teacher.department || 'Faculty'}
+                                    </span>
+                                    {teacher.designation && teacher.designation !== 'Faculty Member' && (
+                                      <span className="text-[10px] text-slate-400 truncate">
+                                        · {teacher.designation}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <button
+                                type="button"
+                                className="px-3 py-1.5 rounded-xl bg-white group-hover:bg-indigo-600 border border-slate-200 group-hover:border-indigo-600 text-slate-700 group-hover:text-white text-[11px] font-bold transition-all shrink-0 flex items-center gap-1 cursor-pointer shadow-2xs"
+                              >
+                                Select <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                              </button>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    /* ── Selected Teacher Password Login View ── */
+                    <div className="space-y-4 fade-in">
+                      {/* Selected Teacher Summary Badge */}
+                      <div className="p-3.5 rounded-2xl bg-indigo-50 border border-indigo-200/80 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0 shadow-sm shadow-indigo-200">
+                            {selectedTeacher.name ? selectedTeacher.name.charAt(0).toUpperCase() : 'T'}
+                          </div>
+                          <div className="min-w-0">
+                            <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wide block">
+                              Selected Teacher
+                            </span>
+                            <h4 className="text-xs font-extrabold text-slate-900 truncate">
+                              {selectedTeacher.name}
+                            </h4>
+                            <p className="text-[11px] text-slate-600 truncate">{selectedTeacher.email}</p>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={handleBackToTeacherList}
+                          className="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-indigo-700 text-[11px] font-bold border border-indigo-200 transition-colors shrink-0 cursor-pointer"
+                        >
+                          Change
+                        </button>
+                      </div>
+
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Pre-filled Readonly Email */}
+                        <div className="space-y-1.5">
+                          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                            Teacher Email
+                          </label>
+                          <div className="relative flex items-center rounded-xl border border-slate-200 bg-slate-50">
+                            <Mail className="absolute left-3.5 w-4 h-4 text-slate-400" />
+                            <input
+                              type="email"
+                              readOnly
+                              value={email}
+                              className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm font-semibold text-slate-700 focus:outline-none cursor-default"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Password */}
+                        <div className="space-y-1.5">
+                          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                            Enter Password <span className="text-red-500">*</span>
+                          </label>
+                          <div className={`relative flex items-center rounded-xl border-2 transition-all ${
+                            focusedField === 'teacher-pass'
+                              ? 'border-indigo-500 shadow-md shadow-indigo-100'
+                              : 'border-slate-200 hover:border-indigo-200'
+                          } bg-white`}>
+                            <Lock className={`absolute left-3.5 w-4 h-4 ${focusedField === 'teacher-pass' ? 'text-indigo-500' : 'text-slate-400'}`} />
+                            <input
+                              type={showPassword ? 'text' : 'password'}
+                              required
+                              autoFocus
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              placeholder="Enter your faculty password"
+                              onFocus={() => setFocusedField('teacher-pass')}
+                              onBlur={() => setFocusedField(null)}
+                              className="w-full pl-10 pr-12 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword((v) => !v)}
+                              className="absolute right-3.5 text-slate-400 hover:text-indigo-600 text-xs font-semibold bg-transparent border-0 cursor-pointer"
+                            >
+                              {showPassword ? 'Hide' : 'Show'}
+                            </button>
+                          </div>
+                          <div className="flex justify-end pt-1">
+                            <Link to="/forgot-password" className="text-xs text-indigo-600 hover:underline font-semibold">
+                              Forgot password?
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* Submit */}
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          className="w-full py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white text-sm font-bold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 flex items-center justify-center gap-2 transition-all cursor-pointer border-0"
+                        >
+                          {loading ? (
+                            <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</>
+                          ) : (
+                            <>Sign In as Faculty <ArrowRight className="w-4 h-4" /></>
+                          )}
+                        </button>
+
+                        {/* Back to list button */}
+                        <button
+                          type="button"
+                          onClick={handleBackToTeacherList}
+                          className="w-full py-2 text-center text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors flex items-center justify-center gap-1.5 border-0 bg-transparent cursor-pointer"
+                        >
+                          <ArrowLeft className="w-3.5 h-3.5" /> Back to Teacher List
+                        </button>
+                      </form>
+                    </div>
                   )}
-                  <div className="flex items-center justify-end pt-1">
-                    <Link
-                      to="/forgot-password"
-                      className="text-xs text-blue-600 hover:text-blue-700 hover:underline font-semibold"
-                    >
-                      Forgot password?
-                    </Link>
+                </div>
+              )}
+
+              {/* ═════════════════════════════════════════════════════════ */}
+              {/* 3. STUDENT LOGIN FORM                                    */}
+              {/* ═════════════════════════════════════════════════════════ */}
+              {selectedRole === 'student' && (
+                <div className="space-y-4 fade-in">
+                  <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3 text-xs font-medium text-emerald-900">
+                    <span className="font-bold">Student Login</span> · Enter your registered student email and password.
                   </div>
-                </div>
 
-                {/* Submit */}
-                <div className="slide-up stagger-5 pt-1">
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="group relative w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-sm font-bold transition-all duration-200 shadow-lg shadow-blue-200 hover:shadow-blue-300 active:scale-[0.98] cursor-pointer"
-                  >
-                    {loading ? (
-                      <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</>
-                    ) : (
-                      <>
-                        Sign In
-                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Email */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                        Email Address
+                      </label>
+                      <div className={`relative flex items-center rounded-xl border-2 transition-all ${
+                        focusedField === 'student-email'
+                          ? 'border-emerald-500 shadow-md shadow-emerald-100'
+                          : 'border-slate-200 hover:border-emerald-200'
+                      } bg-white`}>
+                        <Mail className={`absolute left-3.5 w-4 h-4 ${focusedField === 'student-email' ? 'text-emerald-500' : 'text-slate-400'}`} />
+                        <input
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="student@example.com"
+                          onFocus={() => setFocusedField('student-email')}
+                          onBlur={() => setFocusedField(null)}
+                          className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                        />
+                      </div>
+                    </div>
 
-              {/* Register link */}
-              <p className="text-center text-sm text-slate-500">
+                    {/* Password */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                        Password
+                      </label>
+                      <div className={`relative flex items-center rounded-xl border-2 transition-all ${
+                        focusedField === 'student-pass'
+                          ? 'border-emerald-500 shadow-md shadow-emerald-100'
+                          : 'border-slate-200 hover:border-emerald-200'
+                      } bg-white`}>
+                        <Lock className={`absolute left-3.5 w-4 h-4 ${focusedField === 'student-pass' ? 'text-emerald-500' : 'text-slate-400'}`} />
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          required
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="••••••••"
+                          onFocus={() => setFocusedField('student-pass')}
+                          onBlur={() => setFocusedField(null)}
+                          className="w-full pl-10 pr-12 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((v) => !v)}
+                          className="absolute right-3.5 text-slate-400 hover:text-emerald-600 text-xs font-semibold bg-transparent border-0 cursor-pointer"
+                        >
+                          {showPassword ? 'Hide' : 'Show'}
+                        </button>
+                      </div>
+                      <div className="flex justify-end pt-1">
+                        <Link to="/forgot-password" className="text-xs text-emerald-600 hover:underline font-semibold">
+                          Forgot password?
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Submit */}
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full py-3 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white text-sm font-bold shadow-lg shadow-emerald-200 hover:shadow-emerald-300 flex items-center justify-center gap-2 transition-all cursor-pointer border-0"
+                    >
+                      {loading ? (
+                        <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</>
+                      ) : (
+                        <>Sign In <ArrowRight className="w-4 h-4" /></>
+                      )}
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {/* Register link (available for students & new accounts) */}
+              <p className="text-center text-sm text-slate-500 pt-2 border-t border-slate-100">
                 Don&apos;t have an account?{' '}
                 <Link
                   to="/register"
-                  className="text-blue-600 font-semibold hover:text-blue-700 hover:underline underline-offset-2 transition-colors"
+                  className="text-blue-600 font-bold hover:text-blue-700 hover:underline underline-offset-2 transition-colors"
                 >
                   Create one
                 </Link>

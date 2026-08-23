@@ -17,7 +17,6 @@ const Laboratory = require('../models/Laboratory');
 const TimetableRule = require('../models/TimetableRule');
 const SchedulingConstraint = require('../models/SchedulingConstraint');
 const TimetableGenerationConfig = require('../models/TimetableGenerationConfig');
-const TimetableEntry = require('../models/TimetableEntry');
 const User = require('../models/User');
 
 const seedDatabase = async () => {
@@ -25,7 +24,7 @@ const seedDatabase = async () => {
     await mongoose.connect(getMongoUri());
     console.log('✅ MongoDB Connected Successfully');
 
-    const datasetPath = path.join(__dirname, '../seeds/Dataset.json');
+    const datasetPath = path.join(__dirname, '../seeder/Dataset.json');
     if (!fs.existsSync(datasetPath)) {
       throw new Error(`Dataset.json not found at ${datasetPath}`);
     }
@@ -79,7 +78,9 @@ const seedDatabase = async () => {
     if (data.teachers) {
       const teachers = data.teachers.map(t => ({
         _id: t.teacher_id,
+        teacher_id: t.teacher_id,
         name: t.name,
+        email: t.email,
         department: t.department,
         availability: t.availability || [],
         blocked_slots: t.blocked_slots || [],

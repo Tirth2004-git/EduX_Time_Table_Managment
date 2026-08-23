@@ -1,6 +1,9 @@
 const Teacher = require('../models/Teacher');
 const Subject = require('../models/Subject');
 const Classroom = require('../models/Classroom');
+const Department = require('../models/Department');
+const Semester = require('../models/Semester');
+const Division = require('../models/Division');
 const TeacherAssignment = require('../models/TeacherAssignment');
 const xlsx = require('xlsx');
 
@@ -84,34 +87,57 @@ exports.importExcel = async (req, res, next) => {
       totalRows++;
 
       try {
+        // 0. Resolve Department
+        let deptDoc = await Department.findOne({
+          $or: [
+            { department_name: row.Department.trim() },
+            { short_name: row.Department.trim() },
+            { department_name: row.Program.trim() },
+            { short_name: row.Program.trim() }
+          ]
+        });
+
+        if (!deptDoc) {
+          deptDoc = await Department.create({
+            department_name: row.Program.trim() || row.Department.trim(),
+            short_name: row.Department.trim() || 'DEPT',
+            code: (row.Department.trim() || 'D').toUpperCase().slice(0, 5)
+          });
+        }
+
         // 1. Handle Teacher
         let teacherId;
         if (teacherMap.has(row.TeacherName)) {
           teacherId = teacherMap.get(row.TeacherName);
         } else {
-          let teacher = await Teacher.findOne({ faculty_name: row.TeacherName });
+          let teacher = await Teacher.findOne({
+            $or: [{ name: row.TeacherName.trim() }, { faculty_name: row.TeacherName.trim() }]
+          });
           let allowedDivisions = [];
           if (row.AllowedDivisions) {
             allowedDivisions = String(row.AllowedDivisions).split(',').map(d => d.trim()).filter(Boolean);
           }
 
           if (teacher) {
-            teacher.teaching_hours = Number(row.TeachingHours);
-            teacher.department = row.Department;
+            teacher.teaching_hours = Number(row.TeachingHours) || 20;
+            teacher.max_hours_per_week = teacher.teaching_hours;
+            teacher.department = deptDoc._id;
             if (allowedDivisions.length > 0) {
               teacher.allowedDivisions = allowedDivisions;
             }
             await teacher.save();
             teacherId = teacher._id;
           } else {
+            const maxH = Number(row.TeachingHours) || 20;
             teacher = await Teacher.create({
-              teacherID: `T-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+              teacher_id: `T_${Date.now().toString().slice(-6)}_${Math.floor(Math.random() * 1000)}`,
+              name: row.TeacherName.trim(),
               faculty_name: row.TeacherName.trim(),
-              department: row.Department.trim(),
-              teaching_hours: Number(row.TeachingHours),
-              subject_name: row.SubjectName.trim(),
-              teacher_number: "N/A",
-              classroom: "N/A",
+              department: deptDoc._id,
+              teaching_hours: maxH,
+              max_hours_per_week: maxH,
+              min_hours_per_week: Math.floor(maxH / 2) || 10,
+              email: `${row.TeacherName.trim().toLowerCase().replace(/[^a-z0-9]/g, '')}@parulinstitute.edu.in`,
               allowedDivisions
             });
             teachersCreated++;

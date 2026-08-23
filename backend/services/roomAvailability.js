@@ -6,118 +6,172 @@ const Division = require('../models/Division');
 
 exports.getAvailableRooms = async ({
   departmentId,
-  semesterId, // could be ObjectId or a raw number, we'll handle both
+  semesterId,
   division,
   academicYear,
   day,
   timeSlot,
   subjectType,
-  isLab
+  isLab,
+  minCapacity = 0,
 }) => {
   if (!day || !timeSlot) {
     throw new Error('Day and timeSlot are required to check room availability');
   }
 
-  const isLaboratory = subjectType === 'Laboratory' || String(isLab) === 'true';
+  const isLaboratory =
+    subjectType === 'Laboratory' ||
+    subjectType === 'Computer Lab' ||
+    String(isLab) === 'true';
+
+  // 1. Find all occupied classrooms and laboratories during this day and timeSlot
+  const busyEntries = await Timetable.find({
+    day,
+    timeSlot,
+    $or: [{ classroom: { $ne: null } }, { laboratory: { $ne: null } }],
+  })
+    .select('classroom laboratory')
+    .lean();
+
+  const busyRoomIds = new Set();
+  busyEntries.forEach((t) => {
+    if (t.classroom) busyRoomIds.add(t.classroom.toString());
+    if (t.laboratory) busyRoomIds.add(t.laboratory.toString());
+  });
+
+  const busyArray = Array.from(busyRoomIds);
 
   if (isLaboratory) {
-    // 1. LAB LOGIC
-    // Find all occupied labs during this day and timeslot
-    const busyLabs = await Timetable.find({ 
-      day, 
-      timeSlot, 
-      laboratory: { $ne: null } 
-    }).select('laboratory').lean();
-    
-    const busyLabIds = busyLabs.map(t => t.laboratory.toString());
-    
-    // Return labs that are active and NOT in the busy list
-    const availableLabs = await Laboratory.find({
-      _id: { $nin: busyLabIds },
-      available: { $ne: false }
-    });
-    
-    return { rooms: availableLabs, type: 'Laboratory' };
+    // 1. LAB LOGIC: Fetch available laboratories and computer labs
+    const [labsFromClassrooms, dedicatedLabs] = await Promise.all([
+      Classroom.find({
+        _id: { $nin: busyArray },
+        isActive: { $ne: false },
+        available: true,
+        status: 'Available',
+        type: { $in: ['Laboratory', 'Computer Lab'] },
+        ...(minCapacity > 0 ? { capacity: { $gte: Number(minCapacity) } } : {}),
+      }).lean(),
+      Laboratory.find({
+        _id: { $nin: busyArray },
+        available: { $ne: false },
+      }).lean(),
+    ]);
+
+    const formattedRooms = [
+      ...labsFromClassrooms.map((r) => ({
+        id: r._id,
+        _id: r._id,
+        roomNumber: r.roomNumber || r.room_name || r.room_id || 'Lab',
+        roomName: r.roomName || r.room_name || `Lab ${r.roomNumber}`,
+        building: r.building || 'Main Building',
+        floor: r.floor || '1',
+        type: r.type,
+        capacity: r.capacity || 40,
+        status: r.status || 'Available',
+        facilities: r.facilities || [],
+      })),
+      ...dedicatedLabs.map((l) => ({
+        id: l._id,
+        _id: l._id,
+        roomNumber: l.lab_id || l.lab_name,
+        roomName: l.lab_name,
+        building: 'Science & Tech Block',
+        floor: '2',
+        type: 'Laboratory',
+        capacity: l.capacity || 40,
+        status: 'Available',
+        facilities: l.equipment || [],
+      })),
+    ];
+
+    return { rooms: formattedRooms, type: 'Laboratory' };
   } else {
-    // 2. CLASSROOM (THEORY) LOGIC
-    // Find all occupied classrooms during this day and timeslot
-    const busyRooms = await Timetable.find({ 
-      day, 
-      timeSlot, 
-      classroom: { $ne: null } 
-    }).select('classroom').lean();
-    
-    const busyRoomIds = busyRooms.map(t => t.classroom.toString());
-    
-    // Base query: Room must be active and not occupied
-    let availableRoomsQuery = { 
-      _id: { $nin: busyRoomIds }, 
-      available: { $ne: false }
+    // 2. THEORY / CLASSROOM LOGIC
+    let availableRoomsQuery = {
+      _id: { $nin: busyArray },
+      isActive: { $ne: false },
+      available: true,
+      status: 'Available',
+      type: { $in: ['Classroom', 'Theory', 'Lecture Hall', 'Seminar Hall', 'Tutorial Room', 'Auditorium', 'Other'] },
+      ...(minCapacity > 0 ? { capacity: { $gte: Number(minCapacity) } } : {}),
     };
 
+    // Check if there is a dedicated classroom explicitly mapped to this division
     if (departmentId && semesterId && division) {
-      if (!mongoose.Types.ObjectId.isValid(semesterId) && semesterId.length !== 24) {
-        // Ignoring strict ObjectId validation since string legacy IDs might be used in import
-      }
-      if (!mongoose.Types.ObjectId.isValid(departmentId) && departmentId.length !== 24) {
-      }
-      if (!mongoose.Types.ObjectId.isValid(division) && division.length !== 24) {
-      }
-
-      // First, see if there's a dedicated room specifically mapped to this exact batch
       const queryPayload = {
         departmentId: departmentId,
         semesterId: semesterId,
         divisionId: division,
-        available: { $ne: false }
+        isActive: { $ne: false },
+        available: true,
+        status: 'Available',
       };
       if (academicYear) queryPayload.academicYearId = academicYear;
-      
-      let specificRoom = await Classroom.findOne(queryPayload);
 
-      // Support legacy mapping records while comparing ObjectIds as values,
-      // rather than by JavaScript object identity.
+      let specificRoom = await Classroom.findOne(queryPayload).lean();
+
       if (!specificRoom) {
         const ClassRoomMapping = require('../models/ClassRoomMapping');
         const idEquals = (left, right) => left != null && right != null && String(left) === String(right);
         const mappings = await ClassRoomMapping.find({ active: { $ne: false } }).lean();
-        const mapping = mappings.find((item) =>
-          idEquals(item.department, departmentId) &&
-          idEquals(item.semester, semesterId) &&
-          idEquals(item.division_id, division) &&
-          (!academicYear || item.academic_year === academicYear)
+        const mapping = mappings.find(
+          (item) =>
+            idEquals(item.department, departmentId) &&
+            idEquals(item.semester, semesterId) &&
+            idEquals(item.division_id, division) &&
+            (!academicYear || item.academic_year === academicYear)
         );
         if (mapping?.classroom_id) {
-          specificRoom = await Classroom.findOne({ _id: mapping.classroom_id, available: { $ne: false } });
+          specificRoom = await Classroom.findOne({
+            _id: mapping.classroom_id,
+            isActive: { $ne: false },
+            available: true,
+            status: 'Available',
+          }).lean();
         }
       }
 
       if (specificRoom) {
-        // If they have a dedicated room, and it's not busy, return ONLY their dedicated room!
-        if (!busyRoomIds.includes(specificRoom._id.toString())) {
-           return { rooms: [specificRoom], type: 'Classroom' };
+        if (!busyRoomIds.has(specificRoom._id.toString())) {
+          return {
+            rooms: [
+              {
+                id: specificRoom._id,
+                _id: specificRoom._id,
+                roomNumber: specificRoom.roomNumber || specificRoom.room_name || specificRoom.room_id,
+                roomName: specificRoom.roomName || specificRoom.room_name,
+                building: specificRoom.building,
+                floor: specificRoom.floor,
+                type: specificRoom.type,
+                capacity: specificRoom.capacity,
+                status: specificRoom.status,
+                facilities: specificRoom.facilities || [],
+              },
+            ],
+            type: 'Classroom',
+          };
         } else {
-           // If their dedicated room is occupied, return empty to prevent using someone else's room
-           return { rooms: [], type: 'Classroom' }; 
+          return { rooms: [], type: 'Classroom' };
         }
-      } else {
-        // If this division has NO specific room assigned, we only allow them to pick unassigned/floating rooms
-        // That means we must EXCLUDE all rooms that are explicitly dedicated to OTHER divisions
-        const strictlyAssignedRooms = await Classroom.find({ 
-          departmentId: { $ne: null },
-          semesterId: { $ne: null },
-          divisionId: { $ne: null }
-        }).select('_id').lean();
-        
-        const strictlyAssignedRoomIds = strictlyAssignedRooms.map(r => r._id.toString());
-        
-        availableRoomsQuery._id = { 
-          $nin: [...busyRoomIds, ...strictlyAssignedRoomIds] 
-        };
       }
     }
 
-    const availableRooms = await Classroom.find(availableRoomsQuery);
-    return { rooms: availableRooms, type: 'Classroom' };
+    const availableClassrooms = await Classroom.find(availableRoomsQuery).lean();
+
+    const formattedRooms = availableClassrooms.map((r) => ({
+      id: r._id,
+      _id: r._id,
+      roomNumber: r.roomNumber || (r.room_name ? r.room_name.replace('Room ', '') : r.room_id || '—'),
+      roomName: r.roomName || r.room_name || `Room ${r.roomNumber}`,
+      building: r.building || 'Main Building',
+      floor: r.floor || '1',
+      type: r.type || 'Classroom',
+      capacity: r.capacity || 60,
+      status: r.status || 'Available',
+      facilities: r.facilities || [],
+    }));
+
+    return { rooms: formattedRooms, type: 'Classroom' };
   }
 };

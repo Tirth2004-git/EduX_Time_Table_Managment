@@ -7,8 +7,15 @@ const {
   updateDepartment,
   deleteDepartment,
 } = require('../controllers/departmentController');
+const { protect } = require('../middleware/authMiddleware');
 
-router.route('/').get(getDepartments).post(createDepartment);
-router.route('/:id').get(getDepartmentById).put(updateDepartment).delete(deleteDepartment);
+router.route('/')
+  .get(getDepartments)
+  .post(protect(true), createDepartment);
+
+router.route('/:id')
+  .get(getDepartmentById)
+  .put(protect(true), updateDepartment)
+  .delete(protect(true), deleteDepartment);
 
 module.exports = router;

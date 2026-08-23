@@ -232,12 +232,14 @@ exports.getTeacherById = async (req, res, next) => {
 
 exports.createTeacher = async (req, res, next) => {
   try {
-    const { username, email, password, ...teacherData } = req.body;
+    const { username, email, password, ...rest } = req.body;
     
-    // Check if username/email already taken if provided
     const User = require('../models/User');
+    const Department = require('../models/Department');
+    const mongoose = require('mongoose');
+
     if (email) {
-      const emailExists = await User.findOne({ email });
+      const emailExists = await User.findOne({ email: email.toLowerCase() });
       if (emailExists) {
         return res.status(400).json({ error: 'User email already exists' });
       }
@@ -249,25 +251,51 @@ exports.createTeacher = async (req, res, next) => {
       }
     }
 
+    // Normalize department
+    let departmentId = rest.department || rest.departmentId;
+    if (departmentId && !mongoose.Types.ObjectId.isValid(departmentId)) {
+      const deptDoc = await Department.findOne({
+        $or: [{ department_name: departmentId }, { short_name: departmentId }]
+      });
+      if (deptDoc) departmentId = deptDoc._id;
+    }
+
+    const name = rest.name || rest.faculty_name || 'Faculty Member';
+    const teacher_id = rest.teacher_id || rest.teacherID || (`T_${Date.now().toString().slice(-6)}`);
+    const max_hours_per_week = Number(rest.max_hours_per_week || rest.teaching_hours || 20);
+    const min_hours_per_week = Number(rest.min_hours_per_week || Math.floor(max_hours_per_week / 2) || 10);
+
+    const teacherData = {
+      ...rest,
+      name,
+      faculty_name: name,
+      email: email ? email.toLowerCase() : rest.email,
+      teacher_id,
+      department: departmentId,
+      max_hours_per_week,
+      min_hours_per_week,
+      teaching_hours: max_hours_per_week,
+      status: rest.status || 'active'
+    };
+
     const teacher = await Teacher.create(teacherData);
 
     // If login access details are provided, create corresponding User
-    if (username && email && password) {
+    if (email) {
       await User.create({
-        name: teacher.faculty_name,
-        username,
-        email,
-        password,
+        name,
+        email: email.toLowerCase(),
+        password: password || '123456',
         role: 'teacher',
         isVerified: true,
         teacher_id: teacher._id
       });
     }
 
-    res.status(201).json({ message: 'Teacher created successfully', teacher });
+    res.status(201).json({ message: 'Teacher created successfully', teacher, data: teacher });
   } catch (error) {
     if (error.code === 11000) {
-      return res.status(400).json({ error: 'Teacher ID already exists' });
+      return res.status(400).json({ error: 'Teacher ID or Email already exists' });
     }
     next(error);
   }
@@ -278,11 +306,43 @@ exports.createTeacher = async (req, res, next) => {
 // @access  Private (Admin)
 exports.updateTeacher = async (req, res, next) => {
   try {
-    const { username, email, password, ...teacherData } = req.body;
+    const { username, email, password, ...rest } = req.body;
+    const Department = require('../models/Department');
+    const mongoose = require('mongoose');
+
+    let departmentId = rest.department || rest.departmentId;
+    if (departmentId && !mongoose.Types.ObjectId.isValid(departmentId)) {
+      const deptDoc = await Department.findOne({
+        $or: [{ department_name: departmentId }, { short_name: departmentId }]
+      });
+      if (deptDoc) departmentId = deptDoc._id;
+    }
+
+    const updatePayload = { ...rest };
+    if (rest.name || rest.faculty_name) {
+      updatePayload.name = rest.name || rest.faculty_name;
+      updatePayload.faculty_name = updatePayload.name;
+    }
+    if (rest.teacherID || rest.teacher_id) {
+      updatePayload.teacher_id = rest.teacher_id || rest.teacherID;
+    }
+    if (email) {
+      updatePayload.email = email.toLowerCase();
+    }
+    if (departmentId) {
+      updatePayload.department = departmentId;
+    }
+    if (rest.teaching_hours || rest.max_hours_per_week) {
+      updatePayload.max_hours_per_week = Number(rest.max_hours_per_week || rest.teaching_hours);
+      updatePayload.teaching_hours = updatePayload.max_hours_per_week;
+    }
+    if (rest.min_hours_per_week) {
+      updatePayload.min_hours_per_week = Number(rest.min_hours_per_week);
+    }
 
     const teacher = await Teacher.findByIdAndUpdate(
       req.params.id,
-      { ...teacherData, remainingHours: teacherData.teaching_hours - (teacherData.assignedHours || 0) },
+      updatePayload,
       { new: true, runValidators: true }
     );
 
@@ -295,32 +355,26 @@ exports.updateTeacher = async (req, res, next) => {
     let linkedUser = await User.findOne({ teacher_id: teacher._id });
     
     if (linkedUser) {
-      if (email && email !== linkedUser.email) {
-        const emailExists = await User.findOne({ email, _id: { $ne: linkedUser._id } });
+      if (email && email.toLowerCase() !== linkedUser.email) {
+        const emailExists = await User.findOne({ email: email.toLowerCase(), _id: { $ne: linkedUser._id } });
         if (emailExists) return res.status(400).json({ error: 'Email already in use' });
-        linkedUser.email = email;
+        linkedUser.email = email.toLowerCase();
       }
-      if (username && username !== linkedUser.username) {
-        const usernameExists = await User.findOne({ username, _id: { $ne: linkedUser._id } });
-        if (usernameExists) return res.status(400).json({ error: 'Username already taken' });
-        linkedUser.username = username;
+      if (updatePayload.name) {
+        linkedUser.name = updatePayload.name;
       }
       if (password && password.trim() !== '') {
         linkedUser.password = password;
       }
-      linkedUser.name = teacher.faculty_name;
       await linkedUser.save();
-    } else if (username && email && password) {
-      // User doesn't exist, create it (grant access)
-      const emailExists = await User.findOne({ email });
+    } else if (email && password) {
+      const emailExists = await User.findOne({ email: email.toLowerCase() });
       if (emailExists) return res.status(400).json({ error: 'Email already in use' });
-      const usernameExists = await User.findOne({ username });
-      if (usernameExists) return res.status(400).json({ error: 'Username already taken' });
 
       await User.create({
-        name: teacher.faculty_name,
-        username,
-        email,
+        name: updatePayload.name || teacher.name,
+        username: username || email.split('@')[0],
+        email: email.toLowerCase(),
         password,
         role: 'teacher',
         isVerified: true,
@@ -328,7 +382,7 @@ exports.updateTeacher = async (req, res, next) => {
       });
     }
 
-    res.json({ message: 'Teacher updated successfully', teacher });
+    res.json({ message: 'Teacher updated successfully', teacher, data: teacher });
   } catch (error) {
     next(error);
   }

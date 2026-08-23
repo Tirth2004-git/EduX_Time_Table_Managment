@@ -19,7 +19,7 @@ const protect = (requireAdmin = false) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       
-      const user = await User.findById(decoded.userId).select('email role isVerified teacher_id');
+      const user = await User.findById(decoded.userId).select('email role isVerified teacher_id department_id semester_id division_id');
       if (!user) {
         return res.status(401).json({ error: 'Unauthorized - User not found' });
       }
@@ -37,7 +37,10 @@ const protect = (requireAdmin = false) => {
         userId: user._id.toString(),
         email: user.email,
         role,
-        teacherId: user.teacher_id ? user.teacher_id.toString() : null
+        teacherId: user.teacher_id ? user.teacher_id.toString() : null,
+        departmentId: user.department_id ? user.department_id.toString() : null,
+        semesterId: user.semester_id ? user.semester_id.toString() : null,
+        divisionId: user.division_id ? user.division_id.toString() : null
       };
 
       next();

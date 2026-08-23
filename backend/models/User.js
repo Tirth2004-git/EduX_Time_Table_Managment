@@ -12,7 +12,13 @@ const userSchema = new mongoose.Schema({
   department_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', default: null },
   semester_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Semester', default: null },
   division_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Division', default: null },
-  isVerified: { type: Boolean, default: true }
+  isVerified: { type: Boolean, default: true },
+  otpHash: { type: String, select: false, default: null },
+  otpExpiresAt: { type: Date, select: false, default: null },
+  otpAttempts: { type: Number, select: false, default: 0 },
+  otpLastSentAt: { type: Date, select: false, default: null },
+  resetPasswordToken: { type: String, select: false, default: null },
+  resetPasswordExpiry: { type: Date, select: false, default: null }
 });
 
 userSchema.pre('save', async function (next) {

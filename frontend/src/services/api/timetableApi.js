@@ -62,6 +62,7 @@ export const timetableApi = {
   
   // AI replacement recommendation
   suggestReplacement: (data) => api.post('/ai/replacement', data),
+  explainCopilot: (data) => api.post('/ai/explain', data),
 
   // New Slot management & Undo/Redo/Audit functions
   validateChange: (data) => api.post('/timetable/validate-change', data),

@@ -16,7 +16,7 @@ const TeacherLeaveSchema = new mongoose.Schema(
     },
     leaveType: {
       type: String,
-      enum: ['single_day', 'multiple_day', 'half_day', 'emergency'],
+      enum: ['single_day', 'multiple_day', 'half_day', 'emergency', 'Medical', 'Casual', 'Duty', 'Personal', 'Other', 'Sick', 'Earned', 'medical', 'casual', 'duty', 'personal'],
       default: 'multiple_day',
     },
     halfDayPeriod: {

@@ -62,8 +62,8 @@ const TimetableSchema = new mongoose.Schema(
       default: 1,
     },
     createdBy: {
-      type: String, ref: 'Teacher', // Auth now uses Teacher
-      required: true,
+      type: mongoose.Schema.Types.Mixed,
+      default: 'Admin',
     },
   },
   {

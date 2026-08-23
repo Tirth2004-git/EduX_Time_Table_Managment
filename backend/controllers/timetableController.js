@@ -482,60 +482,81 @@ exports.getGlobalTimetable = async (req, res, next) => {
       if (division && division.trim() !== '') query.division = division.trim();
     }
     
-    if (teacherId && teacherId.trim() !== '') query.teacherId = teacherId.trim();
-    if (subjectId && subjectId.trim() !== '') query.subjectId = subjectId.trim();
+    if (teacherId && teacherId.trim() !== '') {
+      if (mongoose.Types.ObjectId.isValid(teacherId.trim())) {
+        query.$or = [{ teacher: teacherId.trim() }, { teacherId: teacherId.trim() }];
+      }
+    }
+    if (subjectId && subjectId.trim() !== '') {
+      if (mongoose.Types.ObjectId.isValid(subjectId.trim())) {
+        query.$or = [{ subject: subjectId.trim() }, { subjectId: subjectId.trim() }];
+      }
+    }
     if (day && day.trim() !== '') query.day = day.trim();
     if (timeSlot && timeSlot.trim() !== '') query.timeSlot = timeSlot.trim();
 
     const timetable = await Timetable.find(query)
-      .populate('subjectId', 'subject_name subject_code requiredPeriods allottedPeriods remainingPeriods')
-      .populate('teacherId', 'teacherID faculty_name department teaching_hours assignedHours remainingHours')
-      .populate('classroomId', 'program className semester division roomNumber year')
-      .populate('createdBy', 'username email')
-      .sort({ program: 1, className: 1, semester: 1, division: 1, day: 1, timeSlot: 1 })
+      .populate('subject', 'subject_name subject_code name code requiredPeriods allottedPeriods remainingPeriods weekly_periods')
+      .populate('teacher', 'teacher_id name teacherID faculty_name department teaching_hours max_hours_per_week')
+      .populate('classroom', 'className roomNumber building floor capacity type room_id room_name')
+      .populate('laboratory', 'lab_name room_number capacity')
+      .populate('department', 'department_name short_name')
+      .populate('semester', 'semester_number academic_year')
+      .populate('division', 'division_name')
+      .sort({ day: 1, timeSlot: 1 })
       .lean();
 
-    const formattedTimetable = timetable.map((entry) => ({
-      _id: entry._id,
-      program: entry.program,
-      className: entry.className,
-      semester: entry.semester,
-      division: entry.division,
-      day: entry.day,
-      timeSlot: entry.timeSlot,
-      status: entry.status,
-      classroomId: entry.classroomId?._id || null,
-      classroom: entry.classroomId ? {
-        program: entry.classroomId.program,
-        className: entry.classroomId.className,
-        semester: entry.classroomId.semester,
-        division: entry.classroomId.division,
-        roomNumber: entry.classroomId.roomNumber,
-        year: entry.classroomId.year,
-      } : null,
-      subject: entry.subjectId ? {
-        _id: entry.subjectId._id,
-        subject_name: entry.subjectId.subject_name,
-        subject_code: entry.subjectId.subject_code,
-        requiredPeriods: entry.subjectId.requiredPeriods,
-        allottedPeriods: entry.subjectId.allottedPeriods,
-        remainingPeriods: entry.subjectId.remainingPeriods,
-      } : null,
-      teacher: entry.teacherId ? {
-        _id: entry.teacherId._id,
-        teacherID: entry.teacherId.teacherID,
-        faculty_name: entry.teacherId.faculty_name,
-        department: entry.teacherId.department,
-        teaching_hours: entry.teacherId.teaching_hours,
-        assignedHours: entry.teacherId.assignedHours,
-        remainingHours: entry.teacherId.remainingHours,
-      } : null,
-      createdAt: entry.createdAt,
-      updatedAt: entry.updatedAt,
-    }));
+    const formattedTimetable = timetable.map((entry) => {
+      const sub = entry.subject || {};
+      const tea = entry.teacher || {};
+      const cls = entry.classroom || entry.laboratory || {};
+      const dept = entry.department || {};
+      const sem = entry.semester || {};
+      const div = entry.division || {};
+
+      return {
+        _id: entry._id,
+        program: dept.short_name || dept.department_name || entry.program || 'General',
+        department: dept.department_name || dept.short_name || entry.department,
+        className: entry.className || (sem.semester_number ? `Sem ${sem.semester_number}` : 'N/A'),
+        semester: sem.semester_number || entry.semester,
+        division: div.division_name || entry.division,
+        day: entry.day,
+        timeSlot: entry.timeSlot,
+        status: entry.status || 'published',
+        is_lab: Boolean(entry.is_lab || entry.laboratory || entry.slot_type === 'LAB'),
+        slot_type: entry.slot_type || (entry.is_lab ? 'LAB' : 'THEORY'),
+        classroomId: cls._id || null,
+        classroom: cls._id ? {
+          _id: cls._id,
+          roomNumber: cls.roomNumber || cls.room_number || cls.room_name || 'N/A',
+          building: cls.building || 'Main Campus',
+          capacity: cls.capacity,
+          type: cls.type || (entry.is_lab ? 'Laboratory' : 'Classroom')
+        } : null,
+        subject: sub._id ? {
+          _id: sub._id,
+          subject_name: sub.subject_name || sub.name || 'Subject',
+          subject_code: sub.subject_code || sub.code || 'SUB',
+          requiredPeriods: sub.requiredPeriods || sub.weekly_periods || 4,
+          weekly_periods: sub.weekly_periods || sub.requiredPeriods || 4,
+        } : null,
+        teacher: tea._id ? {
+          _id: tea._id,
+          teacherID: tea.teacher_id || tea.teacherID || 'T_01',
+          faculty_name: tea.name || tea.faculty_name || 'Faculty',
+          name: tea.name || tea.faculty_name || 'Faculty',
+          department: tea.department,
+          teaching_hours: tea.max_hours_per_week || tea.teaching_hours || 20,
+        } : null,
+        createdAt: entry.createdAt,
+        updatedAt: entry.updatedAt,
+      };
+    });
 
     res.json({
       timetable: formattedTimetable,
+      data: formattedTimetable,
       count: formattedTimetable.length,
     });
   } catch (error) {

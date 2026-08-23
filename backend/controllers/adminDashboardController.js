@@ -7,52 +7,83 @@ const Teacher = require('../models/Teacher');
 const Subject = require('../models/Subject');
 const Department = require('../models/Department');
 const Division = require('../models/Division');
+const Classroom = require('../models/Classroom');
 const Timetable = require('../models/Timetable');
-const { getAllTeachersWorkload, getRoomUtilization } = require('../services/workloadEngine');
+const Event = require('../models/Event');
+const EventRegistration = require('../models/EventRegistration');
+const Payment = require('../models/Payment');
 const { getWeekRange } = require('../utils/dateUtils');
+const eventAnalyticsService = require('../services/eventAnalyticsService');
 
 exports.getAdminDashboard = async (req, res, next) => {
   try {
-    const { start, end } = getWeekRange();
-    
-    // Aggregations requested by user
+    // Parallel Live Database Aggregations
     const [
       totalTeachers,
       totalSubjects,
+      totalClassrooms,
       totalDepartments,
       totalDivisions,
-      timetablesGenerated,
+      scheduledPeriods,
       pendingLeaves,
       approvedLeaves,
       unreadNotifications,
+      eventStats,
     ] = await Promise.all([
       Teacher.countDocuments(),
-      Subject.countDocuments(),
+      Subject.countDocuments({ status: { $ne: 'inactive' } }),
+      Classroom.countDocuments({ available: true }),
       Department.countDocuments(),
       Division.countDocuments(),
-      Timetable.countDocuments(),
+      Timetable.countDocuments({ status: { $ne: 'draft' } }),
       TeacherLeave.countDocuments({ status: 'Pending' }),
       TeacherLeave.countDocuments({ status: 'Approved' }),
       Notification.countDocuments({ recipientType: 'admin', isRead: false }),
+      eventAnalyticsService.getGlobalEventStats(),
     ]);
 
-    const timetableStatus = timetablesGenerated > 0 ? 'Active' : 'Pending Generation';
+    // Calculate realistic ERP utilization based on actual configured division capacity
+    // 6 working days * 6 academic periods = 36 slots per division per week
+    const slotsPerDivision = 36;
+    const totalSlots = Math.max(scheduledPeriods, totalDivisions * slotsPerDivision);
+    const utilization = totalSlots > 0
+      ? Number(((scheduledPeriods / totalSlots) * 100).toFixed(1))
+      : 0;
+
+    const upcomingEvents = eventStats.upcomingEvents || 0;
+    const eventRegistrations = eventStats.totalRegistrations || 0;
+    const totalRevenue = eventStats.totalRevenue || 0;
+    const timetableStatus = scheduledPeriods > 0 ? 'Active' : 'Pending Generation';
 
     res.json({
       success: true,
       data: {
+        // Core Statistics with Aliases for full backward-compatibility
+        activeFaculty: totalTeachers,
         totalTeachers,
+        configuredSubjects: totalSubjects,
         totalSubjects,
-        totalDepartments,
+        classrooms: totalClassrooms,
+        totalClassrooms,
+        activeDivisions: totalDivisions,
         totalDivisions,
+        totalDepartments,
+        scheduledPeriods,
+        filledSlots: scheduledPeriods,
+        totalSlots,
+        utilization,
+        utilizationRate: Math.round(utilization),
         timetableStatus,
         pendingLeaves,
         approvedLeaves,
         unreadNotifications,
-        timetablesGenerated,
+        upcomingEvents,
+        eventRegistrations,
+        totalRevenue,
       },
     });
   } catch (error) {
+    console.error('Error fetching admin dashboard statistics:', error);
     next(error);
   }
 };

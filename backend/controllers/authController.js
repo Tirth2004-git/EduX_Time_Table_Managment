@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 const { sendOtpEmail, sendResetPasswordEmail } = require('../services/emailService');
 
 const AUTH_COOKIE_NAME = 'auth-token';
@@ -33,60 +35,84 @@ const getCookieOptions = (maxAgeMs) => {
 };
 
 const generateOtpCode = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return crypto.randomInt(100000, 1000000).toString();
 };
 
-const getOtpExpiryDate = (minutes = 5) => {
+const getOtpExpiryDate = (minutes = 10) => {
   return new Date(Date.now() + minutes * 60 * 1000);
 };
 
-// @desc    Register a new user (admin/user)
+// @desc    Register a new student user (pending OTP verification)
 // @route   POST /api/auth/register
 // @access  Public
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password, departmentId, semesterId, divisionId } = req.body;
+    const { name, password, departmentId, semesterId, divisionId } = req.body;
+    const email = String(req.body.email || '').trim().toLowerCase();
 
     if (!name || !email || !password || !departmentId || !semesterId || !divisionId) {
-      return res.status(400).json({ error: 'Please provide all required fields' });
+      return res.status(400).json({ error: 'Please provide all required fields.' });
     }
 
-    const emailExists = await User.findOne({ email });
-    if (emailExists) {
-      return res.status(400).json({ error: 'Email already exists' });
-    }
-
-    // Since User doesn't have username, maybe we can search by email or name.
-    // The previous implementation checked username, but we'll remove it.
-
-    // Public registration is always a student account. Privileged roles are
-    // provisioned only by administrators or the demo seed.
     const Division = require('../models/Division');
     const division = await Division.findOne({ _id: divisionId, department: departmentId, semester: semesterId });
-    if (!division) return res.status(400).json({ error: 'Please select a valid department, semester, and division.' });
-    const user = new User({
-      name,
-      email,
-      password,
-      isVerified: true,
-      role: 'student',
-      department_id: division.department,
-      semester_id: division.semester,
-      division_id: division._id
-    });
+    if (!division) {
+      return res.status(400).json({ error: 'Please select a valid department, semester, and division.' });
+    }
 
-    await user.save();
+    const existingUser = await User.findOne({ email }).select('+otpHash +otpExpiresAt +otpAttempts +otpLastSentAt');
 
-    const tokenPayload = { userId: user._id, role: user.role };
-    const token = generateAccessToken(tokenPayload);
-    const refreshToken = generateRefreshToken(tokenPayload);
-    res.cookie(AUTH_COOKIE_NAME, token, getCookieOptions(ACCESS_MAX_AGE_MS));
-    res.cookie(REFRESH_COOKIE_NAME, refreshToken, getCookieOptions(REFRESH_MAX_AGE_MS));
+    if (existingUser && existingUser.isVerified) {
+      return res.status(400).json({
+        error: 'An account with this email already exists. Please sign in.',
+      });
+    }
 
-    res.status(201).json({
+    const otp = generateOtpCode();
+    const otpHash = await bcrypt.hash(otp, 10);
+    const otpExpiresAt = getOtpExpiryDate(10); // 10 minutes expiry
+
+    let userToSave;
+    if (existingUser && !existingUser.isVerified) {
+      // Update pending registration
+      existingUser.name = name;
+      existingUser.password = password; // Will be hashed by pre-save
+      existingUser.department_id = division.department;
+      existingUser.semester_id = division.semester;
+      existingUser.division_id = division._id;
+      existingUser.otpHash = otpHash;
+      existingUser.otpExpiresAt = otpExpiresAt;
+      existingUser.otpAttempts = 0;
+      existingUser.otpLastSentAt = new Date();
+      userToSave = existingUser;
+    } else {
+      // Create new unverified user
+      userToSave = new User({
+        name,
+        email,
+        password,
+        role: 'student',
+        department_id: division.department,
+        semester_id: division.semester,
+        division_id: division._id,
+        isVerified: false,
+        otpHash,
+        otpExpiresAt,
+        otpAttempts: 0,
+        otpLastSentAt: new Date(),
+      });
+    }
+
+    await userToSave.save();
+
+    // Send transactional OTP verification email
+    await sendOtpEmail(email, otp, name);
+
+    res.status(200).json({
       success: true,
-      message: 'Registration successful.', token,
-      user: { id: user._id.toString(), name: user.name, email: user.email, role: user.role, department_id: user.department_id, semester_id: user.semester_id, division_id: user.division_id }
+      message: 'Verification code sent to your email. Please verify to continue.',
+      email,
+      requiresOtp: true,
     });
   } catch (error) {
     next(error);
@@ -94,34 +120,53 @@ exports.register = async (req, res, next) => {
 };
 
 // @desc    Resend OTP to email
-// @route   POST /api/auth/send-otp
+// @route   POST /api/auth/send-otp, POST /api/auth/resend-otp
 // @access  Public
 exports.sendOtp = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const email = String(req.body.email || '').trim().toLowerCase();
 
     if (!email) {
-      return res.status(400).json({ error: 'Email is required' });
+      return res.status(400).json({ error: 'Email is required.' });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select('+otpHash +otpExpiresAt +otpAttempts +otpLastSentAt');
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'No account found with this email.' });
     }
 
     if (user.isVerified) {
-      return res.status(400).json({ error: 'Account is already verified' });
+      return res.status(400).json({ error: 'Account is already verified. Please sign in.' });
+    }
+
+    // Enforce 60-second cooldown
+    if (user.otpLastSentAt) {
+      const elapsedMs = Date.now() - new Date(user.otpLastSentAt).getTime();
+      if (elapsedMs < 60000) {
+        const remainingSeconds = Math.ceil((60000 - elapsedMs) / 1000);
+        return res.status(429).json({
+          error: `Please wait ${remainingSeconds}s before requesting a new OTP.`,
+          retryAfter: remainingSeconds,
+        });
+      }
     }
 
     const otp = generateOtpCode();
-    user.otp = otp;
-    user.otpExpiry = getOtpExpiryDate(5);
+    const otpHash = await bcrypt.hash(otp, 10);
+
+    user.otpHash = otpHash;
+    user.otpExpiresAt = getOtpExpiryDate(10);
+    user.otpAttempts = 0;
+    user.otpLastSentAt = new Date();
     await user.save();
 
     // Send OTP email
-    sendOtpEmail(email, otp, user.name);
+    await sendOtpEmail(email, otp, user.name);
 
-    res.json({ success: true, message: 'New OTP sent to your email.' });
+    res.json({
+      success: true,
+      message: 'A new verification code has been sent to your email.',
+    });
   } catch (error) {
     next(error);
   }
@@ -132,36 +177,63 @@ exports.sendOtp = async (req, res, next) => {
 // @access  Public
 exports.verifyOtp = async (req, res, next) => {
   try {
-    const { email, otp } = req.body;
+    const email = String(req.body.email || '').trim().toLowerCase();
+    const otp = String(req.body.otp || '').trim();
 
     if (!email || !otp) {
-      return res.status(400).json({ error: 'Email and OTP are required' });
+      return res.status(400).json({ error: 'Email and 6-digit OTP code are required.' });
     }
 
-    const user = await User.findOne({ email }).select('+otp +otpExpiry');
+    const user = await User.findOne({ email }).select('+otpHash +otpExpiresAt +otpAttempts');
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found. Please register first.' });
     }
 
     if (user.isVerified) {
-      return res.status(400).json({ error: 'User is already verified' });
+      return res.status(400).json({ error: 'Account is already verified. Please sign in.' });
     }
 
-    if (!user.otp || user.otp !== otp) {
-      return res.status(400).json({ error: 'Invalid OTP' });
+    // Check maximum verification attempts (max 5)
+    if (user.otpAttempts >= 5) {
+      return res.status(400).json({
+        error: 'Maximum verification attempts exceeded. Please request a new OTP.',
+      });
     }
 
-    if (new Date() > user.otpExpiry) {
-      return res.status(400).json({ error: 'OTP has expired' });
+    // Check OTP expiration
+    if (!user.otpExpiresAt || new Date() > user.otpExpiresAt) {
+      return res.status(400).json({
+        error: 'OTP code has expired. Please request a new verification code.',
+      });
     }
 
-    // Mark as verified
+    // Verify cryptographic OTP hash
+    if (!user.otpHash) {
+      return res.status(400).json({ error: 'No active OTP found. Please request a new code.' });
+    }
+
+    const isMatch = await bcrypt.compare(otp, user.otpHash);
+    if (!isMatch) {
+      user.otpAttempts += 1;
+      await user.save();
+      const remaining = Math.max(0, 5 - user.otpAttempts);
+      return res.status(400).json({
+        error: `Invalid OTP code. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`,
+      });
+    }
+
+    // Verification Success
     user.isVerified = true;
-    user.otp = null;
-    user.otpExpiry = null;
+    user.otpHash = null;
+    user.otpExpiresAt = null;
+    user.otpAttempts = 0;
+    user.otpLastSentAt = null;
     await user.save();
 
-    res.json({ success: true, message: 'Email verified successfully. You can now login.' });
+    res.json({
+      success: true,
+      message: 'Email Verified ✓ Account Created Successfully',
+    });
   } catch (error) {
     next(error);
   }
@@ -183,7 +255,7 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password +isVerified');
     if (!user) {
       if (process.env.NODE_ENV !== 'production') console.info('[AUTH] User found: false');
-      return res.status(401).json({ success: false, message: 'User not found' });
+      return res.status(401).json({ success: false, message: 'Invalid email or password.' });
     }
 
     if (!user.isVerified) {
@@ -195,7 +267,7 @@ exports.login = async (req, res, next) => {
     
     if (!isPasswordValid) {
       if (process.env.NODE_ENV !== 'production') console.info(`[AUTH] User found: true; password valid: false; role: ${user.role}`);
-      return res.status(401).json({ success: false, message: 'Wrong password' });
+      return res.status(401).json({ success: false, message: 'Invalid email or password.' });
     }
 
     const tokenPayload = {
@@ -316,7 +388,7 @@ exports.updateProfile = async (req, res, next) => {
       user: {
         id: user._id.toString(),
         email: user.email,
-        role: 'teacher',
+        role: user.role,
         name: user.name
       }
     });
@@ -382,7 +454,7 @@ exports.refreshSession = async (req, res, next) => {
     const tokenPayload = {
       userId: user._id.toString(),
       email: user.email,
-      role: 'teacher'
+      role: user.role
     };
     const newAccess = generateAccessToken(tokenPayload);
     res.cookie(AUTH_COOKIE_NAME, newAccess, getCookieOptions(ACCESS_MAX_AGE_MS));
@@ -435,7 +507,10 @@ exports.resetPassword = async (req, res, next) => {
   try {
     const user = await User.findOne({
       resetPasswordToken: token,
-      resetPasswordExpiry: { $gt: Date.now() }
+      $or: [
+        { resetPasswordExpiry: { $gt: Date.now() } },
+        { resetPasswordExpiry: { $gt: new Date() } }
+      ]
     }).select('+resetPasswordToken +resetPasswordExpiry');
 
     if (!user) {
@@ -448,6 +523,81 @@ exports.resetPassword = async (req, res, next) => {
     await user.save();
 
     res.json({ success: true, message: 'Password reset successfully. You can now login.' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get public list of registered teachers for login selection
+// @route   GET /api/auth/teachers
+// @access  Public
+exports.getPublicTeachers = async (req, res, next) => {
+  try {
+    const Teacher = require('../models/Teacher');
+    const User = require('../models/User');
+
+    // 1. Fetch from Teacher collection populated with department
+    const teachers = await Teacher.find({ status: { $ne: 'inactive' } })
+      .populate('department', 'department_name short_name')
+      .sort({ name: 1 })
+      .lean();
+
+    // 2. Fetch User accounts with role: 'teacher' to match exact login emails
+    const teacherUsers = await User.find({ role: 'teacher', isVerified: true })
+      .select('name email teacher_id')
+      .lean();
+
+    const userByTeacherId = new Map();
+    const userByEmail = new Map();
+    teacherUsers.forEach((u) => {
+      if (u.teacher_id) userByTeacherId.set(u.teacher_id.toString(), u);
+      if (u.email) userByEmail.set(u.email.toLowerCase(), u);
+    });
+
+    const teacherMap = new Map();
+
+    // Add all Teachers from Teacher model
+    teachers.forEach((t) => {
+      const linkedUser = userByTeacherId.get(t._id.toString()) || (t.email ? userByEmail.get(t.email.toLowerCase()) : null);
+      const email = linkedUser?.email || t.email || '';
+      const deptName = t.department?.department_name || t.department?.short_name || 'General Faculty';
+
+      teacherMap.set(t._id.toString(), {
+        id: t._id.toString(),
+        name: t.name || linkedUser?.name || 'Faculty Member',
+        email: email,
+        facultyId: t.teacher_id || '—',
+        department: deptName,
+        departmentShort: t.department?.short_name || '',
+        designation: t.designation || 'Faculty Member',
+      });
+    });
+
+    // Also include any User with role: 'teacher' who might not be in Teacher model yet
+    teacherUsers.forEach((u) => {
+      const alreadyIncluded = u.teacher_id && teacherMap.has(u.teacher_id.toString());
+      const emailIncluded = Array.from(teacherMap.values()).some((item) => item.email && item.email.toLowerCase() === u.email.toLowerCase());
+
+      if (!alreadyIncluded && !emailIncluded) {
+        teacherMap.set(u._id.toString(), {
+          id: u._id.toString(),
+          name: u.name || 'Faculty Member',
+          email: u.email,
+          facultyId: '—',
+          department: 'General Faculty',
+          departmentShort: '',
+          designation: 'Faculty Member',
+        });
+      }
+    });
+
+    const result = Array.from(teacherMap.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+    res.json({
+      success: true,
+      data: result,
+      count: result.length,
+    });
   } catch (error) {
     next(error);
   }

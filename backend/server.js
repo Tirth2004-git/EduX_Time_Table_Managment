@@ -32,7 +32,13 @@ app.use(cors({
 app.use('/api/', apiLimiter);
 
 // Parser Middlewares
-app.use(express.json());
+app.use(
+  express.json({
+    verify: (req, res, buf) => {
+      req.rawBody = buf;
+    },
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -60,6 +66,10 @@ app.use('/api/substitutions', require('./routes/substitutionRoutes'));
 app.use('/api/sessions', require('./routes/scheduledSessionRoutes'));
 app.use('/api/academic-years', require('./routes/academicCalendarRoutes'));
 app.use('/api/admin', require('./routes/adminDashboardRoutes'));
+app.use('/api/elearning', require('./routes/elearningRoutes'));
+app.use('/api/organizations', require('./routes/organizationRoutes'));
+app.use('/api/events', require('./routes/eventRoutes'));
+app.use('/api/payments', require('./routes/paymentRoutes'));
 
 // Root path diagnostic route
 app.get('/api/health', (req, res) => {

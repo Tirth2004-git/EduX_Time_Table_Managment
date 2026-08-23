@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { AnimatePresence, motion } from 'framer-motion';
+import api from '@/services/api';
 
 // Components
 import DashboardOverview from '@/components/DashboardOverview';
@@ -11,6 +12,7 @@ import SubjectManagement from '@/components/SubjectManagement';
 import ClassroomManagement from '@/components/ClassroomManagement';
 import GlobalTimetablePreview from '@/components/GlobalTimetablePreview';
 import TeacherLeaveManagement from '@/components/TeacherLeaveManagement';
+import AdminEventManagement from '@/components/Events/AdminEventManagement';
 import Analytics from '@/pages/Analytics';
 import Import from '@/pages/Import';
 
@@ -65,23 +67,16 @@ export default function Dashboard() {
 
   const handleGenerateDemoData = async () => {
     try {
-      const response = await fetch('/api/admin/seed', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = await response.json();
-      if (data.success) {
+      const response = await api.post('/admin/seed');
+      if (response.data?.success) {
         alert('Academic demo data generated successfully');
         window.location.reload();
       } else {
-        alert(data.error || 'Failed to generate demo data');
+        alert(response.data?.error || 'Failed to generate demo data');
       }
     } catch (error) {
       console.error('Error seeding data:', error);
-      alert('Error generating demo data');
+      alert(error.response?.data?.error || 'Error generating demo data');
     }
   };
 
@@ -145,6 +140,7 @@ export default function Dashboard() {
     { id: 'teachers', label: 'Teachers', icon: <Users className="w-5 h-5" /> },
     { id: 'subjects', label: 'Subjects', icon: <BookOpen className="w-5 h-5" /> },
     { id: 'classrooms', label: 'Classrooms', icon: <Building2 className="w-5 h-5" /> },
+    { id: 'events', label: 'Events & Promotions', icon: <Sparkles className="w-5 h-5" /> },
     { id: 'leaves', label: 'Leave Management', icon: <Table2 className="w-5 h-5" /> },
     { id: 'analytics', label: 'Analytics', icon: <BarChart3 className="w-5 h-5" /> },
     { id: 'settings', label: 'Settings', icon: <Settings className="w-5 h-5" /> },
@@ -346,6 +342,9 @@ export default function Dashboard() {
               )}
               {activeTab === 'classrooms' && (
                 <ClassroomManagement />
+              )}
+              {activeTab === 'events' && (
+                <AdminEventManagement />
               )}
               {activeTab === 'leaves' && (
                 <TeacherLeaveManagement />

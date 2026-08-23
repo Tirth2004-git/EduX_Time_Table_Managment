@@ -47,11 +47,23 @@ export default function Register() {
   const [focusedField, setFocusedField] = useState(null);
   const [otpValues, setOtpValues] = useState(['', '', '', '', '', '']);
   const [verified, setVerified] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
   const [academicData, setAcademicData] = useState({ departments: [], semesters: [], divisions: [] });
   const [academicSelection, setAcademicSelection] = useState({ department: '', semester: '', divisionId: '' });
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { register: registerOtp, handleSubmit: handleSubmitOtp, setValue, formState: { errors: otpErrors } } = useForm();
+
+  useEffect(() => {
+    let timer;
+    if (resendCooldown > 0) {
+      timer = setInterval(() => {
+        setResendCooldown((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [resendCooldown]);
+
   useEffect(() => {
     Promise.all([api.get('/departments'), api.get('/semesters'), api.get('/divisions')])
       .then(([departments, semesters, divisions]) => {
@@ -92,13 +104,26 @@ export default function Register() {
     }
   };
 
+  const handleOtpPaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData('text').trim();
+    if (/^\d{6}$/.test(pasteData)) {
+      const digits = pasteData.split('');
+      setOtpValues(digits);
+      setValue('otp', pasteData);
+      document.getElementById('otp-5')?.focus();
+    }
+  };
+
   const onSubmit = async (data) => {
     setLoading(true);
     setError('');
     setMessage('');
     try {
+      const normalizedEmail = data.email.trim().toLowerCase();
       const response = await authApi.register({
         ...data,
+        email: normalizedEmail,
         departmentId: academicSelection.department,
         semesterId: academicSelection.semester,
         divisionId: academicSelection.divisionId,
@@ -108,16 +133,10 @@ export default function Register() {
         setLoading(false);
         return;
       }
-      if (response.data?.user && response.data?.token) {
-        localStorage.setItem('auth-token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        setUser(response.data.user);
-        navigate('/timetable', { replace: true });
-        return;
-      }
-      setPendingEmail(data.email);
+      setPendingEmail(normalizedEmail);
       setStep('verify');
-      setMessage('OTP sent! Check your inbox.');
+      setResendCooldown(60);
+      setMessage('Verification code sent to your email! Please check your inbox.');
     } catch (err) {
       setError(err.response?.data?.error || err.message || 'Registration failed');
     } finally {
@@ -136,7 +155,7 @@ export default function Register() {
         return;
       }
       setVerified(true);
-      setMessage('Email verified successfully!');
+      setMessage('Email Verified ✓ Account Created Successfully');
       setTimeout(() => navigate('/login'), 1800);
     } catch (err) {
       setError(err.response?.data?.error || err.message || 'Verification failed');
@@ -146,12 +165,14 @@ export default function Register() {
   };
 
   const resendOtp = async () => {
+    if (resendCooldown > 0) return;
     setResendingOtp(true);
     setError('');
     setMessage('');
     try {
-      await authApi.sendOtp(pendingEmail);
-      setMessage('New OTP sent to your email.');
+      const res = await authApi.sendOtp(pendingEmail);
+      setMessage(res.data?.message || 'New 6-digit verification code sent to your email.');
+      setResendCooldown(60);
     } catch (err) {
       setError(err.response?.data?.error || err.message || 'Failed to resend OTP');
     } finally {
@@ -452,7 +473,7 @@ export default function Register() {
                     <form onSubmit={handleSubmitOtp(onVerifyOtp)} className="space-y-5">
                       <div>
                         <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3 text-center">
-                          Enter Verification Code
+                          Enter 6-Digit Verification Code
                         </label>
                         <div className="flex gap-3 justify-center">
                           {otpValues.map((val, i) => (
@@ -465,6 +486,7 @@ export default function Register() {
                               value={val}
                               onChange={e => handleOtpChange(i, e.target.value)}
                               onKeyDown={e => handleOtpKeyDown(i, e)}
+                              onPaste={handleOtpPaste}
                               onFocus={() => setFocusedField(`otp-${i}`)}
                               onBlur={() => setFocusedField(null)}
                               className={`
@@ -506,7 +528,7 @@ export default function Register() {
                           <><Loader2 className="w-4 h-4 animate-spin" /> Verifying…</>
                         ) : (
                           <>
-                            Verify & Continue{' '}
+                            Verify & Complete Registration{' '}
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                           </>
                         )}
@@ -516,11 +538,13 @@ export default function Register() {
                       <button
                         type="button"
                         onClick={resendOtp}
-                        disabled={resendingOtp}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-blue-200 text-blue-600 text-sm font-semibold hover:bg-blue-50 hover:border-blue-400 transition-all disabled:opacity-50 cursor-pointer bg-transparent"
+                        disabled={resendingOtp || resendCooldown > 0}
+                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-blue-200 text-blue-600 text-sm font-semibold hover:bg-blue-50 hover:border-blue-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer bg-transparent"
                       >
                         <RefreshCw className={`w-4 h-4 ${resendingOtp ? 'animate-spin' : ''}`} />
-                        {resendingOtp ? 'Sending…' : 'Resend Code'}
+                        {resendCooldown > 0
+                          ? `Resend code in 00:${resendCooldown < 10 ? '0' : ''}${resendCooldown}`
+                          : (resendingOtp ? 'Sending…' : 'Resend Code')}
                       </button>
                     </form>
 

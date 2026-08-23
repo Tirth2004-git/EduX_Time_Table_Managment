@@ -7,8 +7,15 @@ const {
   updateSemester,
   deleteSemester,
 } = require('../controllers/semesterController');
+const { protect } = require('../middleware/authMiddleware');
 
-router.route('/').get(getSemesters).post(createSemester);
-router.route('/:id').get(getSemesterById).put(updateSemester).delete(deleteSemester);
+router.route('/')
+  .get(getSemesters)
+  .post(protect(true), createSemester);
+
+router.route('/:id')
+  .get(getSemesterById)
+  .put(protect(true), updateSemester)
+  .delete(protect(true), deleteSemester);
 
 module.exports = router;

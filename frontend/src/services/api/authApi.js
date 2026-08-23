@@ -2,6 +2,7 @@ import api from './index';
 
 export const authApi = {
   login: (email, password) => api.post('/auth/login', { email, password }),
+  getTeachers: () => api.get('/auth/teachers'),
   getDemoTeachers: () => api.get('/demo/teachers'),
   demoTeacherLogin: (teacherId) => api.post('/auth/demo/teacher', { teacherId }),
   register: (data) => api.post('/auth/register', data),
