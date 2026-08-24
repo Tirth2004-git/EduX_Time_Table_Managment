@@ -10,7 +10,6 @@ import TimetableBuilder from '@/components/TimetableBuilder';
 import TeacherManagement from '@/components/TeacherManagement';
 import SubjectManagement from '@/components/SubjectManagement';
 import ClassroomManagement from '@/components/ClassroomManagement';
-import GlobalTimetablePreview from '@/components/GlobalTimetablePreview';
 import TeacherLeaveManagement from '@/components/TeacherLeaveManagement';
 import AdminEventManagement from '@/components/Events/AdminEventManagement';
 import Analytics from '@/pages/Analytics';
@@ -58,10 +57,10 @@ export default function Dashboard() {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/login');
+      navigate('/login', { replace: true });
     } catch (error) {
       console.error('Logout error:', error);
-      navigate('/login');
+      navigate('/login', { replace: true });
     }
   };
 
@@ -111,14 +110,18 @@ export default function Dashboard() {
             </p>
             <div className="flex gap-3 pt-2">
               <Button 
-                onClick={() => navigate('/timetable')}
+                onClick={() => {
+                  if (user?.role === 'teacher') navigate('/teacher-timetable', { replace: true });
+                  else if (user?.role === 'student') navigate('/student-dashboard', { replace: true });
+                  else navigate('/login', { replace: true });
+                }}
                 className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-md cursor-pointer border-0"
               >
-                Go To Timetable
+                Go To My Portal
               </Button>
               <Button 
                 variant="outline" 
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/login', { replace: true })}
                 className="border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl cursor-pointer"
               >
                 Back To Login

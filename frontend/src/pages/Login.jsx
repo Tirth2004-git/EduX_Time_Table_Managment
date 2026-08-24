@@ -119,11 +119,11 @@ export default function Login() {
       if (result && result.user) {
         const userRole = String(result.user.role || '').toLowerCase();
         if (userRole === 'admin') {
-          navigate('/dashboard');
+          navigate('/dashboard', { replace: true });
         } else if (userRole === 'teacher') {
-          navigate('/teacher-timetable');
+          navigate('/teacher-timetable', { replace: true });
         } else {
-          navigate('/timetable');
+          navigate('/student-dashboard', { replace: true });
         }
       }
     } catch (err) {

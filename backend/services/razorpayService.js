@@ -2,8 +2,8 @@ const Razorpay = require('razorpay');
 const crypto = require('crypto');
 
 const getRazorpayConfig = () => {
-  const keyId = process.env.RAZORPAY_KEY_ID || 'rzp_test_mockKeyId';
-  const keySecret = process.env.RAZORPAY_KEY_SECRET || 'mockSecret';
+  const keyId = process.env.RAZORPAY_KEY_ID ;
+  const keySecret = process.env.RAZORPAY_KEY_SECRET ;
   return { keyId, keySecret };
 };
 

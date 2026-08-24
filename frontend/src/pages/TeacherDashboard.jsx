@@ -98,7 +98,7 @@ export default function TeacherDashboard({ initialTab = 'timetable' }) {
   useEffect(() => {
     if (authLoading) return;
     if (!user || String(user.role).toLowerCase() !== 'teacher') {
-      navigate('/login');
+      navigate('/login', { replace: true });
       return;
     }
 
@@ -108,10 +108,10 @@ export default function TeacherDashboard({ initialTab = 'timetable' }) {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/login');
+      navigate('/login', { replace: true });
     } catch (err) {
       console.error('Logout error:', err);
-      navigate('/login');
+      navigate('/login', { replace: true });
     }
   };
 

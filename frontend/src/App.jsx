@@ -12,8 +12,7 @@ import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Import from './pages/Import';
-import Timetable from './pages/Timetable';
-import GlobalTimetable from './pages/GlobalTimetable';
+import StudentDashboard from './pages/StudentDashboard';
 import SharedTimetable from './pages/SharedTimetable';
 import TeacherPortal from './pages/TeacherDashboard';
 
@@ -60,23 +59,18 @@ function App() {
               }
             />
 
-            {/* Protected Client-Facing Routes */}
+            {/* Protected Student Portal Routes */}
             <Route
-              path="/timetable"
+              path="/student-dashboard"
               element={
-                <ProtectedRoute>
-                  <Timetable />
+                <ProtectedRoute allowRoles={['student']}>
+                  <StudentDashboard />
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/timetable/global"
-              element={
-                <ProtectedRoute>
-                  <GlobalTimetable />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/student" element={<Navigate to="/student-dashboard" replace />} />
+            <Route path="/student/dashboard" element={<Navigate to="/student-dashboard" replace />} />
+            <Route path="/student-portal" element={<Navigate to="/student-dashboard" replace />} />
 
             {/* Teacher portal: timetable is the primary teacher page. */}
             <Route

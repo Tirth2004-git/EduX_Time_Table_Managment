@@ -14,7 +14,7 @@ export default function Home() {
         } else if (user.role === 'teacher') {
           navigate('/teacher-timetable', { replace: true });
         } else {
-          navigate('/timetable', { replace: true });
+          navigate('/student-dashboard', { replace: true });
         }
       } else {
         navigate('/login', { replace: true });

@@ -1,1011 +1,838 @@
-# 📅 Edux - Smart Faculty & Timetable Planner
+# 🎓 EduX Planner — Smart Timetable & Academic Management System
 
-> **An Enterprise-Grade, AI-Assisted Academic Timetable Scheduling System with Dynamic Constraint Validation, Real-Time Conflict Resolution, and Multi-Role Portals.**
-
----
-
-> [!IMPORTANT]
-> **Architecture Update:** This project has been fully migrated to use a strictly enforced Local MongoDB database (mongodb://127.0.0.1:27017/timetable-scheduler). All legacy static JSON data flows and mock datasets have been completely eradicated from the runtime. The frontend and backend are 100% database-driven.
-
-
-
-[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
-[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)](https://jwt.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Status: Production Ready](https://img.shields.io/badge/Status-Production%20Ready-green.svg?style=for-the-badge)](#project-status)
+> **A Comprehensive, Role-Based Academic Scheduling and Campus Operations Platform featuring Constraint-Satisfying Timetable Generation, Multi-Role Portals, Cloud E-Learning with AI Quiz Generation, Campus Event Management with Test-Mode Payments, and Automated Email Notifications.**
 
 ---
 
-## 🎯 Project Overview
-
-### Problem Statement
-In modern academic institutions, drafting a conflict-free timetable manually is a monumental challenge. Administrators face a multi-dimensional constraint-satisfaction puzzle: coordinating hundreds of faculty members, matching subject curricula with specific weekly periods, ensuring physical classrooms are not double-booked, and managing faculty leave or sudden absences. Doing this manually or via static spreadsheets leads to:
-- **Scheduling Clashes:** Teachers assigned to multiple locations or divisions in the same time slot.
-- **Resource Underutilization:** Classrooms sitting empty while others are overloaded.
-- **Data Inconsistencies:** Out-of-sync workloads where teachers are assigned more hours than their contractual limits.
-- **Administrative Delays:** Rescheduling due to leaves or substitutions takes hours of coordination.
-
-### Solution
-**EduX** is a sophisticated, full-stack scheduling workspace that combines a **real-time relational validation engine** with **AI-assisted heuristic generators** (including Google Gemini models) to automatically produce conflict-free, optimized timetables. Built on top of a highly normalized MongoDB schema design, EduX computes schedules and workloads dynamically, guaranteeing absolute data integrity.
-
-### Why This Project Matters
-Unlike simple static builders that allow users to save invalid state and debug it later, EduX enforces a **preventative architecture**. Its core validation engine acts as a transaction-guard: no invalid entry (clashing rooms, teachers, or exceeded hours) can ever be persisted to the database. The system scales effortlessly, providing interactive drag-and-drop builders for admins and a dedicated self-service portal for faculty members to manage leaves, preferences, and substitutions.
-
-### Real-World Use Cases
-- **Departmental Timetable Builders:** Used by departmental heads to build, validate, and manage weekly class slots.
-- **Automated Substitution Planner:** Resolves sudden faculty absences by finding and suggesting eligible replacement teachers using Google Gemini AI models.
-- **Dynamic Resource Trackers:** Analyzes real-time utilization rates of physical classrooms to prevent allocation clashes.
-- **Faculty Preference Self-Service:** Teachers log in to submit leave applications, specify their preferred teaching slots, or mark unavailable times.
+[![Node.js](https://img.shields.io/badge/Node.js-v18+-43853D?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-v4.18+-404D59?style=flat&logo=express&logoColor=white)](https://expressjs.com/)
+[![React](https://img.shields.io/badge/React-v18.2+-20232A?style=flat&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-v8.0+-646CFF?style=flat&logo=vite&logoColor=white)](https://vite.dev/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-v6.0+-4EA94B?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.4+-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Razorpay](https://img.shields.io/badge/Razorpay-Test_Mode-0C2340?style=flat&logo=razorpay&logoColor=white)](https://razorpay.com/)
+[![Google Gemini](https://img.shields.io/badge/Google_Gemini-AI-8E75C2?style=flat&logo=google&logoColor=white)](https://ai.google.dev/)
 
 ---
 
-## 🔗 Live Demo
-* [Launch EduX Timetable Planner Portal (Placeholder)](https://edux-timetable-planner.example.com)
-* *Credentials for Testing:*
-  - **Admin:** `admin@edux.local` / `AdminPass123`
-  - **Teacher:** `teacher1@edux.local` / `TeacherPass123`
+## 📌 Table of Contents
+
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [System Architecture](#-system-architecture)
+- [Technology Stack](#-technology-stack)
+- [System Modules & Portals](#-system-modules--portals)
+  - [1. Administrator Portal](#1-administrator-portal)
+  - [2. Faculty / Teacher Portal](#2-faculty--teacher-portal)
+  - [3. Student Portal](#3-student-portal)
+  - [4. Intelligent Timetable Engine](#4-intelligent-timetable-engine)
+  - [5. E-Learning & AI Quiz System](#5-e-learning--ai-quiz-system)
+  - [6. Campus Events & Test-Mode Payments](#6-campus-events--test-mode-payments)
+  - [7. Email & OTP Verification Flow](#7-email--otp-verification-flow)
+  - [8. Analytics & Diagnostic Engine](#8-analytics--diagnostic-engine)
+- [Database Design & Data Models](#-database-design--data-models)
+- [REST API Reference](#-rest-api-reference)
+- [Security & Authentication](#-security--authentication)
+- [Project Directory Structure](#-project-directory-structure)
+- [Installation & Getting Started](#-installation--getting-started)
+- [Environment Variables](#-environment-variables)
+- [Running the Application](#-running-the-application)
+- [Development & Test Accounts](#-development--test-accounts)
+- [Testing & Quality Assurance](#-testing--quality-assurance)
+- [Project Status](#-project-status)
+- [Future Roadmap](#-future-roadmap)
+- [Contributing](#-contributing)
+- [Author & Acknowledgments](#-author--acknowledgments)
 
 ---
 
-## 📸 Screenshots
+## 📖 Overview
 
-| Screen | Description | Placeholder |
-| --- | --- | --- |
-| **Admin Dashboard Overview** | Modern analytics showing health score, workload distribution, and room utilization. | ![Dashboard Screenshot](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80) |
-| **Interactive Timetable Builder** | Visual grid with drag-and-drop slots, color-coded lab cards, and conflict warnings. | ![Timetable Builder Screenshot](https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80) |
-| **Teacher Management Portal** | Admin interface to configure faculty teaching limits and import bulk data. | ![Teacher Management Screenshot](https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80) |
-| **PDF & Excel Export Engine** | Output preview fitting complete timetables on a single landscape A3 page with PU Branding. | ![PDF Export Screenshot](https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80) |
-| **Auth & Security Portal** | Login screen featuring multi-factor cookie-based JWT flow and OTP verification. | ![Login Portal Screenshot](https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80) |
+### The Problem
+Academic institutions face complex scheduling challenges every semester. Coordinating faculty availability, room allocations, student division curricula, lab room equipment requirements, and unexpected teacher leaves requires balancing dozens of conflicting constraints. Traditional manual scheduling and static spreadsheets frequently cause:
+- **Faculty & Room Collisions:** The same instructor or physical classroom is inadvertently scheduled across multiple divisions simultaneously.
+- **Curriculum & Workload Discrepancies:** Teachers exceed contractual teaching hours while subjects fall short of required weekly periods.
+- **Fragmented Campus Operations:** Timetables, study materials, student assignments, quizzes, and campus event registrations remain scattered across disconnected tools.
 
----
+### The EduX Solution
+**EduX Planner** is an integrated academic scheduling and campus operations platform built on the MERN stack (MongoDB, Express.js, React, Node.js). It combines a **deterministic multi-constraint scheduling engine** with **AI-assisted heuristic generation** (Google Gemini & DeepSeek), **dynamic workload calculation**, **digital classroom management**, **e-learning content with automated AI quiz generation**, and **event registrations with Razorpay test-mode payments**.
 
-## 🛠️ Tech Stack
-
-### Core Technology Layers
-| Layer | Technologies | Usage & Description |
-| --- | --- | --- |
-| **Frontend SPA** | React.js (Vite), React Router Dom v6 | High-performance single-page app architecture with declarative routing. |
-| **Backend API** | Node.js, Express.js | Modular REST API routes, custom error handlers, and middleware wrappers. |
-| **Database** | MongoDB Atlas, Mongoose | Cloud-hosted document database, compound indexing, and strict schema validation. |
-| **State Management**| React Context API | Contextual state propagation (`AuthContext`, `TimetableContext`) with persistent LocalStorage synchronizers. |
-| **Styling** | Tailwind CSS, Framer Motion | Curated HSL color palette, responsive layout, glassmorphic accents, and micro-animations. |
-| **AI Integration** | Google Generative AI SDK | Integrates Gemini 1.5 Flash / Pro models to dynamically evaluate and suggest optimal substitution faculty. |
-| **Exports & Printing** | ExcelJS, FileSaver, jsPDF, html2canvas | Client-side Excel builder with protected cells and high-resolution A3 landscape PDF exports. |
+### Who Uses EduX Planner?
+1. **Academic Administrators:** Configure departments, semesters, divisions, subjects, faculty workloads, and physical classrooms. Generate, refine, validate, and publish weekly timetables; manage faculty leaves; and organize campus events.
+2. **Faculty / Teachers:** Access personal weekly schedules, apply for leaves, upload subject study materials, publish assignments, grade student submissions, and auto-generate interactive quizzes from document uploads (PDF/PPT/PPTX).
+3. **Students:** Self-register with 6-digit email OTP verification, view division timetables, download learning materials, submit assignments, take timed interactive quizzes with instant score breakdowns, and register for campus workshops and hackathons with digital ticket delivery.
 
 ---
 
-## 🚀 Features
+## 🌟 Key Features
 
-### 👑 Admin Features
-* **Interactive Drag-and-Drop Grid:** Drag subjects and teachers across slots using `@dnd-kit/core` with real-time target clash previewing.
-* **Bulk Data Importers:** Upload Excel spreadsheets (`.xlsx`) to batch create/update teachers, subjects, classrooms, and assignments in seconds.
-* **Holiday Management:** Mark days as holidays (via `WeeklyConfig`) to automatically clear and lock timetable columns in the builder.
-* **Consolidated Analytics:** Visual charts (recharts) representing classroom utilization percentages, subject workloads, and schedule health scores.
-* **Substitution Resolver:** Single-click utility to find substitute teachers during leaves, integrated with Google Gemini AI reasoning.
-* **Timeline Undo/Redo:** Chronological action tracking (`HistoryState` model) allowing admins to revert or repeat changes in the builder.
+### 🏛️ Core Academic Management
+- **Hierarchical Academic Structure:** Department $\rightarrow$ Semester $\rightarrow$ Division relational scoping.
+- **Subject Management:** Configure subject codes, theory vs. laboratory classification, weekly period quotas, credits, and assigned faculty mappings.
+- **Teacher Profiles:** Track designations, departments, contact details, and contractual maximum teaching hours per week.
+- **Classroom & Facility Management:** Maintain room inventories with types (Classroom, Laboratory, Computer Lab, Seminar Hall, Auditorium), floor numbers, buildings, seating capacities, and equipment tags (Projector, WiFi, Smart Board, AC, LAN).
 
-### 👨‍🏫 Teacher Features
-* **Personalized Dashboard:** Clean interface showing weekly schedules, current workloads, and real-time notification alerts.
-* **Availability Planner:** Configure preferred days/times and mark unavailable slots that the generators will respect.
-* **Leave Management:** Request leave dates, monitor approval status (Pending/Approved/Rejected), and view admin feedback.
-* **Substitution Requests:** Self-service requests to assign class slots to available colleagues.
-* **Live Notifications:** Read/unread status indicators for schedule shifts, leave reviews, and substitution approvals.
+### ⚡ Intelligent Timetable Builder
+- **Universal Timetable Matrix:** 6 Days (Monday – Saturday) across 6 standard university class periods (09:30 – 16:20) and 2 system breaks.
+- **Multi-Constraint Conflict Prevention:** Real-time prevention of teacher double-booking, room overlap, division collisions, and contractual workload violations.
+- **AI-Powered Generation Modes:**
+  - `Smart Fill Remaining`: Retains existing manual schedule entries and fills only vacant slots using constraint satisfaction heuristics.
+  - `AI Full Rebuild`: Re-evaluates all subject curriculum quotas and constructs a complete, freshly optimized schedule.
+  - `Regenerate Better`: Multi-candidate heuristic pass optimizing daily balance, subject spread, and pattern diversity.
+- **Interactive Slot Operations:** Update lecture details, move periods with live collision checks, replace faculty with AI compatibility recommendations, and delete slots with workload impact analysis.
+- **Public Shared Timetables:** Generate secure tokenized share links (`/shared/:token`) for public read-only timetable viewing.
+- **Audit Log Trail:** Complete history tracking for planner actions (ADD, MOVE, REPLACE, DELETE, HOLIDAY) with timestamps and administrative user IDs.
+- **Multi-Format Exporting:** Single-click exports to branded **PDF**, **Excel (.xlsx)**, and **CSV**.
 
-### ⚙️ System Features
-* **Deterministic Greedy Auto-Generator:** Fills empty slots using a randomized greedy algorithm matching teacher limits and class constraints.
-* **Smart Priority Generator:** Algorithmic builder that places library/free periods first, schedules 2-hour lab blocks consecutively, and finishes with preferred lecture slots.
-* **Multi-View Global Previews:** View aggregated timetables sorted by **Division** (class grid), **Teacher** (individual workloads), or **Subject** (utilization).
-* **Branded Document Exports:** Exports styled schedules including university name, logos, and locked/protected columns using ExcelJS.
+### 📚 E-Learning & Assessment System
+- **Study Materials Repository:** Upload and distribute lecture notes, syllabus files, and documents with secure signed Cloudinary URLs.
+- **Assignment Management:** Create assignments with deadline enforcement, accept student file submissions, and provide grades and qualitative feedback.
+- **AI Quiz Generator:** Upload PDF, PPT, or PPTX lecture slides to extract text and automatically generate structured multiple-choice quizzes (questions, options, correct answers, and explanations).
+- **Single Question Regenerator:** Re-prompt AI to regenerate individual questions without discarding the entire quiz.
+- **Student Quiz Experience:** Timed interactive quiz attempts with single-attempt enforcement, instant score calculation, percentage analytics, and question-by-question answer reviews with detailed explanations.
 
-### 🔒 Security Features
-* **Token Rotation (Access/Refresh JWT):** Implements short-lived access tokens (15m) and long-lived refresh tokens (7d) in secure HTTP-only cookies.
-* **Role-Based Routing (RBAC):** Middleware checks mapping route permissions specifically to `admin` or `teacher` users.
-* **Smart Rate Limiting:** Prevent denial-of-service and brute force logins using scoped rate limiters (login: 5 requests/15m, save: 30 requests/1m).
-* **Secure OTP Verification:** Mandates email OTP verification upon registration before account access is activated.
+### 🎟️ Campus Events & Test-Mode Payments
+- **Partner Organization Directory:** Manage campus sponsors, recruiters, and partner organizations with custom logos and contact info.
+- **Targeted Event Management:** Create events with department and semester audience targeting, registration deadlines, and seat capacity limits.
+- **Razorpay Test-Mode Checkout:** Seamless popup checkout for paid event registrations with client-side script loader and server-side HMAC-SHA256 signature verification.
+- **Automated Digital Tickets:** Automated issuance of unique Ticket IDs and styled HTML email dispatch via Nodemailer upon successful registration.
+- **Event Analytics & Exports:** Real-time registration statistics, revenue tracking, and one-click CSV export of attendee lists.
 
----
-
-## 📂 Folder Structure
-
-```
-EduX-Timetable-Management/
-├── backend/                       # Express.js REST API Server
-│   ├── config/
-│   │   └── db.js                  # MongoDB Atlas Mongoose connection pooler
-│   ├── controllers/
-│   │   ├── aiController.js        # Gemini AI substitution recommender
-│   │   ├── analyticsController.js # MongoDB aggregation-based dashboards
-│   │   ├── authController.js      # Register, verify, login, and token manager
-│   │   ├── classroomController.js  # Classroom CRUD logic
-│   │   ├── importController.js    # Excel data parser and database upsert engine
-│   │   ├── subjectController.js   # Subject CRUD logic
-│   │   ├── substitutionController.js # Teacher substitution approvals
-│   │   ├── teacherController.js   # Teacher CRUD & file importer
-│   │   ├── teacherLeaveController.js # Leave review & workflow manager
-│   │   ├── teacherPortalController.js # Teacher-facing dashboards
-│   │   └── timetableController.js # Timetable planner, moves, copies, and history
-│   ├── middleware/
-│   │   ├── authMiddleware.js      # JWT cookie validation & verification check
-│   │   ├── errorHandler.js        # Express global error handler
-│   │   ├── rateLimiter.js         # IP-scoped request throttling limiters
-│   │   └── roleMiddleware.js      # RBAC permission check (admin/teacher)
-│   ├── models/
-│   │   ├── AuditLog.js            # Admin builder audit tracking
-│   │   ├── Classroom.js           # Program, semester, division, room data
-│   │   ├── HistoryState.js        # Builder undo/redo state container
-│   │   ├── Notification.js        # Teacher alerts and notifications
-│   │   ├── SharedLink.js          # Public read-only hash tokens
-│   │   ├── Subject.js             # Subject code, periods, and defaults
-│   │   ├── SubstitutionRequest.js # Absentee replacement logs
-│   │   ├── Teacher.js             # Teacher workload, limits, and preferences
-│   │   ├── TeacherAssignment.js   # Teacher-division contextual mapping
-│   │   ├── TeacherLeave.js        # Leave date logs and approval statuses
-│   │   ├── Timetable.js           # Individual slot entries (references only)
-│   │   ├── User.js                # Core auth credentials & status fields
-│   │   ├── WeeklyConfig.js        # Division holiday parameters
-│   │   └── WeeklyTimetable.js     # Division aggregate timetables
-│   ├── routes/                    # API Endpoints mounts
-│   ├── services/
-│   │   ├── autoGenerator.js       # Greedy auto-scheduler
-│   │   ├── emailService.js        # Nodemailer template transporter (OTP/Alerts)
-│   │   ├── smartGenerator.js      # Priority-based smart scheduler
-│   │   ├── validationEngine.js    # Transactional conflict and validation engine
-│   │   └── workloadCompute.js     # Runtime workload counting helpers
-│   ├── utils/
-│   │   └── constants.js           # Time slot configuration lists
-│   └── server.js                  # Main server listener and mounts
-│
-├── frontend/                      # React SPA client application
-│   ├── public/                    # Static assets (favicons, logos)
-│   ├── src/
-│   │   ├── assets/                # Styling variables and images
-│   │   ├── components/            # Reusable sub-components
-│   │   │   ├── ui/                # Styled ShadCN/Base custom UI components
-│   │   │   ├── ClassroomManagement.jsx # Room configuration tables
-│   │   │   ├── DashboardOverview.jsx   # Metrics, charts, and health logs
-│   │   │   ├── GlobalTimetablePreview.jsx # Multi-view builder panels
-│   │   │   ├── SubjectManagement.jsx  # Curriculum managers
-│   │   │   ├── TeacherLeaveManagement.jsx # Admin leave review desk
-│   │   │   ├── TeacherManagement.jsx  # Faculty roster panels
-│   │   │   └── TimetableBuilder.jsx   # Interactive scheduling workspace
-│   │   ├── context/
-│   │   │   ├── AuthContext.jsx    # Authentication state provider
-│   │   │   └── TimetableContext.jsx # Timetable workspace state provider
-│   │   ├── lib/                   # Utility helpers (ShadCN cn merger)
-│   │   ├── pages/                 # Full application route pages
-│   │   │   ├── Analytics.jsx      # Admin visual metric dashboard
-│   │   │   ├── Dashboard.jsx      # Admin landing dashboard tabs
-│   │   │   ├── ForgotPassword.jsx # Request reset code
-│   │   │   ├── GlobalTimetable.jsx # All schedules preview page
-│   │   │   ├── Home.jsx           # Public splash landing router
-│   │   │   ├── Import.jsx         # Bulk excel upload desk
-│   │   │   ├── Login.jsx          # Secure credential input
-│   │   │   ├── Register.jsx       # Register with verification checks
-│   │   │   ├── ResetPassword.jsx  # Password reset executor
-│   │   │   ├── SharedTimetable.jsx # Read-only public view page
-│   │   │   ├── TeacherDashboard.jsx # Self-service teacher panel
-│   │   │   └── Timetable.jsx      # Timetable route container
-│   │   ├── routes/
-│   │   │   └── ProtectedRoute.jsx # Route guards for auth & RBAC checks
-│   │   ├── utils/
-│   │   │   ├── branding.js        # Branding assets (Parul University)
-│   │   │   ├── csvExport.js       # Comma-separated exporter
-│   │   │   ├── excelExport.js     # Protected spreadsheet exporter (ExcelJS)
-│   │   │   └── pdfExport.js       # Landscape A3 single page PDF exporter
-│   │   ├── App.css                # Global components override
-│   │   ├── index.css              # Tailwind base utilities and custom colors
-│   │   ├── main.jsx               # Client initialization script
-│   │   └── App.jsx                # Main react router switchboard
-│   ├── package.json               # Client dependencies configs
-│   ├── vite.config.js             # Vite development server and API proxy config
-│   └── tailwind.config.js         # Tailwind layout grids configurations
-│
-├── scripts/
-│   ├── seed.js                    # Core seed script (creates sample teachers & admin)
-│   ├── seed-users.js              # Generates sample user accounts
-│   └── update-users.js            # Utility script to clean up user references
-├── package.json                   # Root package manager script wrapper
-└── README.md                      # Project documentation file
-```
+### 🔐 Security & Communication
+- **Dual-Token JWT Authentication:** Short-lived access tokens and long-lived refresh tokens stored in secure, `HttpOnly`, `SameSite: Lax` cookies.
+- **Role-Based Access Control (RBAC):** Strict middleware gating for `admin`, `teacher`, and `student` roles across API endpoints and React UI routes.
+- **Email & OTP Services:** Nodemailer integration supporting 6-digit registration OTP verification, password reset links, event ticket delivery, and timetable modification alerts.
 
 ---
 
 ## 🏗️ System Architecture
 
-```mermaid
-flowchart TB
-    %% Client Layer
-    subgraph Client [React SPA Frontend]
-        UI[Tailwind & ShadCN UI]
-        State[React Context API & LocalStorage]
-        DND[@dnd-kit/core Drag & Drop]
-        Export[jsPDF / ExcelJS Exporter]
-    end
-
-    %% Web Layer
-    subgraph Server [Express.js Backend API]
-        Proxy[Vite Dev Server Proxy]
-        RL[Rate Limiter Middleware]
-        Auth[Auth Middleware Cookie/JWT]
-        RBAC[RBAC Role Middleware]
-        Route[REST Api Route Handlers]
-    end
-
-    %% Services Layer
-    subgraph Services [Core Application Logic]
-        VE[Validation Engine]
-        SG[Smart Priority Generator]
-        AG[Greedy Auto-Generator]
-        WC[Workload Compute Engine]
-        Gemini[Google Gemini API Gateway]
-        Mail[Nodemailer Email Service]
-    end
-
-    %% Database Layer
-    subgraph Database [Storage & External Services]
-        DB[(MongoDB Atlas Database)]
-        SMTP[Gmail SMTP Server]
-    end
-
-    %% Client and Server Communication
-    UI --> State
-    State --> DND
-    UI --> Export
-    State -- Axios HTTPS Requests --> Proxy
-    Proxy --> RL
-    RL --> Auth
-    Auth --> RBAC
-    RBAC --> Route
-
-    %% Server and Services Communication
-    Route --> VE
-    Route --> SG
-    Route --> AG
-    Route --> Gemini
-    
-    VE --> WC
-    SG --> VE
-    AG --> VE
-    
-    %% Services and DB Communication
-    VE --> DB
-    SG --> DB
-    AG --> DB
-    WC --> DB
-    Route --> Mail
-    Mail --> SMTP
+```
+                                  ┌─────────────────────────────────────────────────────────┐
+                                  │                  CLIENT LAYER (SPA)                     │
+                                  │   React 18  ·  Vite 8  ·  Tailwind CSS  ·  Framer Motion│
+                                  └───────────┬─────────────────────────────────┬───────────┘
+                                              │ Axios (withCredentials: true)   │
+                                              ▼                                 ▼
+                                  ┌─────────────────────────────────────────────────────────┐
+                                  │                  API GATEWAY / SERVER                   │
+                                  │       Node.js  ·  Express.js  ·  Helmet  ·  CORS        │
+                                  │    Rate Limiters (API / Auth / Save / Generate)         │
+                                  └─────┬──────────────┬──────────────┬──────────────┬──────┘
+                                        │              │              │              │
+                    ┌───────────────────┘              │              │              └───────────────────┐
+                    ▼                                  ▼              ▼                                  ▼
+      ┌───────────────────────────┐      ┌─────────────────┐    ┌─────────────────┐      ┌───────────────────────────┐
+      │   AUTHENTICATION & RBAC   │      │ TIMETABLE ENGINE│    │   E-LEARNING    │      │      CAMPUS EVENTS        │
+      │  JWT (HttpOnly Cookies)   │      │  Constraint     │    │  Material Hub   │      │  Partner Organizations    │
+      │  Bcrypt Password Hash     │      │  Satisfaction   │    │  Assignments    │      │  Audience Filtering       │
+      │  Role Middleware          │      │  Validation     │    │  Quiz Engine    │      │  Ticket Generation        │
+      └─────────────┬─────────────┘      └────────┬────────┘    └────────┬────────┘      └─────────────┬─────────────┘
+                    │                             │                      │                             │
+                    └─────────────────────────────┼──────────────────────┼─────────────────────────────┘
+                                                  ▼                      ▼
+                                  ┌─────────────────────────────────────────────────────────┐
+                                  │                 DATA PERSISTENCE LAYER                  │
+                                  │            MongoDB (Mongoose ODM v8.0+)                 │
+                                  │  Indexed Collections  ·  Dynamic Aggregation Pipelines  │
+                                  └───────────┬─────────────────────────────────┬───────────┘
+                                              │                                 │
+                                              ▼                                 ▼
+                                ┌───────────────────────────┐     ┌───────────────────────────┐
+                                │   EXTERNAL INTEGRATIONS   │     │      AI & MEDIA SUITE     │
+                                │  • Nodemailer (SMTP)      │     │  • Google Generative AI   │
+                                │  • Razorpay (Test Mode)   │     │  • DeepSeek API (Quiz)    │
+                                │  • Office/PDF Text Parser │     │  • Cloudinary (Storage)   │
+                                └───────────────────────────┘     └───────────────────────────┘
 ```
 
 ---
 
-## 🔐 Authentication Flow
+## 💻 Technology Stack
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User as Teacher / Admin
-    participant Client as React Client (Axios)
-    participant Server as Express Server
-    participant DB as MongoDB Atlas
-    participant Email as Nodemailer / SMTP
+| Layer | Technology | Version | Purpose & Usage in Project |
+| :--- | :--- | :--- | :--- |
+| **Frontend Framework** | React.js | `^18.2.0` | Component-based UI architecture with declarative hooks and state management |
+| **Build Tooling** | Vite | `^8.0.12` | High-speed ESM bundler and local development server |
+| **Styling** | Tailwind CSS | `^3.4.0` | Utility-first responsive CSS styling with custom theme palette |
+| **Animations** | Framer Motion | `^12.40.0` | Page transitions, tab morphing, and modal dialog micro-animations |
+| **Routing** | React Router DOM | `^6.20.1` | Declarative client-side routing with `ProtectedRoute` and `PublicRoute` wrappers |
+| **Icons** | Lucide React | `^0.303.0` | Modern, consistent iconography across all portals |
+| **Client Exports** | jsPDF / ExcelJS / html2canvas | Latest | In-browser generation of high-resolution PDF, CSV, and Excel timetables |
+| **Backend Runtime** | Node.js | `v18+` | Asynchronous JavaScript runtime for server-side logic |
+| **Web Framework** | Express.js | `^4.18.2` | RESTful API server, routing, custom error middleware, and body parsing |
+| **Database & ODM** | MongoDB / Mongoose | `^8.0.3` | Document-oriented schema definitions, compound indexes, and aggregations |
+| **Authentication** | JSON Web Tokens (JWT) | `^9.0.2` | Secure dual-token rotation stored in `HttpOnly` cookies |
+| **Password Hashing** | bcryptjs | `^2.4.3` | Salted one-way password encryption (10 salt rounds) |
+| **Security Middleware**| Helmet / CORS / Express-Rate-Limit | Latest | HTTP security headers, origin whitelisting, and rate-limiting against abuse |
+| **AI Quiz & Schedulers**| Google Generative AI / DeepSeek | `^0.24.1` | Automated quiz generation and timetable diagnostic reasoning |
+| **Document Parsers** | officeparser / pdf-parse | Latest | Text extraction from uploaded PDF, PPT, and PPTX files for AI quizzes |
+| **Payment Gateway** | Razorpay SDK | `^2.9.8` | **Test-mode** order creation and cryptographic payment signature verification |
+| **Email Service** | Nodemailer | `^6.10.1` | SMTP email dispatch for OTPs, ticket receipts, and schedule updates |
+| **Media Storage** | Cloudinary / Multer | `^1.41.3` | Multipart file upload and cloud storage for event banners, logos, and materials |
 
-    Note over User, Client: Registration Flow
-    User->>Client: Enters Registration Details
-    Client->>Server: POST /api/auth/register
-    Server->>DB: Check if username/email exists
-    DB-->>Server: No duplicates found
-    Server->>Server: Hash Password (bcryptjs) & Generate 6-digit OTP
-    Server->>DB: Save User (isVerified: false, otp, otpExpiry)
-    Server->>Email: Send OTP email (async)
-    Email-->>User: Delivers OTP Code (Gmail/Console log fallback)
-    Server-->>Client: 201 Created (Prompt for OTP validation)
-    Client-->>User: Displays OTP screen
+---
 
-    Note over User, Client: OTP Verification Flow
-    User->>Client: Submits OTP Code
-    Client->>Server: POST /api/auth/verify-otp
-    Server->>DB: Check OTP match & expiry
-    DB-->>Server: Valid Match
-    Server->>DB: Update User (isVerified: true, otp: null)
-    Server-->>Client: 200 OK (Verification successful)
+## 🧩 System Modules & Portals
 
-    Note over User, Client: Login Flow (Access / Refresh Token)
-    User->>Client: Submits Email & Password
-    Client->>Server: POST /api/auth/login
-    Server->>DB: Fetch User + password hash
-    DB-->>Server: Return User details
-    Server->>Server: Verify bcrypt.compare() password
-    Server->>Server: Generate Access Token (15m) & Refresh Token (7d)
-    Server->>Client: Send HTTP-Only Cookie (Access/Refresh Tokens) + JSON Profile
-    Client-->>User: Redirects to Dashboard (Admin or Teacher Portal)
+### 1. Administrator Portal
+Accessible via `/dashboard` for users authenticated with the `admin` role.
+
+- **Dashboard Overview:** Displays real-time counts for teachers, subjects, classrooms, schedule health score, and quick navigation cards.
+- **Timetable Builder:** Interactive grid supporting manual period addition, drag-and-drop slot shifting, smart generation modes, holiday locking, and export utilities.
+- **Teacher Management:** Full CRUD operations for faculty records, contractual weekly teaching hour limits, subject assignments, and Excel/CSV bulk import.
+- **Subject Management:** Create and manage academic subjects, configure weekly period quotas, credits, department/semester mappings, and laboratory flags.
+- **Classroom Management:** Manage classrooms with room numbers, buildings, floors, capacities, room types, facilities checklists, active timetable conflict warnings, and interactive room schedule modals.
+- **Campus Events & Promotions:** Manage partner organizations, create and publish events with target audience filters (department/semester), monitor registrations, export attendee CSVs, and inspect revenue analytics.
+- **Leave Management:** Review faculty leave applications, approve or reject requests with administrative remarks, and view automatic substitution records.
+- **Analytics:** Consolidated metrics showing schedule completion percentage, faculty workload balance distributions, classroom utilization rates, and conflict counters.
+- **Settings & Sample Data:** View system-wide weekly timing slot configurations and trigger sample academic demo data seeding.
+
+---
+
+### 2. Faculty / Teacher Portal
+Accessible via `/teacher-timetable`, `/teacher-elearning`, `/teacher-leaves`, and `/teacher-profile` for authenticated `teacher` accounts.
+
+- **My Timetable:** Personalized view of the teacher's scheduled weekly lectures and laboratory sessions with day/week toggle filters and PDF timetable download.
+- **Leaves Management:** Submit leave requests with date ranges and reasons, track approval status (Pending, Approved, Rejected), and cancel pending applications.
+- **My Content (E-Learning Hub):**
+  - *Study Materials:* Upload PDF documents, notes, or reference links categorized by assigned subjects.
+  - *Assignments:* Create assignments with due dates and attachments, view student submissions, download submitted files, and assign grades and feedback.
+  - *AI Quiz Creation:* Upload PDF, PPT, or PPTX presentation slides; configure question count, difficulty, and question type; generate questions via AI; review and edit questions before publishing.
+  - *Manual Quiz Creation:* Build custom quizzes with configurable time limits, marks per question, and custom explanations for correct answers.
+  - *Quiz Attempt Logs:* View student attempt lists, scores, submission times, and percentages.
+- **Faculty Profile:** View registered department, contact email, designation, and contractual workload allotment.
+
+---
+
+### 3. Student Portal
+Accessible via `/student-dashboard` for authenticated `student` accounts.
+
+- **Self-Registration & OTP Verification:** Public registration at `/register` with 6-digit email OTP verification via Nodemailer before account activation.
+- **My Timetable:** View division-specific weekly schedule, room allocations, instructor names, and download schedule PDFs.
+- **E-Learning Portal:**
+  - *Study Materials:* Access and download subject learning materials using secure signed download URLs.
+  - *Assignments:* View pending and completed assignments, submit solution files, and view instructor grades and feedback.
+  - *Interactive Quizzes:* Attempt active subject quizzes with a live countdown timer. Single-attempt enforcement ensures test integrity.
+  - *Instant Quiz Results:* Upon submission, students receive a score summary (Total Score, Marks, Percentage, Correct, Wrong, Unanswered) along with question-by-question reviews containing correct answers and explanations.
+- **Campus Events & Workshops:**
+  - *Explore Events:* Browse upcoming campus events tailored to the student's department and semester.
+  - *Free Event Registration:* Instant one-click registration with confirmation receipts.
+  - *Paid Event Registration (Test Mode):* Launch Razorpay checkout popup to complete test payments.
+  - *Confirmed Digital Tickets:* Receive email tickets containing unique Ticket IDs, event details, venue info, and payment references.
+  - *My Events Tab:* Access registered events and trigger email ticket re-sends.
+
+---
+
+### 4. Intelligent Timetable Engine
+
+The core scheduling engine (`backend/services/schedulingEngine.js`) resolves academic schedules using a multi-candidate constraint satisfaction algorithm:
+
+#### University Timing Configuration
+| Slot Number | Timing | Period Type |
+| :--- | :--- | :--- |
+| **Period 1** | `09:30 - 10:25` | Standard Academic Lecture / Lab Part 1 |
+| **Period 2** | `10:25 - 11:20` | Standard Academic Lecture / Lab Part 2 |
+| *Break 1* | `11:20 - 12:20` | **Morning Recess (Locked / Non-Teachable)** |
+| **Period 3** | `12:20 - 13:15` | Standard Academic Lecture / Lab Part 1 |
+| **Period 4** | `13:15 - 14:10` | Standard Academic Lecture / Lab Part 2 |
+| *Break 2* | `14:10 - 14:30` | **Afternoon Break (Locked / Non-Teachable)** |
+| **Period 5** | `14:30 - 15:25` | Standard Academic Lecture / Lab Part 1 |
+| **Period 6** | `15:25 - 16:20` | Standard Academic Lecture / Lab Part 2 |
+
+#### Hard Constraints Enforced by the Validation Engine
+1. **Teacher Conflict Prevention:** A faculty member cannot be scheduled for more than one class across all departments and divisions at the same time.
+2. **Room Double-Booking Prevention:** A physical classroom or laboratory cannot host multiple divisions during the same time slot.
+3. **Division Overlap Prevention:** A division cannot have multiple simultaneous theory lectures.
+4. **Consecutive Laboratory Blocks:** 2-period lab sessions must occupy valid consecutive pairs (`09:30-11:20`, `12:20-14:10`, or `14:30-16:20`) without crossing break periods.
+5. **Room Type Compatibility:** Laboratory subjects must be assigned to rooms tagged as `Laboratory` or `Computer Lab`.
+6. **Faculty Workload Limits:** A teacher cannot be assigned more weekly periods than their configured `max_hours_per_week`.
+7. **Curriculum Quota Enforcement:** Scheduled periods for a subject cannot exceed its required weekly periods.
+
+---
+
+### 5. E-Learning & AI Quiz System
+
+```
+  ┌─────────────────────────┐
+  │  Teacher Uploads File   │  (.pdf, .ppt, .pptx study notes)
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │ Text Extraction Service │  (officeparser / pdf-parse buffer extractor)
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │  AI Quiz Generation     │  (Google Gemini / DeepSeek API)
+  │  Structured Schema      │  Prompt: questions, options, correct index, explanation
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │ Teacher Review & Edit   │  (Modify questions, regenerate single item, save)
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │  Student Takes Quiz     │  (Timed interactive modal, single attempt check)
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │ Instant Results & Score │  (Score, percentage, correct/wrong, question explanations)
+  └─────────────────────────┘
 ```
 
 ---
 
-## 📅 Timetable Generation Workflow
+### 6. Campus Events & Test-Mode Payments
 
-```mermaid
-flowchart TD
-    Start([Initiate Smart Generator Request]) --> Context[Extract context parameters: Program, Class, Semester, Division]
-    Context --> Clean[Delete old entries if 'Full' mode / Keep old entries if 'Fill' mode]
-    Clean --> LoadHolidays[Fetch holidays from WeeklyConfig & lock holiday slots]
-    
-    %% Free slots
-    LoadHolidays --> FreeCheck{Free slots requested > 0?}
-    FreeCheck -- Yes --> LibrarySlot[Select 'Library Period' subject & default Teacher]
-    LibrarySlot --> DistributeFree[Distribute free periods in afternoon slots based on preference order]
-    DistributeFree --> SaveFree[Save library slots & add to reserved slots list]
-    SaveFree --> LabCheck
-    FreeCheck -- No --> LabCheck{Lab slots requested > 0?}
+> [!NOTE]
+> **Razorpay Integration Status: TEST MODE**
+> The current Razorpay implementation is configured for **sandbox/test-mode verification**. All payments use Razorpay test key IDs (`rzp_test_...`) and test payment credentials. Production payment processing is not enabled.
 
-    %% Lab slots
-    LabCheck -- Yes --> LoadLabs[Load lab subjects & default teachers]
-    LoadLabs --> PairSlots[Find consecutive time slot pairs on active days without break periods]
-    PairSlots --> CheckAvailability{Are consecutive slots free & teacher available?}
-    CheckAvailability -- Yes --> PlaceLab[Schedule 2-hour duration lab entry]
-    PlaceLab --> SaveLab[Save entries & add to reserved slots list]
-    SaveLab --> LoopLabs{All labs scheduled?}
-    LoopLabs -- No --> PairSlots
-    LoopLabs -- Yes --> LectureCheck
-    CheckAvailability -- No --> SkipLab[Log warning: Lab skipped] --> LoopLabs
-    LabCheck -- No --> LectureCheck[Load regular subjects & default teachers]
-
-    %% Lecture slots
-    LectureCheck --> FetchGrid[Create remaining open slots list]
-    FetchGrid --> Prioritize[Sort subjects: Teacher preferred slots first, then remaining required periods desc]
-    Prioritize --> SelectSlot[Pick next open slot]
-    SelectSlot --> CheckConstraints{Validate: Teacher busy? Division workload limit? Subject periods limit?}
-    CheckConstraints -- Passed --> PlaceLecture[Assign lecture slot & decrement subject/teacher limits]
-    PlaceLecture --> SaveLecture[Save to Database]
-    CheckConstraints -- Failed --> NextSubject[Try next priority subject]
-    SaveLecture --> LoopGrid{More open slots available?}
-    NextSubject --> LoopGrid
-    LoopGrid -- Yes --> SelectSlot
-    LoopGrid -- No --> Summary([Build report: generated count, skipped slots, limits reached])
+```
+  ┌─────────────────────────┐
+  │ Student Selects Event   │  (Filtered by Department & Semester)
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │  POST /create-order     │  Backend calculates fee in paise & generates Razorpay Order
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │ Razorpay Checkout Modal │  Client opens Razorpay standard test checkout popup
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │  POST /verify-payment   │  Backend verifies HMAC-SHA256 signature (Order + Payment ID)
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │ Confirmation & Ticket   │  Unique Ticket ID issued, status marked PAID & CONFIRMED
+  └───────────┬─────────────┘
+              ▼
+  ┌─────────────────────────┐
+  │  Nodemailer Email Dispatch │  Styled HTML confirmation ticket sent to student email
+  └─────────────────────────┘
 ```
 
 ---
 
-## ⚡ Validation Engine Workflow
+### 7. Email & OTP Verification Flow
 
-```mermaid
-flowchart TD
-    Start([Receive Timetable Slot validation request]) --> CheckBreak{Is the slot a break or recess period?}
-    CheckBreak -- Yes --> Reject[Return invalid status: cannot assign during break]
-    
-    CheckBreak -- No --> CheckRoom{Check Room Conflict: Is classroom occupied by another division at this time?}
-    CheckRoom -- Yes --> Block[Return invalid status: room occupied]
-    
-    CheckRoom -- No --> CheckTeacherBusy{Check Teacher Busy: Is teacher already scheduled in another division?}
-    CheckTeacherBusy -- Yes --> Block
-    
-    CheckTeacherBusy -- No --> CheckTeacherLeave{Check Teacher Leave: Is target day within teacher's approved leave range?}
-    CheckTeacherLeave -- Yes --> Block
-    
-    CheckTeacherLeave -- No --> CheckClassSlot{Check Class Slot: Is division occupied by another lecture?}
-    CheckClassSlot -- Yes --> CheckLab{Is it a Lab slot?}
-    CheckLab -- Yes --> CheckLabLimits{Is current slot a normal lecture or already has 3 lab batches?}
-    CheckLabLimits -- Yes --> Block
-    CheckLabLimits -- No --> CheckConsecutive{Are consecutive slots available without breaks?}
-    CheckConsecutive -- No --> Block
-    CheckConsecutive -- Yes --> CheckTeacherWorkload
-    CheckLab -- No --> Block
-    
-    CheckClassSlot -- No --> CheckTeacherWorkload{Check Workload Limit: Will assigning slot exceed teacher's division weekly limit?}
-    CheckTeacherWorkload -- Yes --> Block
-    
-    CheckTeacherWorkload -- No --> CheckSubjectPeriods{Check Subject Limit: Will slot exceed required periods for subject?}
-    CheckSubjectPeriods -- Yes --> Block
-    
-    CheckSubjectPeriods -- No --> Allow[Return valid status: slot approved for scheduling]
-```
+All outgoing email dispatches are processed via Nodemailer with fallback console logging during local development:
+
+1. **Student Registration OTP (`sendOtpEmail`):** Generates a 6-digit numeric OTP with a 10-minute expiry time. Users must verify the OTP to activate their account.
+2. **Event Ticket Confirmation (`sendEventTicketEmail`):** Dispatches an official digital entry pass containing the student name, event title, date, time, venue, payment reference, and Ticket ID.
+3. **Password Reset Token (`sendResetPasswordEmail`):** Dispatches a secure 1-hour expiration reset link (`/reset-password?token=...`).
+4. **Timetable Update Notification (`sendTimetableUpdateEmail`):** Informs faculty when their weekly division assignment has been modified.
 
 ---
 
-## 🗄️ Database Design
+### 8. Analytics & Diagnostic Engine
+
+Calculated dynamically in `backend/controllers/analyticsController.js` without relying on static counters:
+- **Schedule Health Score:** Computed out of 100 based on conflict penalties, room availability, and completion rate.
+- **Timetable Completion Rate:** Compares filled slots against the total required curriculum periods across active divisions.
+- **Faculty Workload Balance:** Aggregates individual assigned teaching hours against contract capacities.
+- **Scheduling Conflicts Count:** Quantifies teacher clashes, room double-bookings, and flagged collisions.
+- **Free Rooms Count:** Identifies idle physical classrooms during scheduled periods.
+
+---
+
+## 🗄️ Database Design & Data Models
+
+The system uses 20+ strictly typed Mongoose models:
 
 ```mermaid
 erDiagram
-    users ||--o| teachers : "linked to (teacherId)"
-    teachers ||--o{ subjects : "teaches (teacherId)"
-    teachers ||--o{ timetables : "assigned_to (teacherId)"
-    teachers ||--o{ teacherassignments : "context_assigned (teacherId)"
-    teachers ||--o{ teacherleaves : "requests (teacherId)"
-    teachers ||--o{ substitutionrequests : "absentee / substitute (teacherId)"
-    teachers ||--o{ notifications : "receives (teacherId)"
-    
-    subjects ||--o{ timetables : "allotted_to (subjectId)"
-    classrooms ||--o{ timetables : "placed_in (classroomId)"
-    users ||--o{ timetables : "created_by (createdBy)"
-    
-    timetables ||--o{ weeklytimetables : "grouped_in (timetableEntries)"
-    timetables ||--o| auditlogs : "audited_in (timetableId)"
-    timetables ||--o{ substitutionrequests : "rescheduled_in (timetableId)"
+    Department ||--o{ Semester : contains
+    Semester ||--o{ Division : contains
+    Department ||--o{ Subject : offers
+    Semester ||--o{ Subject : assigns
+    Teacher ||--o{ TeacherSubjectMapping : mapped
+    Subject ||--o{ TeacherSubjectMapping : mapped
+    Division ||--o{ Timetable : scheduled_for
+    Teacher ||--o{ Timetable : teaches
+    Subject ||--o{ Timetable : taught_in
+    Classroom ||--o{ Timetable : hosted_in
+    User ||--o| Teacher : links_to
+    Subject ||--o{ Material : includes
+    Subject ||--o{ Assignment : includes
+    Assignment ||--o{ Submission : receives
+    Subject ||--o{ Quiz : includes
+    Quiz ||--o{ QuizAttempt : attempts
+    Organization ||--o{ Event : organizes
+    Event ||--o{ EventRegistration : registers
+    User ||--o{ EventRegistration : attends
+```
 
-    users {
-        ObjectId _id PK
-        String username "unique"
-        String email "unique"
-        String password "hashed"
-        String role "admin | teacher | user"
-        ObjectId teacherId FK "nullable"
-        Boolean isVerified
-        String otp "nullable"
-        Date otpExpiry "nullable"
-        String name
-        String resetPasswordToken "nullable"
-        Date resetPasswordExpiry "nullable"
-    }
+### Key Models & Their Responsibilities
+- **`User.js`**: Core identity (email, password hash, role: `admin` | `teacher` | `student`, OTP fields, verified status).
+- **`Teacher.js`**: Faculty details (faculty name, department, designation, contact info, `max_hours_per_week`, assigned subjects).
+- **`Subject.js`**: Curricular subjects (name, code, department, semester, `weekly_periods`, credits, type: `theory` | `lab`).
+- **`Classroom.js`**: Physical facilities (room number, building, floor, room type, capacity, facilities array, status).
+- **`Timetable.js`**: Scheduled periods (day, timeSlot, department, semester, division, subject, teacher, classroom, isLab, status).
+- **`Department.js` / `Semester.js` / `Division.js`**: Core academic organizational units.
+- **`TeacherLeave.js`**: Leave requests (startDate, endDate, reason, status: `pending` | `approved` | `rejected`, remarks).
+- **`Material.js`**: E-learning study resources (title, subject, type, fileUrl, uploadedBy).
+- **`Assignment.js` / `Submission.js`**: Homework tasks, student file attachments, grades, and teacher feedback.
+- **`Quiz.js` / `QuizAttempt.js`**: Multiple-choice assessments (questions, options, correct answers, explanations, student answers, scores).
+- **`Organization.js`**: Campus partner entities (name, description, logoUrl, website, email, phone).
+- **`Event.js` / `EventRegistration.js`**: Campus events (title, date, fee, target department/semester, registrations, payment IDs, ticket IDs).
+- **`Payment.js`**: Transaction logs (order ID, payment ID, amount, currency, status, gateway signature).
+- **`AuditLog.js`**: Administrative planner action history trail.
+- **`WeeklyConfig.js`**: Holiday configurations per academic division.
 
-    teachers {
-        ObjectId _id PK
-        String teacherID "unique"
-        String faculty_name
-        String subject_name
-        String department
-        Number teaching_hours "weekly allocation limit"
-        String teacher_number
-        String classroom
-        Number assignedHours "hook calculated"
-        Number remainingHours "hook calculated"
-        Array workload "nested objects"
-        Array allowedDivisions
-        Object preferences "preferred/unavailable slots"
-    }
+---
 
-    subjects {
-        ObjectId _id PK
-        String subject_name
-        String subject_code "unique"
-        ObjectId teacherId FK
-        Number requiredPeriods "weekly periods"
-        Number allottedPeriods "hook calculated"
-        Number remainingPeriods "hook calculated"
-        String type "theory | lab"
-    }
+## 📡 REST API Reference
 
-    classrooms {
-        ObjectId _id PK
-        String program
-        String className "FY | SY | TY"
-        Number semester "1-6"
-        String division "A | B | C"
-        String roomNumber
-        String year
-    }
+All backend routes are prefixed with `/api`.
 
-    timetables {
-        ObjectId _id PK
-        String program
-        String className
-        Number semester
-        String division
-        String day
-        String timeSlot
-        ObjectId subjectId FK
-        ObjectId teacherId FK
-        ObjectId classroomId FK "nullable"
-        String status "valid | conflict"
-        Boolean isLab
-        Number duration "1 | 2"
-        ObjectId createdBy FK
-    }
+### 1. Authentication (`/api/auth`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Register a new user account | Public |
+| `POST` | `/api/auth/send-otp` | Generate and dispatch 6-digit email OTP | Public |
+| `POST` | `/api/auth/verify-otp` | Verify email OTP and activate account | Public |
+| `POST` | `/api/auth/login` | Authenticate user and issue JWT cookies | Public |
+| `POST` | `/api/auth/demo/teacher`| One-click demo login for faculty | Public (Dev Only) |
+| `POST` | `/api/auth/refresh` | Rotate access token using refresh cookie | Public |
+| `POST` | `/api/auth/logout` | Clear authentication cookies | Authenticated |
+| `GET` | `/api/auth/me` | Fetch authenticated user profile | Authenticated |
+| `PUT` | `/api/auth/profile` | Update user profile information | Authenticated |
+| `PUT` | `/api/auth/change-password` | Change account password | Authenticated |
+| `POST` | `/api/auth/forgot-password` | Request password reset token | Public |
+| `POST` | `/api/auth/reset-password` | Reset password using email token | Public |
 
-    weeklyconfigs {
-        ObjectId _id PK
-        String program
-        String className
-        Number semester
-        String division
-        Array holidays "list of locked days"
-    }
+### 2. Timetable Management (`/api/timetable`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/timetable/shared/:token` | View public shared timetable | Public |
+| `GET` | `/api/timetable/student/me` | Fetch authenticated student's timetable | Student |
+| `GET` | `/api/timetable/division/:id` | Fetch timetable for specific division | Authenticated |
+| `GET` | `/api/timetable/teacher/:id` | Fetch timetable for specific teacher | Authenticated |
+| `POST` | `/api/timetable/generate` | Save generated timetable to database | Admin |
+| `POST` | `/api/timetable/draft` | Save schedule draft | Admin |
+| `POST` | `/api/timetable/auto-generate` | Run auto-generation engine | Admin |
+| `POST` | `/api/timetable/smart-generate`| Run smart constraint generator | Admin |
+| `PATCH`| `/api/timetable/move` | Move/shift scheduled slot | Admin |
+| `POST` | `/api/timetable/copy` | Copy timetable across divisions | Admin |
+| `PATCH`| `/api/timetable/update-teacher`| Update assigned teacher in slot | Admin |
+| `POST` | `/api/timetable/set-holiday` | Set or remove division holiday | Admin |
+| `DELETE`| `/api/timetable/reset` | Clear all slots for a division | Admin |
+| `POST` | `/api/timetable/validate-change`| Pre-flight check for slot modifications | Admin |
+| `POST` | `/api/timetable/replacement-eligibility` | Find eligible substitute faculty | Admin |
+| `POST` | `/api/timetable/move-check` | Check collision safety before slot move | Admin |
+| `POST` | `/api/timetable/suggest-fix` | Get AI suggestions to fix slot clashes | Admin |
+| `GET` | `/api/timetable/audit-logs` | Fetch admin planner action logs | Admin |
+| `POST` | `/api/timetable/share` | Generate public share link token | Admin |
+
+### 3. Classroom Management (`/api/classrooms`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/classrooms` | List all classrooms with filters | Authenticated |
+| `POST` | `/api/classrooms` | Create a new classroom | Admin |
+| `GET` | `/api/classrooms/stats` | Get classroom inventory statistics | Authenticated |
+| `GET` | `/api/classrooms/available` | Get classrooms available at a specific slot | Authenticated |
+| `GET` | `/api/classrooms/:id` | Get classroom details by ID | Authenticated |
+| `GET` | `/api/classrooms/:id/schedule` | Get weekly occupancy grid for a room | Authenticated |
+| `PUT` | `/api/classrooms/:id` | Update classroom details | Admin |
+| `DELETE`| `/api/classrooms/:id` | Delete classroom (prevents active clash) | Admin |
+
+### 4. E-Learning & AI Quizzes (`/api/elearning`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/elearning/teacher-subjects` | List subjects assigned to teacher | Teacher / Admin |
+| `GET` | `/api/elearning/material` | List study materials | Authenticated |
+| `POST` | `/api/elearning/material` | Upload new study material | Teacher / Admin |
+| `DELETE`| `/api/elearning/material/:id` | Delete study material | Teacher / Admin |
+| `GET` | `/api/elearning/assignment` | List assignments | Authenticated |
+| `POST` | `/api/elearning/assignment` | Create an assignment | Teacher / Admin |
+| `DELETE`| `/api/elearning/assignment/:id` | Delete an assignment | Teacher / Admin |
+| `GET` | `/api/elearning/assignment/:id/submissions` | View student assignment submissions | Teacher / Admin |
+| `POST` | `/api/elearning/assignment/:id/submit` | Submit solution file for assignment | Student |
+| `PUT` | `/api/elearning/submission/:id/grade` | Grade student submission | Teacher / Admin |
+| `POST` | `/api/elearning/quiz/generate-ai` | Generate quiz from PDF/PPT buffer | Teacher / Admin |
+| `POST` | `/api/elearning/quiz/regenerate-question` | Regenerate single quiz question | Teacher / Admin |
+| `GET` | `/api/elearning/quiz` | List quizzes | Authenticated |
+| `GET` | `/api/elearning/quiz/:id` | Get quiz details | Authenticated |
+| `POST` | `/api/elearning/quiz` | Manually create a quiz | Teacher / Admin |
+| `PUT` | `/api/elearning/quiz/:id` | Update existing quiz | Teacher / Admin |
+| `DELETE`| `/api/elearning/quiz/:id` | Delete a quiz | Teacher / Admin |
+| `GET` | `/api/elearning/quiz/:id/attempts` | View student attempts for a quiz | Teacher / Admin |
+| `POST` | `/api/elearning/quiz/:id/submit` | Submit quiz attempt and get scores | Student |
+| `GET` | `/api/elearning/quiz/:id/result` | Fetch completed quiz result review | Student |
+
+### 5. Campus Events & Test Payments (`/api/events`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/events/student/upcoming` | List upcoming events for student | Student |
+| `GET` | `/api/events/student/my-events` | List events registered by student | Student |
+| `POST` | `/api/events/:id/register` | Register for a free event | Student |
+| `POST` | `/api/events/:id/create-order` | Create Razorpay order (Test Mode) | Student |
+| `POST` | `/api/events/:id/verify-payment` | Verify Razorpay payment signature | Student |
+| `POST` | `/api/events/:id/registrations/:registrationId/resend-email` | Resend digital ticket email | Student |
+| `GET` | `/api/events/admin` | List all campus events | Admin |
+| `GET` | `/api/events/admin/stats` | Get event registration & revenue metrics | Admin |
+| `POST` | `/api/events` | Create new campus event | Admin |
+| `PUT` | `/api/events/:id` | Update campus event details | Admin |
+| `DELETE`| `/api/events/:id` | Delete campus event | Admin |
+| `POST` | `/api/events/:id/publish` | Publish event to students | Admin |
+| `POST` | `/api/events/:id/unpublish` | Unpublish event to draft | Admin |
+| `POST` | `/api/events/:id/cancel` | Cancel event | Admin |
+| `GET` | `/api/events/:id/registrations` | View attendee registration list | Admin |
+| `GET` | `/api/events/:id/export` | Export attendee list as CSV | Admin |
+| `GET` | `/api/events/:id/analytics` | View event attendance & revenue stats | Admin |
+
+### 6. Partner Organizations (`/api/organizations`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/organizations` | List all partner organizations | Authenticated |
+| `POST` | `/api/organizations` | Create partner organization | Admin |
+| `PUT` | `/api/organizations/:id` | Update organization details | Admin |
+| `DELETE`| `/api/organizations/:id` | Delete partner organization | Admin |
+
+### 7. Leaves & Substitutions (`/api/leaves` & `/api/teacher-portal`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/leaves` | List all teacher leave requests | Admin |
+| `PUT` | `/api/leaves/:id/review` | Approve or reject a leave request | Admin |
+| `GET` | `/api/teacher-portal/timetable` | Fetch teacher's weekly schedule | Teacher |
+| `GET` | `/api/teacher-portal/leaves` | Fetch teacher's own leave history | Teacher |
+| `POST` | `/api/teacher-portal/leaves` | Submit new leave application | Teacher |
+| `DELETE`| `/api/teacher-portal/leaves/:id` | Cancel pending leave application | Teacher |
+| `GET` | `/api/teacher-portal/profile` | Fetch teacher's profile details | Teacher |
+| `GET` | `/api/teacher-portal/notifications` | Fetch teacher's system notifications | Teacher |
+
+### 8. Analytics (`/api/analytics`)
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/analytics` | Compute schedule completion, conflicts & workload | Admin |
+
+---
+
+## 🔒 Security & Authentication
+
+- **Cookie-Based JWT Rotation:** Tokens are delivered through secure, `HttpOnly`, `SameSite: Lax` cookies, protecting against Cross-Site Scripting (XSS) token theft.
+- **Cryptographic Signatures:** Razorpay test-mode payment verifications compute SHA-256 HMAC digests using `crypto.timingSafeEqual` to prevent timing attacks.
+- **Granular Rate Limiting:**
+  - `apiLimiter`: 100 requests per 15 minutes for general API endpoints.
+  - `loginLimiter`: 5 login attempts per 15 minutes to block brute-force attacks.
+  - `authLimiter`: 10 OTP / registration requests per hour.
+  - `saveLimiter`: 30 timetable save operations per minute.
+  - `generateLimiter`: 5 AI timetable generation requests per minute.
+- **Security Headers:** `helmet()` integration applies secure HTTP headers across all responses.
+- **CORS Policies:** Configured with origin whitelisting and credential support for authorized frontend clients.
+
+---
+
+## 📁 Project Directory Structure
+
+```
+EduX_Time_Table_Managment-main/
+├── backend/
+│   ├── config/
+│   │   ├── cloudinary.js          # Cloudinary media storage & Multer configuration
+│   │   ├── db.js                  # MongoDB Mongoose connection pooler
+│   │   └── env.js                 # Runtime environment validation
+│   ├── controllers/
+│   │   ├── adminDashboardController.js
+│   │   ├── aiController.js        # AI Copilot diagnostics and substitution reasoning
+│   │   ├── analyticsController.js # Dynamic workload and health score calculations
+│   │   ├── authController.js      # User registration, OTP, JWT cookie authentication
+│   │   ├── classroomController.js # Classroom CRUD, inventory, and schedule inspector
+│   │   ├── eventController.js     # Event CRUD, publishing, and analytics
+│   │   ├── eventRegistrationController.js # Registration, Razorpay checkout, tickets
+│   │   ├── organizationController.js
+│   │   ├── paymentWebhookController.js
+│   │   ├── subjectController.js
+│   │   ├── teacherController.js
+│   │   ├── teacherLeaveController.js
+│   │   ├── teacherPortalController.js
+│   │   └── timetableController.js # Core planner, moves, slots, holidays, exports
+│   ├── middleware/
+│   │   ├── authMiddleware.js      # JWT extraction, user resolution, admin check
+│   │   ├── elearningMiddleware.js # Teacher subject ownership validation
+│   │   ├── errorHandler.js        # Centralized error handler
+│   │   ├── rateLimiter.js         # Express-rate-limit instances
+│   │   └── roleMiddleware.js      # Strict role-based route guard
+│   ├── models/                    # 20+ Mongoose Data Models
+│   │   ├── Classroom.js
+│   │   ├── Event.js
+│   │   ├── EventRegistration.js
+│   │   ├── Material.js
+│   │   ├── Organization.js
+│   │   ├── Payment.js
+│   │   ├── Quiz.js
+│   │   ├── QuizAttempt.js
+│   │   ├── Subject.js
+│   │   ├── Teacher.js
+│   │   ├── TeacherLeave.js
+│   │   ├── Timetable.js
+│   │   └── User.js
+│   ├── routes/                    # Express REST route definitions
+│   │   ├── authRoutes.js
+│   │   ├── classroomRoutes.js
+│   │   ├── elearningRoutes.js
+│   │   ├── eventRoutes.js
+│   │   ├── organizationRoutes.js
+│   │   ├── teacherPortalRoutes.js
+│   │   └── timetableRoutes.js
+│   ├── scripts/                   # Seeding, repair, and database migration scripts
+│   ├── services/
+│   │   ├── aiQuizService.js       # Office/PDF text extractor and LLM quiz generator
+│   │   ├── classroomService.js
+│   │   ├── emailService.js        # Nodemailer OTP, ticket, and reset password emails
+│   │   ├── razorpayService.js     # Razorpay order generation & HMAC signature verify
+│   │   ├── schedulingEngine.js    # Deterministic multi-candidate constraint scheduler
+│   │   └── validationEngine.js    # Real-time timetable conflict validator
+│   ├── tests/                     # Node.js native test suite
+│   └── server.js                  # Express application entry point
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ClassroomManagement.jsx
+│   │   │   ├── DashboardOverview.jsx
+│   │   │   ├── Elearning/
+│   │   │   │   ├── StudentElearning.jsx
+│   │   │   │   └── TeacherContent.jsx
+│   │   │   ├── Events/
+│   │   │   │   ├── AdminEventManagement.jsx
+│   │   │   │   ├── EventAnalyticsModal.jsx
+│   │   │   │   ├── EventFormModal.jsx
+│   │   │   │   ├── EventRegistrationsModal.jsx
+│   │   │   │   ├── OrganizationModal.jsx
+│   │   │   │   ├── StudentEventDetailModal.jsx
+│   │   │   │   └── StudentEvents.jsx
+│   │   │   ├── SmartGenerateModal.jsx
+│   │   │   ├── StudentTimetablePreview.jsx
+│   │   │   ├── SubjectManagement.jsx
+│   │   │   ├── TeacherLeaveManagement.jsx
+│   │   │   ├── TeacherManagement.jsx
+│   │   │   ├── TimetableBuilder.jsx # Master interactive weekly timetable builder
+│   │   │   └── ui/                  # Reusable UI component library (Button, Card, etc.)
+│   │   ├── context/
+│   │   │   ├── AuthContext.jsx      # Global authentication state
+│   │   │   └── TimetableContext.jsx # Global timetable builder state
+│   │   ├── pages/
+│   │   │   ├── Analytics.jsx
+│   │   │   ├── Dashboard.jsx        # Admin console with tabbed view
+│   │   │   ├── ForgotPassword.jsx
+│   │   │   ├── Home.jsx             # Role-aware landing / redirect page
+│   │   │   ├── Import.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx         # Student registration with OTP modal
+│   │   │   ├── ResetPassword.jsx
+│   │   │   ├── SharedTimetable.jsx  # Public read-only timetable view
+│   │   │   ├── StudentDashboard.jsx # Student portal (Timetable, E-Learning, Events)
+│   │   │   └── TeacherDashboard.jsx # Teacher portal (Timetable, Leaves, Content)
+│   │   ├── routes/
+│   │   │   └── ProtectedRoute.jsx   # Role-based route redirection guards
+│   │   ├── services/
+│   │   │   └── api.js               # Axios instance with auto-refresh interceptors
+│   │   └── utils/                   # PDF, Excel, CSV export & Razorpay helpers
+│   ├── package.json
+│   └── vite.config.js
+│
+├── package.json                   # Root package configuration with helper scripts
+└── README.md                      # Complete project documentation
 ```
 
 ---
 
-## 📊 MongoDB Aggregation Pipeline Explanation
+## 🚀 Installation & Getting Started
 
-Because EduX enforces a **fully normalized schema**, derived aggregates (like current workloads, completed periods, or room availability schedules) are computed on the fly. This is done using high-performance MongoDB aggregation pipelines. Below is an explanation of the operators used and their real-world application inside the project:
+### Prerequisites
+- **Node.js**: `v18.0.0` or higher ([Download](https://nodejs.org/))
+- **MongoDB**: Local MongoDB instance (`mongodb://127.0.0.1:27017`) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) connection URI
+- **npm**: `v9.0.0` or higher
 
-### 1. `$lookup`
-* **Concept:** Performs a left outer join to another collection in the same database to filter in documents from the "joined" collection for processing.
-* **Usage in EduX:** Inside [analyticsController.js](file:///c:/Users/ozati/Desktop/EduX_Time_Table_Managment-master%20%281%29/backend/controllers/analyticsController.js#L14), it maps each `Teacher` or `Subject` to their corresponding active allocations in the `timetables` collection. Using `let` variables and a sub-pipeline `$match`, it filters only entries matching the parent ID with a status of `'valid'`.
-* **Example:**
-```javascript
-$lookup: {
-  from: 'timetables',
-  let: { teacherId: '$_id' },
-  pipeline: [
-    { $match: { $expr: { $eq: ['$teacherId', '$$teacherId'] }, status: 'valid' } }
-  ],
-  as: 'assignedTimetables'
-}
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/your-username/EduX_Time_Table_Managment.git
+cd EduX_Time_Table_Managment-main
 ```
 
-### 2. `$match`
-* **Concept:** Filters documents to pass only those that match specified criteria to the next stage of the pipeline.
-* **Usage in EduX:** Restricts calculations to active schedules (excluding drafts or flagged conflicts). For example, it is used to filter out schedules that are marked as `status: 'valid'`.
-
-### 3. `$group`
-* **Concept:** Groups input documents by a specified identifier expression and applies accumulator expressions (like `$sum`, `$avg`) to aggregate values.
-* **Usage in EduX:** Inside [analyticsController.js](file:///c:/Users/ozati/Desktop/EduX_Time_Table_Managment-master%20%281%29/backend/controllers/analyticsController.js#L82), it counts distinct divisions scheduled across the system when calculating total available capacity:
-```javascript
-{ $group: { _id: { program: '$program', className: '$className', semester: '$semester', division: '$division' } } }
+### Step 2: Install All Dependencies
+Install backend dependencies and frontend dependencies in a single command:
+```bash
+npm run install-all
 ```
-
-### 4. `$project`
-* **Concept:** Reshapes documents in the pipeline by adding, renaming, or removing fields, and projecting calculated fields.
-* **Usage in EduX:** Reshapes the aggregate workload summaries. It uses `$reduce` inside the projection stage to sum up the `duration` of each assigned slot (accommodating 1-hour lectures and 2-hour labs dynamically) to output `assignedHours` and `remainingHours` fields directly:
-```javascript
-$project: {
-  name: '$faculty_name',
-  totalHours: '$teaching_hours',
-  assignedHours: {
-    $reduce: {
-      input: '$assignedTimetables',
-      initialValue: 0,
-      in: { $add: ['$$value', { $ifNull: ['$$this.duration', 1] }] }
-    }
-  }
-}
+*Alternatively, install each manually:*
+```bash
+npm install
+cd frontend && npm install && cd ..
 ```
-
-### 5. `$unwind`
-* **Concept:** Deconstructs an array field from the input documents to output a document for each element.
-* **Usage in EduX:** While the core queries use the optimized `$reduce` block on joined arrays to prevent memory overhead, conceptual analytics reports (such as daily slot utilization or detailed program charts) use `$unwind` on populated workload arrays to inspect and filter individual class allocations.
-
----
-
-## ⚡ Dynamic Workload Calculation
-
-### Why Workload Is NOT Stored
-In standard databases, developers often store a static counter like `currentAssignedHours` on the `Teacher` record, incrementing it during slot scheduling and decrementing it on delete. **EduX explicitly avoids this anti-pattern.** Instead, teacher workloads are calculated dynamically at query time by executing a `$count` query on the `timetables` collection matching the specific teacher and context.
-
-### Benefits of Dynamic Workload Calculation
-1. **Zero Data Inconsistency:** If a transaction fails mid-way, or a batch of schedules is cleared, a stored counter can easily drift from the actual number of timetable entries. Dynamic counts guarantee that the reported workload always matches the ground truth.
-2. **Always Accurate:** Context-specific workloads (e.g., how many hours a teacher has assigned in division "A" vs division "B") are calculated on the fly, eliminating the need to sync nested counters.
-3. **Normalized Architecture:** Storing only references and calculating aggregates dynamically keeps database records lean and prevents concurrent write locks on the `Teacher` or `Subject` collections.
-
----
-
-## 📋 API Documentation
-
-All endpoints are prefixed with `/api` and return a standardized response: `{ success: true/false, data: ..., error: '...' }`.
-
-### Authentication & Portal APIs
-| Method | Route | Description | Auth Required? | Roles Allowed |
-| --- | --- | --- | --- | --- |
-| **POST** | `/auth/register` | Register a new user account | No | All |
-| **POST** | `/auth/send-otp` | Trigger/resend email verification OTP | No | All |
-| **POST** | `/auth/verify-otp` | Verify OTP and activate account | No | All |
-| **POST** | `/auth/login` | Authenticate user & issue HttpOnly JWT cookies | No | All |
-| **POST** | `/auth/refresh` | Rotate expired access tokens | No | All |
-| **POST** | `/auth/logout` | Clear cookie-based JWT session | Yes | All |
-| **GET** | `/auth/me` | Fetch active user profile details | Yes | All |
-| **PUT** | `/auth/profile` | Update account profile fields (name, email) | Yes | All |
-| **PUT** | `/auth/change-password` | Change account password | Yes | All |
-| **POST** | `/auth/forgot-password` | Request password reset token | No | All |
-| **POST** | `/auth/reset-password` | Submit new password using reset token | No | All |
-| **GET** | `/teacher-portal/dashboard` | Fetch teacher metrics & alerts | Yes | `teacher` |
-| **GET** | `/teacher-portal/timetable` | Fetch scheduled slots for active teacher | Yes | `teacher` |
-| **GET** | `/teacher-portal/workload` | Fetch dynamic workloads by division | Yes | `teacher` |
-| **GET** | `/teacher-portal/profile` | Fetch teacher profile details | Yes | `teacher` |
-| **GET** | `/teacher-portal/leaves` | Fetch submitted leave history | Yes | `teacher` |
-| **POST** | `/teacher-portal/leaves` | Apply for new leave dates | Yes | `teacher` |
-| **DELETE**| `/teacher-portal/leaves/:id` | Cancel pending leave application | Yes | `teacher` |
-| **GET** | `/teacher-portal/preferences` | Fetch slot preferences and constraints | Yes | `teacher` |
-| **PUT** | `/teacher-portal/preferences` | Update slot preferences and limits | Yes | `teacher` |
-| **GET** | `/teacher-portal/substitutions` | Get teacher substitution requests | Yes | `teacher` |
-| **POST** | `/teacher-portal/substitutions` | Request colleague to substitute a slot | Yes | `teacher` |
-| **GET** | `/teacher-portal/notifications` | Fetch system alerts (leave, schedule changes) | Yes | `teacher` |
-| **PUT** | `/teacher-portal/notifications/:id/read` | Mark system alert as read | Yes | `teacher` |
-
-### Administration CRUD & Utility APIs
-| Method | Route | Description | Auth Required? | Roles Allowed |
-| --- | --- | --- | --- | --- |
-| **GET** | `/teachers` | List all configured faculty | Yes | `admin` |
-| **POST** | `/teachers` | Create new teacher profile | Yes | `admin` |
-| **GET** | `/teachers/:id` | Get details for specific teacher | Yes | `admin` |
-| **PUT** | `/teachers/:id` | Update teacher profile | Yes | `admin` |
-| **DELETE**| `/teachers/:id` | Delete teacher profile | Yes | `admin` |
-| **POST** | `/teachers/import` | Upload bulk CSV file of teachers | Yes | `admin` |
-| **GET** | `/subjects` | List all subjects | Yes | `admin` |
-| **POST** | `/subjects` | Create new subject profile | Yes | `admin` |
-| **GET** | `/subjects/:id` | Get details for specific subject | Yes | `admin` |
-| **PUT** | `/subjects/:id` | Update subject details | Yes | `admin` |
-| **DELETE**| `/subjects/:id` | Delete subject profile | Yes | `admin` |
-| **GET** | `/classrooms` | List all classrooms | Yes | `admin` |
-| **POST** | `/classrooms` | Configure new classroom / room numbers | Yes | `admin` |
-| **GET** | `/classrooms/:id` | Get details for specific classroom | Yes | `admin` |
-| **PUT** | `/classrooms/:id` | Update classroom configuration | Yes | `admin` |
-| **DELETE**| `/classrooms/:id` | Remove classroom configuration | Yes | `admin` |
-| **POST** | `/import/excel` | Bulk upload complete configuration template | Yes | `admin` |
-| **GET** | `/analytics` | Fetch aggregation analytics & dashboard data | Yes | `admin` |
-| **POST** | `/ai/replacement` | Suggest optimal replacement using Gemini AI | Yes | `admin` |
-| **GET** | `/leaves` | List all teacher leave requests | Yes | `admin` |
-| **POST** | `/leaves` | Apply leave on behalf of a teacher | Yes | `admin` |
-| **DELETE**| `/leaves/:id` | Delete leave entry | Yes | `admin` |
-| **PUT** | `/leaves/:id/review` | Approve or reject teacher leave application | Yes | `admin` |
-| **GET** | `/substitutions` | List all substitution requests | Yes | `admin` |
-| **PUT** | `/substitutions/:id/assign` | Assign substitution to a teacher | Yes | `admin` |
-
-### Timetable Core APIs
-| Method | Route | Description | Auth Required? | Roles Allowed |
-| --- | --- | --- | --- | --- |
-| **GET** | `/timetable/shared/:token` | Public read-only view of a timetable | No | All (Public) |
-| **GET** | `/timetable/list` | Filter slots by division / teacher / classroom | Yes | All |
-| **GET** | `/timetable/global` | Consolidated grid showing all schedules | Yes | All |
-| **GET** | `/timetable/preview` | Detailed grid preview for print layouts | Yes | All |
-| **GET** | `/timetable/weekly-config` | Fetch holiday configurations | Yes | All |
-| **POST** | `/timetable/add` | Manually insert a single timetable slot | Yes | `admin` |
-| **DELETE**| `/timetable/delete` | Remove a timetable slot | Yes | `admin` |
-| **GET** | `/timetable/save` | Get weekly timetable details | Yes | `admin` |
-| **POST** | `/timetable/save` | Save/Publish active weekly schedule draft | Yes | `admin` |
-| **DELETE**| `/timetable/reset` | Clear all slots in active grid | Yes | `admin` |
-| **POST** | `/timetable/set-holiday` | Set holidays for a division | Yes | `admin` |
-| **POST** | `/timetable/suggest-slot` | Suggest free slots for teacher/subject | Yes | `admin` |
-| **POST** | `/timetable/validate` | Run validation check on division timetable | Yes | `admin` |
-| **POST** | `/timetable/auto-generate` | Greedy auto-schedule empty slots | Yes | `admin` |
-| **POST** | `/timetable/smart-generate` | Priority-based smart schedule generator | Yes | `admin` |
-| **PATCH**| `/timetable/move` | Move entry from one slot to another (DND) | Yes | `admin` |
-| **POST** | `/timetable/copy` | Copy entire timetable between divisions | Yes | `admin` |
-| **PATCH**| `/timetable/update-teacher` | Replace scheduled teacher in active slots | Yes | `admin` |
-| **POST** | `/timetable/share` | Generate public read-only link token | Yes | `admin` |
-| **POST** | `/timetable/validate-change` | Pre-flight check before slot change | Yes | `admin` |
-| **POST** | `/timetable/replacement-eligibility`| Find teachers available for replacement | Yes | `admin` |
-| **POST** | `/timetable/move-check` | Quick collision check for drag-and-drop actions | Yes | `admin` |
-| **POST** | `/timetable/suggest-fix` | Get recommendation to fix slot conflict | Yes | `admin` |
-| **GET** | `/timetable/audit-logs` | Fetch admin action history logs | Yes | `admin` |
-| **POST** | `/timetable/history/undo` | Undo last logged planner action | Yes | `admin` |
-| **POST** | `/timetable/history/redo` | Redo previously undone planner action | Yes | `admin` |
-
----
-
-## 📨 API Examples
-
-### 1. Suggest Replacement Teacher (`POST /api/ai/replacement`)
-Used by admins when a teacher is absent to find available colleagues.
-
-* **Request Body:**
-```json
-{
-  "absentTeacherId": "65894b9f2bf8f7e2a9000101",
-  "program": "Information Technology",
-  "semester": 5,
-  "division": "A",
-  "day": "Monday",
-  "timeSlot": "10:25-11:20"
-}
-```
-
-* **Response (Gemini AI Active):**
-```json
-{
-  "suggested": {
-    "name": "Prof. Rajesh Patel",
-    "reason": "Prof. Rajesh Patel teaches in the same IT department and currently has the lowest workload (12 assigned / 28 remaining hours), leaving him fully available to take over this slot."
-  },
-  "otherOptions": [
-    {
-      "id": "65894b9f2bf8f7e2a9000105",
-      "name": "Dr. Anjali Mehta",
-      "department": "IT",
-      "teaching_hours": 30,
-      "assignedHours": 18,
-      "remainingHours": 12,
-      "subject_name": "Operating Systems"
-    }
-  ]
-}
-```
-
-### 2. Move Timetable Slot (`PATCH /api/timetable/move`)
-Triggered on the frontend when an admin drags and drops an active slot card.
-
-* **Request Body:**
-```json
-{
-  "entryId": "658a2d1d2bf8f7e2a9000214",
-  "newDay": "Tuesday",
-  "newTimeSlot": "12:20-13:15"
-}
-```
-
-* **Response (Success):**
-```json
-{
-  "success": true,
-  "data": {
-    "_id": "658a2d1d2bf8f7e2a9000214",
-    "program": "Information Technology",
-    "className": "TY",
-    "semester": 6,
-    "division": "A",
-    "day": "Tuesday",
-    "timeSlot": "12:20-13:15",
-    "subjectId": "658a2cd82bf8f7e2a90001bc",
-    "teacherId": "658a2c2c2bf8f7e2a90001a1",
-    "classroomId": "658a2c912bf8f7e2a90001f0",
-    "status": "valid",
-    "isLab": false,
-    "duration": 1,
-    "createdBy": "65894a4c2bf8f7e2a9000001"
-  }
-}
-```
-
-* **Response (Conflict Error):**
-```json
-{
-  "success": false,
-  "error": "Teacher Prof. Rajesh Patel is already assigned to Software Engineering at Tuesday 12:20-13:15"
-}
-```
-
----
-
-## 🔑 Authentication & Authorization
-
-### JWT Security Flow
-EduX uses a robust dual-token cookie-based JWT architecture for web authentication:
-1. **Access Token (`auth-token`):** A short-lived token (15m expiration) signed with `JWT_SECRET` containing the user's ID, email, and role. Kept in HTTP-only, Secure (in production), SameSite: Lax cookies.
-2. **Refresh Token (`refresh-token`):** A long-lived token (7d expiration) signed with `JWT_REFRESH_SECRET` stored in a separate HTTP-only cookie.
-3. **Silent Throttling & Rotation:** When the access token expires, the client's Axios response interceptor automatically handles a 401 response by making a silent POST call to `/api/auth/refresh`, retrieving a fresh access token, and retrying the failed request without interrupting the user.
-
-### Route Protection (RBAC)
-Route security is enforced through two middleware layers:
-- `protect(requireAdmin = false)`: Evaluates the incoming access token. Resolves the user, checks if the account is email-verified, and locks out requests if admin privileges are required but not present.
-- `authorizeRoles(...roles)`: Performs strict role checks on the resolved user profile to restrict access to specialized portals (such as the teacher dashboard).
-
----
-
-## 👥 Roles & Permissions
-
-| Feature Area | Admin Role | Teacher Role | Guest / Student |
-| --- | :---: | :---: | :---: |
-| **View Division Timetables** | ✅ Read & Write | ✅ Read Only | ✅ Read Only |
-| **Drag-and-Drop Slot Move** | ✅ Full Access | ❌ Access Denied | ❌ Access Denied |
-| **Auto/Smart Schedule Run** | ✅ Full Access | ❌ Access Denied | ❌ Access Denied |
-| **Request Leaves** | ❌ Not Applicable | ✅ Create/Cancel | ❌ Access Denied |
-| **Review / Approve Leaves** | ✅ Full Access | ❌ Access Denied | ❌ Access Denied |
-| **Request Substitutions** | ❌ Not Applicable | ✅ Create Requests | ❌ Access Denied |
-| **Assign Substitution Colleague**| ✅ Full Access | ❌ Access Denied | ❌ Access Denied |
-| **Configure Preferences** | ❌ Not Applicable | ✅ Read & Update | ❌ Access Denied |
-| **Bulk Excel Import/Export** | ✅ Full Access | ❌ Access Denied | ❌ Access Denied |
-| **Generate Shared Links** | ✅ Full Access | ❌ Access Denied | ❌ Access Denied |
-
----
-
-## ⚡ Validation Rules
-
-The core of the scheduler is its transactional validation logic. When building, moving, or updating slots, the engine checks the following rules:
-
-1. **Break Time Isolation:** No scheduling is allowed during designated breaks (`11:20-12:20` and `14:10-14:30`).
-2. **Teacher Clash Check:** A teacher cannot be assigned to two classes/divisions at the same time.
-3. **Room Conflict Isolation:** Classrooms are mapped to divisions dynamically. The engine verifies that no two divisions sharing the same physical room are scheduled at the same time.
-4. **Faculty Leave Interceptor:** The validator checks if the target date falls within the teacher's active approved leaves.
-5. **Class Division Collision:** A division cannot have two scheduled theory lectures at the same time.
-6. **Lab Batch Limits:** Lab/practical slots (duration: 2) can run concurrently for up to 3 batches in a division, provided they don't clash with theory lectures.
-7. **Lab Block Integrity:** Practical lab slots must occupy 2 consecutive time slots without overlapping break slots.
-8. **Weekly Teacher Workload Cap:** A teacher's total weekly workload in a division cannot exceed their contract limit (e.g. 40 hours).
-9. **Curricular Subject Limits:** The total scheduled periods for a subject cannot exceed its required weekly count.
 
 ---
 
 ## ⚙️ Environment Variables
 
-Copy `.env.example` to `.env.local` and configure the following variables:
+Create a `.env` file in the root directory (using `.env.example` as a reference):
 
-| Variable Name | Description | Example / Value | Secret? |
-| --- | --- | --- | :---: |
-| `MONGO_URI` | MongoDB Atlas cluster connection string | `mongodb+srv://user:pass@cluster.mongodb.net/dbname` | Yes |
-| `JWT_SECRET` | Primary key used to sign access tokens | `d124b89b4f971ec8e32c81...` | Yes |
-| `JWT_REFRESH_SECRET` | Secondary key used to sign refresh tokens | `a204b78cf391...` | Yes |
-| `EMAIL_USER` | Gmail address used by Nodemailer | `scheduler@gmail.com` | Yes |
-| `EMAIL_PASS` | Gmail App Password (not standard pass) | `abcd efgh ijkl mnop` | Yes |
-| `GEMINI_API_KEY` | Google Generative AI Developer Key | `AIzaSyAlfEi4B...` | Yes |
-| `NODE_ENV` | Active environment descriptor | `development` or `production` | No |
-| `PORT` | Local express backend port | `5000` | No |
-| `FRONTEND_URL` | Frontend address (used for password reset links)| `http://localhost:5173` | No |
+```env
+# ── Server Configuration ──
+NODE_ENV=development
+PORT=8000
+FRONTEND_URL=http://localhost:5173
+
+# ── Database ──
+MONGO_URI=mongodb://127.0.0.1:27017/timetable-scheduler
+
+# ── JWT Authentication ──
+JWT_SECRET=your_super_secret_jwt_key_minimum_32_characters_long
+JWT_REFRESH_SECRET=your_super_secret_jwt_refresh_key_minimum_32_characters_long
+
+# ── AI Services (Gemini / DeepSeek) ──
+GEMINI_API_KEY=your_google_gemini_api_key
+DEEPSEEK_API_KEY=your_deepseek_api_key_optional
+
+# ── Razorpay Payment Gateway (Test Mode) ──
+RAZORPAY_KEY_ID=rzp_test_your_test_key_id
+RAZORPAY_KEY_SECRET=your_test_key_secret
+RAZORPAY_WEBHOOK_SECRET=your_test_webhook_secret_optional
+
+# ── Nodemailer SMTP (Email & OTP) ──
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=your_institution_email@gmail.com
+SMTP_PASS=your_gmail_app_password
+MAIL_FROM="EduX Planner" <no-reply@edux.edu>
+
+# ── Cloudinary Media Storage ──
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+# ── Demo / Testing Flags ──
+ENABLE_DEMO_LOGIN=true
+DEMO_ADMIN_EMAIL=admin@edux.com
+DEMO_ADMIN_PASSWORD=Admin@123
+DEMO_STUDENT_EMAIL=student@edux.com
+DEMO_STUDENT_PASSWORD=Student@123
+```
 
 ---
 
-## 🔧 Installation
+## 🏃 Running the Application
 
-Follow these steps to get your development environment running:
-
-### Prerequisites
-* [Node.js](https://nodejs.org/en) (v18.x or higher)
-* [MongoDB Community Server](https://www.mongodb.com/try/download/community) locally or a [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) Account.
-
-### Step-by-Step Setup
-1. **Clone the Repository:**
+### 1. Seed Academic Demo Data (Optional but Recommended)
+Populate the database with sample departments, semesters, divisions, subjects, faculty profiles, and classrooms:
 ```bash
-git clone https://github.com/your-username/edux-timetable-management.git
-cd edux-timetable-management
+npm run seed:demo
 ```
 
-2. **Install Root and Child Dependencies:**
-The project uses a custom script to install packages in both the backend root and frontend client directory:
-```bash
-npm run install-all
-```
-
-3. **Configure Environment Files:**
-Create a `.env.local` file in the root folder using `.env.example` as a template and fill in the required keys.
-
----
-
-## 💻 Local Development
-
-Run the concurrent development command in the root folder:
+### 2. Start Both Backend and Frontend Concurrently
 ```bash
 npm run dev
 ```
-*This command uses the `concurrently` package to start both the Express backend server (on port `5000`) and the Vite React server (on port `5173`) simultaneously, with API proxying configured automatically.*
+- **Backend API:** `http://localhost:8000`
+- **Frontend SPA:** `http://localhost:5173`
 
----
+### 3. Individual Service Commands
+If you prefer running services in separate terminal sessions:
 
-## 🗄️ Database Setup
-
-Ensure your local MongoDB service is running or your MongoDB Atlas instance is accessible. The application connects automatically on boot using Mongoose. The database configuration [db.js](file:///c:/Users/ozati/Desktop/EduX_Time_Table_Managment-master%20%281%29/backend/config/db.js) implements connection pooling:
-- `maxPoolSize: 10`
-- `serverSelectionTimeoutMS: 5000`
-- `socketTimeoutMS: 45000`
-
----
-
-## 🌱 Seed Data
-
-To populate the database with initial users, teachers, subjects, classrooms, and assignments, run the seed script:
+**Terminal 1 (Backend Server):**
 ```bash
-npm run seed
+npm run server
 ```
-This script creates:
-* 1 Admin Account (`admin@edux.local` / password: `password123`)
-* 6 Pre-configured Teacher records (with department mappings and workloads)
-* Classrooms for IT FY, SY, TY (Divisions A, B, C)
-* Associated subject structures
+
+**Terminal 2 (Frontend Client):**
+```bash
+npm run client
+```
 
 ---
 
-## ☁️ Deployment
+## 👥 Development & Test Accounts
 
-### 1. Database (MongoDB Atlas)
-- Deploy a free-tier Shared Cluster on MongoDB Atlas.
-- Add your deployment server's IP to the Atlas Network Access whitelist (or whitelist `0.0.0.0/0`).
-- Copy the connection URI and set it as `MONGO_URI` in your production environment settings.
+> [!IMPORTANT]
+> **Development / Test Credentials Only**
+> The following pre-configured demo credentials are for local development and testing:
 
-### 2. Backend (Render / Railway / Vercel API Routes)
-The backend is production-ready for deployment on Render, Railway, or Heroku:
-- **Build Command:** `npm install`
-- **Start Command:** `npm start`
-- Set `NODE_ENV=production` and configure your secret environment variables in the host dashboard.
-- *Alternatively:* The API is structured to run as serverless function routes on platforms like Vercel (using Vercel API routes and custom `vercel.json` rewrite maps).
+| Role | Email | Password | Access Portal |
+| :--- | :--- | :--- | :--- |
+| **Administrator** | `admin@edux.com` | `Admin@123` | `/dashboard` (Full admin console) |
+| **Faculty / Teacher**| `teacher1@edux.com` | `Teacher@123` | `/teacher-timetable` (Faculty portal) |
+| **Student** | `student@edux.com` | `Student@123` | `/student-dashboard` (Student portal) |
 
-### 3. Frontend (Vercel / Netlify)
-- **Framework Preset:** Vite
-- **Root Directory:** `frontend`
-- **Build Command:** `npm run build`
-- **Output Directory:** `dist`
-- Set environment variables if needed (e.g. `VITE_API_URL` pointing to your hosted backend).
+*Note: New students can also self-register at `/register` and verify their account using email OTP (the OTP is logged to the backend console if SMTP is not configured).*
 
 ---
 
-## ⚡ Performance Optimizations
+## 🧪 Testing & Quality Assurance
 
-1. **Dynamic Aggregation Pipelines:** Workloads and periods are not stored as static variables. They are compiled on the fly using Mongoose aggregation pipelines with indexes, keeping the database footprint lightweight.
-2. **Database Indexing:** High-performance compound indexes are implemented on query-heavy paths, such as `TimetableSchema.index({ teacherId: 1, day: 1, timeSlot: 1 })`, ensuring search queries run in sub-millisecond times.
-3. **Vite Dynamic Bundling:** The React SPA is bundled using Vite's tree-shaking compiler, keeping frontend load times minimal.
-4. **Non-Blocking Email Dispatch:** Notifications and OTP dispatches are executed asynchronously, preventing email delays from blocking API responses.
+Run the automated backend test suite using Node.js native test runner:
+```bash
+npm test
+```
 
----
-
-## 🔮 Future Improvements
-
-* **AI Timetable Optimization:** Integrate genetic algorithm constraint solvers to generate complete departmental timetables from scratch with minimal human input.
-* **Automatic Rescheduling:** Automatically resolve schedule disruptions caused by sudden teacher leave requests.
-* **Classroom Capacity Optimization:** Match classroom capacities with division sizes and subject requirements to optimize space usage.
-* **Administrative Analytics Dashboard:** Add visual widgets showing utilization trends, teacher workload distribution, and schedule health scores over time.
-* **Mobile Companion App:** Develop a cross-platform mobile app for students and teachers to view real-time schedules, submit preferences, and receive alerts.
+### What the Test Suite Covers:
+- **Classroom Management:** CRUD operations, duplicate room number prevention, availability queries, occupancy calculation, and timetable deletion protection.
+- **Event Consistency:** Event creation, publish/unpublish state transitions, registration capacity checks, and revenue calculation.
+- **Razorpay Signature Verification:** Test payment signature validation and webhook integrity.
+- **Authentication & RBAC:** JWT cookie generation, password verification, and role restriction enforcement.
 
 ---
 
-## 📚 Learning Outcomes
+## 📊 Project Status
 
-* **Advanced MongoDB Aggregations:** Mastering `$lookup`, `$project`, `$reduce`, and custom conditional operators to calculate workloads dynamically without database desynchronization.
-* **Multi-Role Authentication & Security:** Implementing double-cookie token rotation (Access + Refresh JWT) in secure, HTTP-only configurations.
-* **Heuristic Solver Programming:** Writing priority-based schedulers that balance multiple rules (recess times, teacher availability, classroom double-booking).
-* **AI Model Integration:** Working with Google's Generative AI SDK to parse unstructured availability data and generate recommendations.
-* **Client-Side Document Builders:** Building complex Excel sheets with formatting rules and locked cells using ExcelJS.
-
----
-
-## 💬 Interview Talking Points
-
-1. **Why we chose dynamic calculations over stored counters:** I can explain how storing counters like `assignedHours` directly in MongoDB collections can lead to sync drift issues. I solved this by calculating workloads on the fly using MongoDB aggregation pipelines with compound indexes.
-2. **How the Validation Engine works:** I designed a centralized validation system that verifies scheduling constraints (teacher availability, room conflicts, class double-booking, and approved leaves) before saving changes to the database.
-3. **Role-Based Access Control (RBAC):** I implemented authorization check middleware to secure API endpoints based on user roles (`admin` or `teacher`), while matching these checks in the React frontend.
-4. **Silent JWT Token Rotation:** I built an authentication system using short-lived access tokens and long-lived refresh tokens in HTTP-only cookies, with automatic refresh handling in Axios interceptors.
-5. **Smart Priority Scheduling Algorithm:** I created a generator that prioritizes constraints—scheduling library periods first, then consecutive lab slots, and finally lectures based on teacher preferences.
-6. **Classroom Conflict Resolution:** I solved room double-booking by querying active schedules across all divisions for matching room numbers at identical slots.
-7. **Gemini AI Integration:** I integrated the Google Generative AI SDK to recommend substitute teachers during leaves, falling back to a lowest-workload algorithm if the API is offline.
-8. **Dnd-Kit Drag and Drop Integration:** I added visual drag-and-drop scheduling to the React grid, checking slot validity before finalizing changes.
-9. **Undo/Redo History Architecture:** I built a transactional undo/redo system using a `HistoryState` collection to track admin changes.
-10. **ExcelJS Protection Mechanism:** I implemented a branded Excel exporter that protects administrative header rows while leaving schedule cells editable for teachers.
-11. **High-Resolution PDF Rendering:** I solved browser page cutoff issues during PDF exports by cloning target DOM elements and rendering them to canvas at double scale before printing.
-12. **Holiday Propagation Engine:** I configured a holiday manager that automatically clears and locks scheduled slots when an admin declares a holiday.
-13. **Compound Index Optimization:** I optimized query times by indexing query-heavy fields like `(teacherId + day + timeSlot)` in MongoDB.
-14. **Custom Global Error Middleware:** I created a central Express handler that hides debug stack traces in production while standardizing API error responses.
-15. **Vite Proxy Configurations:** I configured Vite to route client API requests to the backend server during development, avoiding CORS issues.
+| Module / Feature | Implementation Status | Notes |
+| :--- | :---: | :--- |
+| **User Authentication & RBAC** | ✅ Implemented | Admin, Teacher, Student roles with dual JWT cookies |
+| **Student Registration with Email OTP** | ✅ Implemented | 6-digit OTP dispatch via Nodemailer |
+| **Timetable Builder (Manual Grid)** | ✅ Implemented | Visual grid, slot edit, move, replace, holiday lock |
+| **AI Timetable Generator** | ✅ Implemented | Smart Fill Remaining, AI Full Rebuild, Regenerate Better |
+| **Classroom Management** | ✅ Implemented | Inventory, capacities, facilities, schedule inspector |
+| **Teacher & Subject Management** | ✅ Implemented | CRUD, workload limits, bulk Excel/CSV import |
+| **Faculty Leave Management** | ✅ Implemented | Application, admin review, automatic substitution check |
+| **E-Learning Hub** | ✅ Implemented | Materials upload, assignments with student submissions & grading |
+| **AI Quiz Generator** | ✅ Implemented | File parsing (PDF/PPT/PPTX), question regeneration, attempts & review |
+| **Campus Events & Workshops** | ✅ Implemented | Targeted events, registrations, attendee CSV exports, analytics |
+| **Razorpay Payments** | ⚠️ Test Mode | Configured for Razorpay sandbox / test mode |
+| **Multi-Format Exports** | ✅ Implemented | PDF, Excel (.xlsx), and CSV timetable exports |
+| **Public Timetable Sharing** | ✅ Implemented | Secure tokenized links (`/shared/:token`) |
 
 ---
 
-## 📝 Resume Project Description
+## 🗺️ Future Roadmap
 
-**EduX – Smart Faculty & Timetable Planner** | *MERN Stack Developer*
-* Designed and built a full-stack timetable planner using React, Express, Node.js, and MongoDB Atlas.
-* Created a validation engine that prevents scheduling clashes (teachers, classrooms, workloads) before saving changes to the database.
-* Designed MongoDB aggregation pipelines using `$lookup` and `$project` to calculate workloads dynamically, avoiding data sync issues.
-* Built a smart generator that schedules classes, library slots, and lab sessions while respecting teacher availability and preferences.
-* Integrated the Google Generative AI SDK to analyze teacher schedules and suggest substitute cover for leaves.
-* Implemented secure authentication using access and refresh tokens in HTTP-only cookies, with silent token rotation in Axios.
-* Built client-side exporters to generate branded, protected Excel spreadsheets and high-resolution A3 landscape PDFs.
-
----
-
-## 🚧 Challenges Faced
-
-### 1. Teacher Clash Detection
-* **Challenge:** Preventing teachers from being assigned to multiple classes at the same time, especially during consecutive lab slots.
-* **Solution:** Built queries in the validation engine to scan all timetables at the target day and slot. For labs, the engine checks availability for both target slots.
-
-### 2. Dynamic Workload Calculation
-* **Challenge:** Traditional static counters on teacher documents frequently went out of sync during failed edits or resets.
-* **Solution:** Replaced static counters with runtime aggregations using `$reduce` to count hours based on slot durations (1 for lectures, 2 for labs).
-
-### 3. MongoDB Aggregation Performance
-* **Challenge:** Complex joins between timetables, teachers, and classrooms slowed down dashboard analytics.
-* **Solution:** Added compound indexes on query-heavy paths, bringing search times down to sub-milliseconds.
-
-### 4. ObjectId Validation Issues
-* **Challenge:** MongoDB validation errors when saving new slots using plain string IDs.
-* **Solution:** Created helper functions using `mongoose.Types.ObjectId.isValid` to validate and convert string IDs before database queries.
-
-### 5. Multi-Layered Validation Engine
-* **Challenge:** Keeping the validation logic clean without cluttering route controllers.
-* **Solution:** Centralized all validation rules into `validationEngine.js`, creating simple `isValid` validation functions that controllers can call.
-
----
-
-## 🏁 Project Status
-The system is **Production Ready** and verified for deployment. It features a complete test seed suite, responsive user interfaces, and robust error handling.
+- [ ] **Production Payment Gateway:** Upgrade Razorpay integration from sandbox to live production mode.
+- [ ] **Attendance Integration:** Allow faculty to mark lecture attendance directly against scheduled timetable slots.
+- [ ] **Push & In-App Notifications:** Real-time WebSockets integration for instant timetable modification alerts.
+- [ ] **Mobile Application:** React Native mobile companion app for students and faculty.
+- [ ] **Multi-Campus Multi-Tenant Support:** Support for multi-branch institutions with isolated department hierarchies.
 
 ---
 
 ## 🤝 Contributing
-1. Fork the Project.
-2. Create your Feature Branch (`git checkout -b feature/NewFeature`).
-3. Commit your Changes (`git commit -m 'Add some NewFeature'`).
-4. Push to the Branch (`git push origin feature/NewFeature`).
-5. Open a Pull Request.
+
+Contributions are welcome! To contribute:
+
+1. **Fork** the repository.
+2. **Create a Feature Branch**:
+   ```bash
+   git checkout -b feature/YourFeatureName
+   ```
+3. **Commit your Changes**:
+   ```bash
+   git commit -m "feat: Add YourFeatureName"
+   ```
+4. **Push to the Branch**:
+   ```bash
+   git push origin feature/YourFeatureName
+   ```
+5. **Open a Pull Request**.
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👨‍💻 Author
+## 👨‍💻 Author & Acknowledgments
 
 **Tirth Oza**
-* B.Tech Information Technology Student, Parul University (Graduating 2027)
-* Email: [ozatirth51@gmail.com](mailto:ozatirth51@gmail.com)
-* LinkedIn: [Tirth Oza](https://linkedin.com/in/tirth-oza)
-* GitHub: [ozatirth51](https://github.com/ozatirth51)
+- **Degree:** B.Tech in Information Technology, Parul University (Graduating 2027)
+- **Email:** [ozatirth51@gmail.com](mailto:ozatirth51@gmail.com)
+- **LinkedIn:** [linkedin.com/in/tirth-oza](https://linkedin.com/in/tirth-oza)
+- **GitHub:** [github.com/ozatirth51](https://github.com/ozatirth51)
+
+*EduX Planner — Transforming Academic Operations through Intelligent Scheduling & Unified Campus Management.*

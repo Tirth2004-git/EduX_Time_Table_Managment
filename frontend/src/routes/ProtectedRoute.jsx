@@ -43,7 +43,7 @@ export function PublicRoute({ children }) {
   if (isAuthenticated && user) {
     if (user.role === 'admin') return <Navigate to="/dashboard" replace />;
     if (user.role === 'teacher') return <Navigate to="/teacher-timetable" replace />;
-    return <Navigate to="/timetable" replace />;
+    return <Navigate to="/student-dashboard" replace />;
   }
 
   return children;
