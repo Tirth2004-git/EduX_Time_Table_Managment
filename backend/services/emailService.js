@@ -1,5 +1,32 @@
 const nodemailer = require('nodemailer');
 
+/**
+ * Fictitious / test domains that must never be sent to live SMTP servers to avoid bounce loops.
+ */
+const FICTITIOUS_DOMAINS = [
+  'edux.com',
+  'edux.local',
+  'edux.edu',
+  'example.com',
+  'example.org',
+  'example.net',
+  'test.com',
+  'sample.com',
+  'localhost',
+  'invalid.com'
+];
+
+/**
+ * Check whether an email domain is fictitious or a test mock
+ */
+function isFictitiousDomain(email) {
+  if (!email || typeof email !== 'string') return true;
+  const parts = email.trim().toLowerCase().split('@');
+  if (parts.length !== 2) return true;
+  const domain = parts[1];
+  return FICTITIOUS_DOMAINS.some(d => domain === d || domain.endsWith('.' + d));
+}
+
 function createTransporter() {
   const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = parseInt(process.env.SMTP_PORT, 10) || 465;
@@ -27,16 +54,71 @@ function getSender() {
 }
 
 /**
+ * Core internal email dispatcher with environment guardrails, fictitious domain filtering,
+ * development redirection sandbox, and structured security logging.
+ */
+async function sendEmailInternal({ type, recipientEmail, subject, text, html, metadata = {} }) {
+  const cleanRecipient = (recipientEmail || '').trim().toLowerCase();
+
+  // 1. Safety Guard: Automated Test Environment
+  if (process.env.NODE_ENV === 'test' && process.env.FORCE_EMAIL_TEST !== 'true') {
+    console.log(`[EMAIL TEST MOCK] Type=${type} | To=${cleanRecipient} | Subject="${subject}" (Bypassed in test environment)`);
+    return { success: true, bypassed: true, reason: 'test_environment' };
+  }
+
+  // 2. Safety Guard: Explicit Email Sending Toggle (MAIL_SEND_ENABLED=false)
+  if (process.env.MAIL_SEND_ENABLED === 'false') {
+    console.log(`[EMAIL DISABLED] Type=${type} | To=${cleanRecipient} | Subject="${subject}" (MAIL_SEND_ENABLED is false)`);
+    return { success: true, bypassed: true, reason: 'mail_send_disabled' };
+  }
+
+  // 3. Safety Guard: Fictitious / Non-Routable Test Domains (e.g. student@edux.com)
+  if (isFictitiousDomain(cleanRecipient)) {
+    console.log(`[EMAIL BYPASS] Type=${type} | To=${cleanRecipient} | Subject="${subject}" (Non-routable test domain. Real SMTP delivery skipped to prevent mail server bounce loops.)`);
+    return { success: true, bypassed: true, reason: 'fictitious_domain' };
+  }
+
+  // 4. Development / Sandbox Redirection Mode
+  let finalRecipient = cleanRecipient;
+  let finalSubject = subject;
+  const isDevMode = process.env.NODE_ENV !== 'production' || process.env.EMAIL_MODE === 'sandbox' || process.env.EMAIL_MODE === 'development';
+
+  if (isDevMode && process.env.TEST_EMAIL && process.env.EMAIL_REDIRECT_TO_TEST === 'true') {
+    finalRecipient = process.env.TEST_EMAIL.trim();
+    finalSubject = `[DEV REDIRECT: ${cleanRecipient}] ${subject}`;
+    console.log(`[EMAIL REDIRECT] Type=${type} | Original=${cleanRecipient} -> RedirectedTo=${finalRecipient}`);
+  }
+
+  // 5. Transporter Check
+  const transporter = createTransporter();
+  if (!transporter) {
+    console.warn(`[EMAIL CONFIG WARNING] Type=${type} | To=${finalRecipient} | SMTP credentials not configured. Email logged to console.`);
+    return { success: false, reason: 'SMTP not configured' };
+  }
+
+  // 6. SMTP Network Dispatch
+  try {
+    const info = await transporter.sendMail({
+      from: getSender(),
+      to: finalRecipient,
+      subject: finalSubject,
+      text,
+      html,
+    });
+
+    console.log(`[EMAIL SENT] type=${type} recipient=${finalRecipient} messageId=${info.messageId || 'OK'}`);
+    return { success: true, messageId: info.messageId };
+  } catch (error) {
+    console.error(`[EMAIL FAILED] type=${type} recipient=${finalRecipient} error="${error.message}"`);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
  * Send 6-digit OTP verification email for account registration
  */
 async function sendOtpEmail(recipientEmail, otp, studentName = 'Student') {
   console.log(`🔑 [OTP CODE FOR ${studentName} (${recipientEmail})]: ${otp}`);
-
-  const transporter = createTransporter();
-  if (!transporter) {
-    console.warn('⚠️ SMTP credentials not configured. OTP logged to console.');
-    return { success: false, reason: 'SMTP not configured' };
-  }
 
   const subject = 'Verify your EduX Planner account';
   const textBody = `Hello ${studentName},
@@ -85,20 +167,14 @@ EduX Planner`;
     </div>
   `;
 
-  try {
-    await transporter.sendMail({
-      from: getSender(),
-      to: recipientEmail,
-      subject,
-      text: textBody,
-      html: htmlBody,
-    });
-    console.log(`📨 OTP verification email successfully sent to ${recipientEmail}`);
-    return { success: true };
-  } catch (error) {
-    console.error(`❌ Failed to send OTP email to ${recipientEmail}:`, error.message);
-    return { success: false, error: error.message };
-  }
+  return sendEmailInternal({
+    type: 'OTP_VERIFICATION',
+    recipientEmail,
+    subject,
+    text: textBody,
+    html: htmlBody,
+    metadata: { studentName, otp }
+  });
 }
 
 /**
@@ -106,12 +182,6 @@ EduX Planner`;
  */
 async function sendEventTicketEmail(recipientEmail, studentName, event, ticketId, paymentId, amount) {
   console.log(`🎟️ [EVENT TICKET FOR ${studentName} (${recipientEmail})]: Event="${event.title}", Ticket=${ticketId}`);
-
-  const transporter = createTransporter();
-  if (!transporter) {
-    console.warn('⚠️ SMTP not configured. Ticket email logged to console.');
-    return { success: false, reason: 'SMTP not configured' };
-  }
 
   const dateStr = new Date(event.eventDate).toLocaleDateString('en-IN', {
     day: 'numeric',
@@ -148,7 +218,7 @@ Amount:
 ₹${amount}
 
 Payment:
-PAID
+${amount > 0 ? 'PAID' : 'FREE'}
 
 Status:
 CONFIRMED
@@ -202,12 +272,12 @@ Campus Events Team`;
 
         <div style="border-top: 1px dashed rgba(255,255,255,0.25); margin-top: 16px; padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <span style="color: #94a3b8; font-size: 10px; text-transform: uppercase; font-weight: 700;">Amount Paid</span>
-            <p style="font-size: 16px; font-weight: 800; color: #4ade80; margin: 0;">₹${amount}</p>
+            <span style="color: #94a3b8; font-size: 10px; text-transform: uppercase; font-weight: 700;">Amount</span>
+            <p style="font-size: 16px; font-weight: 800; color: #4ade80; margin: 0;">${amount > 0 ? `₹${amount}` : 'FREE'}</p>
           </div>
           <div style="text-align: right;">
             <span style="background: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.4); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 12px; text-transform: uppercase;">
-              PAID & CONFIRMED
+              ${amount > 0 ? 'PAID & CONFIRMED' : 'CONFIRMED'}
             </span>
           </div>
         </div>
@@ -230,96 +300,101 @@ Campus Events Team`;
     </div>
   `;
 
-  try {
-    await transporter.sendMail({
-      from: getSender(),
-      to: recipientEmail,
-      subject,
-      text: textBody,
-      html: htmlBody,
-    });
-    console.log(`📨 Event ticket email successfully sent to ${recipientEmail}`);
-    return { success: true };
-  } catch (error) {
-    console.error(`❌ Failed to send event ticket email to ${recipientEmail}:`, error.message);
-    return { success: false, error: error.message };
-  }
+  return sendEmailInternal({
+    type: 'EVENT_TICKET_CONFIRMATION',
+    recipientEmail,
+    subject,
+    text: textBody,
+    html: htmlBody,
+    metadata: { studentName, eventId: event._id, ticketId, paymentId, amount }
+  });
 }
 
+/**
+ * Send Password Reset Token Link Email
+ */
 async function sendResetPasswordEmail(recipientEmail, resetToken, username) {
   const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
   const resetUrl = `${frontendUrl}/reset-password?token=${resetToken}`;
   console.log(`🔑 [PASSWORD RESET LINK FOR ${username} (${recipientEmail})]: ${resetUrl}`);
 
-  const transporter = createTransporter();
-  if (!transporter) {
-    console.warn('⚠️ SMTP credentials not configured. Reset link logged to console.');
-    return { success: false, reason: 'SMTP not configured' };
-  }
+  const subject = 'Reset your EduX Planner password';
+  const textBody = `Hello ${username},
 
-  try {
-    await transporter.sendMail({
-      from: getSender(),
-      to: recipientEmail,
-      subject: 'Reset Password - EduX Planner',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width:560px; margin:auto; line-height: 1.5;">
-          <h2>Reset your password</h2>
-          <p>Hello ${username},</p>
-          <p>You requested a password reset. Please click the button below to reset your password:</p>
-          <div style="margin:24px 0;">
-            <a href="${resetUrl}" style="background-color: #2563eb; color: white; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block;">
-              Reset Password
-            </a>
-          </div>
-          <p>Or copy and paste this URL into your browser:</p>
-          <p style="word-break: break-all; color: #4b5563;">${resetUrl}</p>
-          <p>This link is valid for 1 hour.</p>
-          <p>If you did not request this, please ignore this email.</p>
-        </div>
-      `,
-    });
-    console.log(`📨 Reset password email successfully sent to ${recipientEmail}`);
-    return { success: true };
-  } catch (error) {
-    console.error(`❌ Failed to send reset password email to ${recipientEmail}:`, error.message);
-    return { success: false, error: error.message };
-  }
+You requested a password reset for your EduX Planner account.
+
+Please visit the link below to set a new password:
+${resetUrl}
+
+This link is valid for 1 hour. If you did not request this, please ignore this email.
+
+Regards,
+EduX Planner Security Team`;
+
+  const htmlBody = `
+    <div style="font-family: Arial, sans-serif; max-width:560px; margin:auto; line-height: 1.5; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
+      <h2 style="color: #1e293b;">Reset your EduX Planner password</h2>
+      <p style="color: #475569;">Hello ${username},</p>
+      <p style="color: #475569;">You requested a password reset. Please click the button below to reset your password:</p>
+      <div style="margin:24px 0;">
+        <a href="${resetUrl}" style="background-color: #4f46e5; color: white; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block;">
+          Reset Password
+        </a>
+      </div>
+      <p style="color: #64748b; font-size: 13px;">Or copy and paste this URL into your browser:</p>
+      <p style="word-break: break-all; color: #4338ca; font-size: 12px;">${resetUrl}</p>
+      <p style="color: #94a3b8; font-size: 12px;">This link is valid for 1 hour. If you did not request this, you can safely ignore this email.</p>
+    </div>
+  `;
+
+  return sendEmailInternal({
+    type: 'PASSWORD_RESET',
+    recipientEmail,
+    subject,
+    text: textBody,
+    html: htmlBody,
+    metadata: { username, resetToken }
+  });
 }
 
+/**
+ * Send Timetable Modification Notification Email to Faculty
+ */
 async function sendTimetableUpdateEmail(recipientEmail, teacherName, divisionInfo) {
   console.log(`📨 [TIMETABLE UPDATE NOTIFICATION FOR ${teacherName} (${recipientEmail})]: Timetable changed for ${divisionInfo}`);
 
-  const transporter = createTransporter();
-  if (!transporter) {
-    console.warn('⚠️ SMTP not configured. Update notification logged to console.');
-    return { success: false, reason: 'SMTP not configured' };
-  }
+  const subject = 'Timetable Updated - EduX Planner';
+  const textBody = `Hello ${teacherName},
 
-  try {
-    await transporter.sendMail({
-      from: getSender(),
-      to: recipientEmail,
-      subject: 'Timetable Updated - EduX Planner',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width:560px; margin:auto; line-height: 1.5;">
-          <h2>Timetable Assignment Updated</h2>
-          <p>Hello ${teacherName},</p>
-          <p>Your timetable assignment has been updated for: <strong>${divisionInfo}</strong>.</p>
-          <p>Please log in to the EduX portal to view your schedule.</p>
-          <p>Best regards,<br/>EduX Admin System</p>
-        </div>
-      `,
-    });
-    console.log(`📨 Timetable update email successfully sent to ${recipientEmail}`);
-    return { success: true };
-  } catch (error) {
-    console.error(`❌ Failed to send update notification to ${recipientEmail}:`, error.message);
-    return { success: false, error: error.message };
-  }
+Your timetable assignment has been updated for: ${divisionInfo}.
+
+Please log in to the EduX portal to view your updated schedule.
+
+Best regards,
+EduX Admin System`;
+
+  const htmlBody = `
+    <div style="font-family: Arial, sans-serif; max-width:560px; margin:auto; line-height: 1.5; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
+      <h2 style="color: #1e293b;">Timetable Assignment Updated</h2>
+      <p style="color: #475569;">Hello ${teacherName},</p>
+      <p style="color: #475569;">Your timetable assignment has been updated for: <strong>${divisionInfo}</strong>.</p>
+      <p style="color: #475569;">Please log in to the EduX portal to view your schedule.</p>
+      <p style="color: #64748b; font-size: 13px;">Best regards,<br/>EduX Admin System</p>
+    </div>
+  `;
+
+  return sendEmailInternal({
+    type: 'TIMETABLE_UPDATE',
+    recipientEmail,
+    subject,
+    text: textBody,
+    html: htmlBody,
+    metadata: { teacherName, divisionInfo }
+  });
 }
 
 module.exports = {
+  isFictitiousDomain,
   sendOtpEmail,
   sendEventTicketEmail,
   sendResetPasswordEmail,

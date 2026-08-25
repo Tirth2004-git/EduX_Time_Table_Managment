@@ -115,8 +115,15 @@ exports.registerFreeEvent = async (req, res, next) => {
         await registration.save();
 
         // Send confirmation ticket email
-        sendEventTicketEmail(student.email, student.name, event, registration.ticketId, null, 0)
-          .catch((err) => console.error('Ticket email failed:', err.message));
+        try {
+          const emailRes = await sendEventTicketEmail(student.email, student.name, event, registration.ticketId, null, 0);
+          registration.emailStatus = emailRes?.success ? 'sent' : 'failed';
+          await registration.save();
+        } catch (mailErr) {
+          console.error('Ticket email error for re-activated registration:', mailErr.message);
+          registration.emailStatus = 'failed';
+          await registration.save();
+        }
 
         return res.json({
           success: true,
