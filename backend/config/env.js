@@ -7,8 +7,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const configureMongoDns = () => {}; // Disabled for local DB
 
 const getMongoUri = () => {
-  // Enforce local database
-  return 'mongodb://127.0.0.1:27017/timetable-scheduler';
+  return process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/timetable-scheduler';
 };
 
 const validateRuntimeConfig = () => {

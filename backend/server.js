@@ -19,12 +19,30 @@ let isShuttingDown = false;
 app.use(helmet());
 
 // CORS Configuration - Allow frontend requests with credentials
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-production-frontend.vercel.app'] // Replace with production URL when ready
-    : ['http://localhost:5173', 'http://localhost:3000'],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.netlify.app') ||
+      origin.endsWith('.onrender.com') ||
+      process.env.NODE_ENV !== 'production'
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 

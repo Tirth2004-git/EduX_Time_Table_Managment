@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+const envApiUrl = import.meta.env.VITE_API_URL;
+export const API_BASE_URL = envApiUrl
+  ? (envApiUrl.endsWith('/api') ? envApiUrl : `${envApiUrl.replace(/\/+$/, '')}/api`)
+  : '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   withCredentials: true, // Auto send cookies
   headers: {
     'Content-Type': 'application/json',
@@ -40,7 +45,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         // Call refresh endpoint directly using axios to avoid infinite interception
-        const { data } = await axios.post('/api/auth/refresh', {}, { withCredentials: true });
+        const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {}, { withCredentials: true });
         if (data && data.success && data.token) {
           localStorage.setItem('auth-token', data.token);
           originalRequest.headers.Authorization = `Bearer ${data.token}`;
