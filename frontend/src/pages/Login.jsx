@@ -127,7 +127,8 @@ export default function Login() {
         }
       }
     } catch (err) {
-      setError(err.message || 'Invalid email or password.');
+      const msg = err?.message;
+      setError(typeof msg === 'string' && msg ? msg : 'Invalid email or password. Please try again.');
       setLoading(false);
     }
   };

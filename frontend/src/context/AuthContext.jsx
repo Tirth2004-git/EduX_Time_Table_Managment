@@ -53,7 +53,8 @@ export const AuthProvider = ({ children }) => {
         return response.data;
       }
     } catch (err) {
-      throw new Error(err.response?.data?.message || err.response?.data?.error || 'Login failed', { cause: err });
+      const msg = err.response?.data?.message || err.response?.data?.error;
+      throw new Error(typeof msg === 'string' ? msg : 'Login failed. Please check your credentials.', { cause: err });
     }
   };
 
@@ -70,7 +71,8 @@ export const AuthProvider = ({ children }) => {
         return response.data;
       }
     } catch (err) {
-      throw new Error(err.response?.data?.error || 'Demo login failed', { cause: err });
+      const msg = err.response?.data?.message || err.response?.data?.error;
+      throw new Error(typeof msg === 'string' ? msg : 'Demo login failed.', { cause: err });
     }
   };
 
