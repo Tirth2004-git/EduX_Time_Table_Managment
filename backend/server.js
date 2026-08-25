@@ -3,6 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const https = require('https');
+const http = require('http');
 
 require('./config/env');
 const { validateRuntimeConfig } = require('./config/env');
@@ -89,10 +91,22 @@ app.use('/api/organizations', require('./routes/organizationRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 
-// Root path diagnostic route
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'AI Timetable API is running smoothly' });
+// ── Health Check Route ──────────────────────────────────────────────────────
+// Used by keep-alive pinger and external uptime monitors
+app.get('/health', (req, res) => {
+  const mongoose = require('mongoose');
+  const dbState = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+  res.json({
+    status: 'ok',
+    message: 'EduX Timetable API is running',
+    uptime: Math.floor(process.uptime()) + 's',
+    db: dbState[mongoose.connection.readyState] || 'unknown',
+    timestamp: new Date().toISOString(),
+  });
 });
+
+// Keep alias at /api/health too
+app.get('/api/health', (req, res) => res.redirect('/health'));
 
 // Serve frontend in production (optional setup, but useful for hosting as single app)
 if (process.env.NODE_ENV === 'production') {
@@ -143,12 +157,39 @@ const handleServerError = (error) => {
   process.exit(1);
 };
 
+// ── Keep-Alive Self-Ping ─────────────────────────────────────────────────────
+// Pings /health every 10 minutes so Render free tier never sleeps
+const PING_INTERVAL_MS = 10 * 60 * 1000; // 10 minutes
+
+function startKeepAlive() {
+  const RENDER_URL = process.env.RENDER_EXTERNAL_URL; // automatically set by Render
+  if (!RENDER_URL) {
+    console.log('ℹ️  RENDER_EXTERNAL_URL not set — keep-alive ping disabled (local dev)');
+    return;
+  }
+
+  const pingUrl = `${RENDER_URL}/health`;
+  console.log(`🏓 Keep-alive ping enabled → ${pingUrl} every 10 min`);
+
+  setInterval(() => {
+    const mod = pingUrl.startsWith('https') ? https : http;
+    const req = mod.get(pingUrl, (res) => {
+      console.log(`🏓 Keep-alive ping: ${res.statusCode} at ${new Date().toISOString()}`);
+    });
+    req.on('error', (err) => {
+      console.warn(`⚠️  Keep-alive ping failed: ${err.message}`);
+    });
+    req.end();
+  }, PING_INTERVAL_MS);
+}
+
 const startServer = async () => {
   try {
     validateRuntimeConfig();
     await connectDB();
     server = app.listen(PORT, () => {
       console.log(`🚀 Backend Server running on http://localhost:${PORT}`);
+      startKeepAlive();
     });
     server.on('error', handleServerError);
   } catch (error) {
