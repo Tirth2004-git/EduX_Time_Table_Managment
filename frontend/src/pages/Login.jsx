@@ -18,6 +18,12 @@ import {
   AlertCircle,
   RefreshCw,
   Building2,
+  Key,
+  Copy,
+  Check,
+  Sparkles,
+  ShieldCheck,
+  Info,
 } from 'lucide-react';
 
 const FLOATING_ICONS = [
@@ -28,6 +34,42 @@ const FLOATING_ICONS = [
   { icon: Calendar,       size: 'w-4 h-4',  pos: 'top-[45%] left-[3%]',   delay: '1.5s',  duration: '9s'  },
   { icon: BookOpen,       size: 'w-6 h-6',  pos: 'top-[60%] right-[5%]',  delay: '3s',    duration: '7.5s'},
 ];
+
+const DEMO_CREDENTIALS = {
+  admin: {
+    role: 'admin',
+    title: 'Admin',
+    email: 'admin@edux.com',
+    altEmail: 'admin@example.com',
+    password: 'Admin@123',
+    altPassword: 'admin123',
+    portal: 'Full Admin Console & Timetables',
+    badgeStyle: 'bg-blue-50 text-blue-700 border-blue-200',
+    btnStyle: 'bg-blue-600 hover:bg-blue-700 text-white',
+  },
+  teacher: {
+    role: 'teacher',
+    title: 'Teacher',
+    email: 'teacher@edux.com',
+    altEmail: 'teacher@example.com',
+    password: 'Teacher@123',
+    altPassword: '123456',
+    portal: 'Faculty Schedule, Leaves & AI Quizzes',
+    badgeStyle: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    btnStyle: 'bg-indigo-600 hover:bg-indigo-700 text-white',
+  },
+  student: {
+    role: 'student',
+    title: 'Student',
+    email: 'student@edux.com',
+    altEmail: 'student@example.com',
+    password: 'Student@123',
+    altPassword: 'student123',
+    portal: 'Timetables, E-Learning & Events',
+    badgeStyle: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    btnStyle: 'bg-emerald-600 hover:bg-emerald-700 text-white',
+  },
+};
 
 export default function Login() {
   const navigate = useNavigate();
@@ -50,6 +92,7 @@ export default function Login() {
   const [focusedField, setFocusedField] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [copiedKey, setCopiedKey] = useState(null);
 
   // Fetch teachers when Teacher role is activated
   useEffect(() => {
@@ -77,19 +120,32 @@ export default function Login() {
     setSelectedRole(role);
     setError('');
     setPassword('');
-    if (role === 'teacher') {
-      setSelectedTeacher(null);
-      setEmail('');
-    } else {
-      setSelectedTeacher(null);
-      setEmail('');
-    }
+    setSelectedTeacher(null);
+    setEmail('');
+  };
+
+  const handleQuickFill = (roleKey) => {
+    const creds = DEMO_CREDENTIALS[roleKey];
+    if (!creds) return;
+    setSelectedRole(creds.role);
+    setSelectedTeacher(null);
+    setEmail(creds.email);
+    setPassword(creds.password);
+    setError('');
+    setCopiedKey(`${roleKey}-filled`);
+    setTimeout(() => setCopiedKey(null), 2500);
+  };
+
+  const handleCopyText = (text, key) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 2000);
   };
 
   const handleSelectTeacherCard = (teacher) => {
     setSelectedTeacher(teacher);
     setEmail(teacher.email || '');
-    setPassword('');
+    setPassword('Teacher@123'); // auto pre-fill demo password for seamless HR review
     setError('');
   };
 
@@ -223,7 +279,7 @@ export default function Login() {
             </p>
 
             {/* Feature pills */}
-            <div className="flex flex-col gap-3 text-left">
+            <div className="flex flex-col gap-3 text-left mb-8">
               {[
                 { icon: Calendar,      text: 'Auto-generate weekly schedules' },
                 { icon: Users,         text: 'Manage faculty workloads' },
@@ -238,74 +294,166 @@ export default function Login() {
                 </div>
               ))}
             </div>
+
+            {/* Left Panel Demo Credentials Box */}
+            <div className="bg-white/10 backdrop-blur-md border border-white/25 rounded-2xl p-4 text-left shadow-lg">
+              <div className="flex items-center justify-between gap-2 mb-2.5">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-blue-200 flex items-center gap-1.5">
+                  <Key className="w-3.5 h-3.5" /> Demo Login Credentials
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/40 text-blue-100 font-semibold border border-white/20">
+                  Live Test
+                </span>
+              </div>
+              <div className="space-y-2 text-xs">
+                <div className="p-2 rounded-xl bg-black/20 border border-white/10 flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-white block">👑 Admin</span>
+                    <span className="text-blue-100 font-mono text-[11px]">admin@edux.com</span>
+                  </div>
+                  <span className="text-[11px] font-mono bg-white/15 px-2 py-1 rounded text-white font-semibold">Admin@123</span>
+                </div>
+                <div className="p-2 rounded-xl bg-black/20 border border-white/10 flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-white block">🎓 Teacher</span>
+                    <span className="text-indigo-100 font-mono text-[11px]">teacher@edux.com</span>
+                  </div>
+                  <span className="text-[11px] font-mono bg-white/15 px-2 py-1 rounded text-white font-semibold">Teacher@123</span>
+                </div>
+                <div className="p-2 rounded-xl bg-black/20 border border-white/10 flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-white block">🎒 Student</span>
+                    <span className="text-emerald-100 font-mono text-[11px]">student@edux.com</span>
+                  </div>
+                  <span className="text-[11px] font-mono bg-white/15 px-2 py-1 rounded text-white font-semibold">Student@123</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* ── Right Panel ── */}
-        <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-slate-50 p-6 lg:p-12 relative overflow-hidden">
+        <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-slate-50 p-4 sm:p-6 lg:p-12 relative overflow-hidden">
           {/* Subtle bg shapes */}
           <div className="absolute top-0 right-0 w-72 h-72 bg-blue-100 rounded-full opacity-30 blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-56 h-56 bg-indigo-100 rounded-full opacity-30 blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-          <div className="relative w-full max-w-md space-y-6">
+          <div className="relative w-full max-w-md space-y-4 sm:space-y-5 my-auto py-4">
             {/* Mobile logo */}
             <div className="lg:hidden flex flex-col items-center slide-up stagger-1">
-              <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-200 mb-3">
-                <Calendar className="w-7 h-7 text-white" />
+              <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-200 mb-2">
+                <Calendar className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-xl font-bold text-slate-800">Smart Timetable</h2>
             </div>
 
+            {/* Quick Demo Credentials Banner (Top for HR/Recruiters) */}
+            <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-emerald-50 border border-blue-200/80 rounded-2xl p-3.5 shadow-sm slide-up stagger-1">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-500 fill-amber-400" />
+                  <span className="text-xs font-extrabold text-slate-800 tracking-tight">
+                    Demo Credentials (1-Click Auto-Fill)
+                  </span>
+                </div>
+                {copiedKey && (
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                    <Check className="w-3 h-3" /> Auto-Filled!
+                  </span>
+                )}
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('admin')}
+                  className="p-2 rounded-xl bg-white hover:bg-blue-50 border border-blue-200 hover:border-blue-400 text-left transition-all group cursor-pointer shadow-2xs hover:shadow-xs active:scale-[0.97]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-extrabold text-blue-700">👑 Admin</span>
+                    <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1 rounded group-hover:bg-blue-600 group-hover:text-white transition-colors">Fill</span>
+                  </div>
+                  <div className="mt-1 text-[10px] text-slate-500 font-mono leading-tight truncate">admin@edux.com</div>
+                  <div className="text-[10px] text-slate-400 font-mono leading-tight">Admin@123</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('teacher')}
+                  className="p-2 rounded-xl bg-white hover:bg-indigo-50 border border-indigo-200 hover:border-indigo-400 text-left transition-all group cursor-pointer shadow-2xs hover:shadow-xs active:scale-[0.97]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-extrabold text-indigo-700">🎓 Teacher</span>
+                    <span className="text-[9px] font-bold text-indigo-600 bg-indigo-50 px-1 rounded group-hover:bg-indigo-600 group-hover:text-white transition-colors">Fill</span>
+                  </div>
+                  <div className="mt-1 text-[10px] text-slate-500 font-mono leading-tight truncate">teacher@edux.com</div>
+                  <div className="text-[10px] text-slate-400 font-mono leading-tight">Teacher@123</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('student')}
+                  className="p-2 rounded-xl bg-white hover:bg-emerald-50 border border-emerald-200 hover:border-emerald-400 text-left transition-all group cursor-pointer shadow-2xs hover:shadow-xs active:scale-[0.97]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-extrabold text-emerald-700">🎒 Student</span>
+                    <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1 rounded group-hover:bg-emerald-600 group-hover:text-white transition-colors">Fill</span>
+                  </div>
+                  <div className="mt-1 text-[10px] text-slate-500 font-mono leading-tight truncate">student@edux.com</div>
+                  <div className="text-[10px] text-slate-400 font-mono leading-tight">Student@123</div>
+                </button>
+              </div>
+            </div>
+
             {/* Card */}
-            <div className="bg-white rounded-3xl shadow-xl shadow-blue-100/60 border border-blue-100 p-6 sm:p-8 space-y-6 slide-up stagger-2">
+            <div className="bg-white rounded-3xl shadow-xl shadow-blue-100/60 border border-blue-100 p-5 sm:p-7 space-y-5 slide-up stagger-2">
               {/* Header */}
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 <h2 className="text-2xl font-extrabold text-slate-800">Welcome back 👋</h2>
-                <p className="text-sm text-slate-500">Sign in to your account to continue</p>
+                <p className="text-xs text-slate-500">Sign in to your account or pick a role above</p>
               </div>
 
               {/* Role Switcher Buttons */}
-              <div className="space-y-2.5 pt-1">
+              <div className="space-y-2 pt-0.5">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">
-                  Quick Login As
+                  Select Role
                 </p>
                 <div className="grid grid-cols-3 gap-2">
                   <button
                     type="button"
                     onClick={() => handleRoleSelect('admin')}
-                    className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
                       selectedRole === 'admin'
                         ? 'border-blue-500 bg-blue-50/90 text-blue-700 ring-2 ring-blue-400/30 shadow-md shadow-blue-50 font-bold'
                         : 'border-slate-100 hover:border-blue-200 bg-slate-50 hover:bg-blue-50 text-slate-700 hover:text-blue-600'
                     }`}
                   >
-                    <Users className={`w-5 h-5 mb-1.5 transition-colors ${selectedRole === 'admin' ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-500'}`} />
+                    <Users className={`w-4 h-4 mb-1 transition-colors ${selectedRole === 'admin' ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-500'}`} />
                     <span className="text-xs font-bold">Admin</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleRoleSelect('teacher')}
-                    className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
                       selectedRole === 'teacher'
                         ? 'border-indigo-500 bg-indigo-50/90 text-indigo-700 ring-2 ring-indigo-400/30 shadow-md shadow-indigo-50 font-bold'
                         : 'border-slate-100 hover:border-indigo-200 bg-slate-50 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600'
                     }`}
                   >
-                    <BookOpen className={`w-5 h-5 mb-1.5 transition-colors ${selectedRole === 'teacher' ? 'text-indigo-600' : 'text-slate-400 group-hover:text-indigo-500'}`} />
+                    <BookOpen className={`w-4 h-4 mb-1 transition-colors ${selectedRole === 'teacher' ? 'text-indigo-600' : 'text-slate-400 group-hover:text-indigo-500'}`} />
                     <span className="text-xs font-bold">Teacher</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleRoleSelect('student')}
-                    className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
+                    className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all duration-200 active:scale-[0.96] group cursor-pointer ${
                       selectedRole === 'student'
                         ? 'border-emerald-500 bg-emerald-50/90 text-emerald-700 ring-2 ring-emerald-400/30 shadow-md shadow-emerald-50 font-bold'
                         : 'border-slate-100 hover:border-emerald-200 bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-600'
                     }`}
                   >
-                    <GraduationCap className={`w-5 h-5 mb-1.5 transition-colors ${selectedRole === 'student' ? 'text-emerald-600' : 'text-slate-400 group-hover:text-emerald-500'}`} />
+                    <GraduationCap className={`w-4 h-4 mb-1 transition-colors ${selectedRole === 'student' ? 'text-emerald-600' : 'text-slate-400 group-hover:text-emerald-500'}`} />
                     <span className="text-xs font-bold">Student</span>
                   </button>
                 </div>
@@ -324,8 +472,28 @@ export default function Login() {
               {/* ═════════════════════════════════════════════════════════ */}
               {selectedRole === 'admin' && (
                 <div className="space-y-4 fade-in">
-                  <div className="rounded-xl border border-blue-200 bg-blue-50/70 p-3 text-xs font-medium text-blue-900">
-                    <span className="font-bold">Admin Login</span> · Enter your administrative email and password.
+                  {/* Demo Admin Info & Quick Fill */}
+                  <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-3 text-xs text-blue-900 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 font-bold">
+                        <Key className="w-3.5 h-3.5 text-blue-600" /> Admin Demo Credentials
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleQuickFill('admin')}
+                        className="px-2 py-0.5 rounded-md bg-blue-600 text-white font-bold text-[10px] hover:bg-blue-700 transition-colors border-0 cursor-pointer shadow-2xs"
+                      >
+                        ⚡ Fill In Form
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5 text-[11px] font-mono">
+                      <span className="bg-white/80 px-2 py-0.5 rounded border border-blue-200 text-slate-700">
+                        Email: <strong className="text-blue-700">admin@edux.com</strong>
+                      </span>
+                      <span className="bg-white/80 px-2 py-0.5 rounded border border-blue-200 text-slate-700">
+                        Password: <strong className="text-blue-700">Admin@123</strong>
+                      </span>
+                    </div>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -345,7 +513,7 @@ export default function Login() {
                           required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="admin@example.com"
+                          placeholder="admin@edux.com"
                           onFocus={() => setFocusedField('admin-email')}
                           onBlur={() => setFocusedField(null)}
                           className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
@@ -398,7 +566,7 @@ export default function Login() {
                       {loading ? (
                         <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</>
                       ) : (
-                        <>Sign In <ArrowRight className="w-4 h-4" /></>
+                        <>Sign In as Admin <ArrowRight className="w-4 h-4" /></>
                       )}
                     </button>
                   </form>
@@ -410,13 +578,32 @@ export default function Login() {
               {/* ═════════════════════════════════════════════════════════ */}
               {selectedRole === 'teacher' && (
                 <div className="space-y-4 fade-in">
+                  {/* Demo Teacher Info Alert */}
+                  <div className="rounded-xl border border-indigo-200 bg-indigo-50/80 p-3 text-xs text-indigo-900 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 font-bold">
+                        <Key className="w-3.5 h-3.5 text-indigo-600" /> Faculty Demo Login
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleQuickFill('teacher')}
+                        className="px-2 py-0.5 rounded-md bg-indigo-600 text-white font-bold text-[10px] hover:bg-indigo-700 transition-colors border-0 cursor-pointer shadow-2xs"
+                      >
+                        ⚡ 1-Click Fill Default Teacher
+                      </button>
+                    </div>
+                    <div className="text-[11px] text-indigo-800">
+                      💡 Select any faculty member below (Password is <strong className="font-mono text-indigo-900 bg-white/90 px-1 py-0.5 rounded border border-indigo-200">Teacher@123</strong> or <strong className="font-mono text-indigo-900 bg-white/90 px-1 py-0.5 rounded border border-indigo-200">123456</strong>) or use default teacher: <strong className="font-mono">teacher@edux.com</strong>
+                    </div>
+                  </div>
+
                   {!selectedTeacher ? (
                     /* ── Teacher List Selection View ── */
                     <div className="space-y-3.5">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-sm font-extrabold text-slate-800">Select Teacher</h3>
-                          <p className="text-xs text-slate-500">Choose your profile from the registered faculty</p>
+                          <h3 className="text-sm font-extrabold text-slate-800">Select Faculty Profile</h3>
+                          <p className="text-xs text-slate-500">Choose any registered teacher to test faculty portal</p>
                         </div>
                         <button
                           type="button"
@@ -441,11 +628,11 @@ export default function Login() {
                       </div>
 
                       {/* Teacher Cards Container */}
-                      <div className="max-h-[300px] overflow-y-auto space-y-2 pr-1">
+                      <div className="max-h-[260px] overflow-y-auto space-y-2 pr-1">
                         {loadingTeachers ? (
                           <div className="py-12 text-center space-y-2">
                             <Loader2 className="w-6 h-6 text-indigo-600 animate-spin mx-auto" />
-                            <p className="text-xs font-semibold text-slate-500">Loading teachers...</p>
+                            <p className="text-xs font-semibold text-slate-500">Loading faculty profiles...</p>
                           </div>
                         ) : teachersError ? (
                           <div className="p-4 rounded-xl bg-red-50 border border-red-100 text-center space-y-2">
@@ -459,38 +646,37 @@ export default function Login() {
                             </button>
                           </div>
                         ) : filteredTeachers.length === 0 ? (
-                          <div className="py-10 text-center space-y-1 text-slate-400">
+                          <div className="py-8 text-center space-y-3 text-slate-400">
                             <Users className="w-8 h-8 mx-auto text-slate-300" />
-                            <p className="text-xs font-bold text-slate-600">No registered teachers found</p>
-                            <p className="text-[11px]">
-                              {teacherSearch ? 'Try a different search query.' : 'Faculty profiles will appear here.'}
-                            </p>
+                            <p className="text-xs font-bold text-slate-600">No registered teachers found in DB</p>
+                            <button
+                              type="button"
+                              onClick={() => handleQuickFill('teacher')}
+                              className="px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors border-0 cursor-pointer"
+                            >
+                              ⚡ Sign in as Default Teacher (teacher@edux.com)
+                            </button>
                           </div>
                         ) : (
                           filteredTeachers.map((teacher) => (
                             <div
-                              key={teacher.id || teacher.email}
+                              key={teacher.id || teacher.email || teacher._id}
                               onClick={() => handleSelectTeacherCard(teacher)}
-                              className="p-3.5 rounded-2xl border border-slate-100 hover:border-indigo-200 bg-slate-50/70 hover:bg-indigo-50/50 transition-all duration-200 flex items-center justify-between gap-3 cursor-pointer group hover:shadow-sm"
+                              className="p-3 rounded-2xl border border-slate-100 hover:border-indigo-300 bg-slate-50/70 hover:bg-indigo-50/60 transition-all duration-200 flex items-center justify-between gap-3 cursor-pointer group hover:shadow-sm"
                             >
                               <div className="flex items-center gap-3 min-w-0">
-                                <div className="w-10 h-10 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold text-sm shrink-0">
+                                <div className="w-9 h-9 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold text-sm shrink-0">
                                   {teacher.name ? teacher.name.charAt(0).toUpperCase() : 'T'}
                                 </div>
                                 <div className="min-w-0">
                                   <h4 className="text-xs font-extrabold text-slate-900 group-hover:text-indigo-700 transition-colors truncate">
-                                    {teacher.name}
+                                    {teacher.name || teacher.faculty_name}
                                   </h4>
                                   <p className="text-[11px] text-slate-500 truncate">{teacher.email}</p>
                                   <div className="flex items-center gap-1.5 mt-0.5">
                                     <span className="inline-flex px-2 py-0.2 rounded-md bg-white border border-slate-200 text-[10px] font-semibold text-slate-600 truncate">
                                       {teacher.department || 'Faculty'}
                                     </span>
-                                    {teacher.designation && teacher.designation !== 'Faculty Member' && (
-                                      <span className="text-[10px] text-slate-400 truncate">
-                                        · {teacher.designation}
-                                      </span>
-                                    )}
                                   </div>
                                 </div>
                               </div>
@@ -505,6 +691,21 @@ export default function Login() {
                           ))
                         )}
                       </div>
+
+                      {/* Manual / Direct Teacher Email Option */}
+                      <div className="pt-1 text-center">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedTeacher({ name: 'Faculty Member', email: 'teacher@edux.com' });
+                            setEmail('teacher@edux.com');
+                            setPassword('Teacher@123');
+                          }}
+                          className="text-xs text-indigo-600 hover:text-indigo-700 font-bold hover:underline transition-colors border-0 bg-transparent cursor-pointer"
+                        >
+                          Or enter email & password manually →
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     /* ── Selected Teacher Password Login View ── */
@@ -517,12 +718,12 @@ export default function Login() {
                           </div>
                           <div className="min-w-0">
                             <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wide block">
-                              Selected Teacher
+                              Selected Faculty
                             </span>
                             <h4 className="text-xs font-extrabold text-slate-900 truncate">
-                              {selectedTeacher.name}
+                              {selectedTeacher.name || selectedTeacher.faculty_name}
                             </h4>
-                            <p className="text-[11px] text-slate-600 truncate">{selectedTeacher.email}</p>
+                            <p className="text-[11px] text-slate-600 truncate">{selectedTeacher.email || email}</p>
                           </div>
                         </div>
 
@@ -536,7 +737,7 @@ export default function Login() {
                       </div>
 
                       <form onSubmit={handleSubmit} className="space-y-4">
-                        {/* Pre-filled Readonly Email */}
+                        {/* Pre-filled Readonly/Editable Email */}
                         <div className="space-y-1.5">
                           <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
                             Teacher Email
@@ -545,18 +746,23 @@ export default function Login() {
                             <Mail className="absolute left-3.5 w-4 h-4 text-slate-400" />
                             <input
                               type="email"
-                              readOnly
                               value={email}
-                              className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm font-semibold text-slate-700 focus:outline-none cursor-default"
+                              onChange={(e) => setEmail(e.target.value)}
+                              className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm font-semibold text-slate-700 focus:outline-none"
                             />
                           </div>
                         </div>
 
                         {/* Password */}
                         <div className="space-y-1.5">
-                          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                            Enter Password <span className="text-red-500">*</span>
-                          </label>
+                          <div className="flex items-center justify-between">
+                            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                              Password <span className="text-red-500">*</span>
+                            </label>
+                            <span className="text-[11px] text-indigo-600 font-medium">
+                              Demo Pass: <strong className="font-mono">Teacher@123</strong>
+                            </span>
+                          </div>
                           <div className={`relative flex items-center rounded-xl border-2 transition-all ${
                             focusedField === 'teacher-pass'
                               ? 'border-indigo-500 shadow-md shadow-indigo-100'
@@ -569,7 +775,7 @@ export default function Login() {
                               autoFocus
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
-                              placeholder="Enter your faculty password"
+                              placeholder="Teacher@123"
                               onFocus={() => setFocusedField('teacher-pass')}
                               onBlur={() => setFocusedField(null)}
                               className="w-full pl-10 pr-12 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
@@ -608,7 +814,7 @@ export default function Login() {
                           onClick={handleBackToTeacherList}
                           className="w-full py-2 text-center text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors flex items-center justify-center gap-1.5 border-0 bg-transparent cursor-pointer"
                         >
-                          <ArrowLeft className="w-3.5 h-3.5" /> Back to Teacher List
+                          <ArrowLeft className="w-3.5 h-3.5" /> Back to Faculty List
                         </button>
                       </form>
                     </div>
@@ -621,8 +827,28 @@ export default function Login() {
               {/* ═════════════════════════════════════════════════════════ */}
               {selectedRole === 'student' && (
                 <div className="space-y-4 fade-in">
-                  <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3 text-xs font-medium text-emerald-900">
-                    <span className="font-bold">Student Login</span> · Enter your registered student email and password.
+                  {/* Demo Student Info & Quick Fill */}
+                  <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-3 text-xs text-emerald-900 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 font-bold">
+                        <Key className="w-3.5 h-3.5 text-emerald-600" /> Student Demo Credentials
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleQuickFill('student')}
+                        className="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-bold text-[10px] hover:bg-emerald-700 transition-colors border-0 cursor-pointer shadow-2xs"
+                      >
+                        ⚡ Fill In Form
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5 text-[11px] font-mono">
+                      <span className="bg-white/80 px-2 py-0.5 rounded border border-emerald-200 text-slate-700">
+                        Email: <strong className="text-emerald-700">student@edux.com</strong>
+                      </span>
+                      <span className="bg-white/80 px-2 py-0.5 rounded border border-emerald-200 text-slate-700">
+                        Password: <strong className="text-emerald-700">Student@123</strong>
+                      </span>
+                    </div>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -642,7 +868,7 @@ export default function Login() {
                           required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="student@example.com"
+                          placeholder="student@edux.com"
                           onFocus={() => setFocusedField('student-email')}
                           onBlur={() => setFocusedField(null)}
                           className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
@@ -695,7 +921,7 @@ export default function Login() {
                       {loading ? (
                         <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</>
                       ) : (
-                        <>Sign In <ArrowRight className="w-4 h-4" /></>
+                        <>Sign In as Student <ArrowRight className="w-4 h-4" /></>
                       )}
                     </button>
                   </form>
@@ -703,7 +929,7 @@ export default function Login() {
               )}
 
               {/* Register link (available for students & new accounts) */}
-              <p className="text-center text-sm text-slate-500 pt-2 border-t border-slate-100">
+              <p className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
                 Don&apos;t have an account?{' '}
                 <Link
                   to="/register"

@@ -1,3 +1,6 @@
+process.env.NODE_ENV = 'test';
+process.env.MAIL_SEND_ENABLED = 'false';
+
 const mongoose = require('mongoose');
 const http = require('http');
 const express = require('express');
