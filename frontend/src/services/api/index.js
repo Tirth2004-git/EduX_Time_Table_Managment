@@ -1,12 +1,17 @@
 import axios from 'axios';
 
 const envApiUrl = import.meta.env.VITE_API_URL;
-export const API_BASE_URL = envApiUrl
-  ? (envApiUrl.endsWith('/api') ? envApiUrl : `${envApiUrl.replace(/\/+$/, '')}/api`)
-  : '/api';
+// In local development, if VITE_API_URL is pointing to a remote server (e.g. Render), default to '/api' to use the local dev proxy
+const isDev = import.meta.env.DEV;
+export const API_BASE_URL = (isDev && envApiUrl && envApiUrl.includes('onrender.com'))
+  ? '/api'
+  : (envApiUrl
+      ? (envApiUrl.endsWith('/api') ? envApiUrl : `${envApiUrl.replace(/\/+$/, '')}/api`)
+      : '/api');
 
 const api = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 15000, // 15 seconds request timeout
   withCredentials: true, // Auto send cookies
   headers: {
     'Content-Type': 'application/json',

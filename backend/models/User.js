@@ -27,4 +27,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.index({ teacher_id: 1 });
+userSchema.index({ role: 1 });
+
 module.exports = mongoose.model('User', userSchema);

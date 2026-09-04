@@ -38,7 +38,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loadingState, setLoadingState] = useState(null); // 'creating' | 'sending_otp' | 'verifying' | null
   const [resendingOtp, setResendingOtp] = useState(false);
   const [pendingEmail, setPendingEmail] = useState('');
   const [step, setStep] = useState('register');
@@ -58,7 +58,7 @@ export default function Register() {
     let timer;
     if (resendCooldown > 0) {
       timer = setInterval(() => {
-        setResendCooldown((prev) => prev - 1);
+        setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0));
       }, 1000);
     }
     return () => clearInterval(timer);
@@ -73,12 +73,14 @@ export default function Register() {
           divisions: divisions.data.data || divisions.data.divisions || divisions.data || [],
         });
       })
-      .catch(() => setError('Unable to load academic options. Please try again.'));
+      .catch(() => setError('Unable to load academic options. Please check your connection and try again.'));
   }, []);
+
   const semesters = useMemo(
     () => academicData.semesters.filter((semester) => String(semester.department?._id || semester.department) === academicSelection.department),
     [academicData.semesters, academicSelection.department],
   );
+
   const divisions = useMemo(
     () => academicData.divisions.filter((division) =>
       String(division.department?._id || division.department) === academicSelection.department &&
@@ -116,11 +118,14 @@ export default function Register() {
   };
 
   const onSubmit = async (data) => {
-    setLoading(true);
+    if (loadingState) return;
+    setLoadingState('creating');
     setError('');
     setMessage('');
+
     try {
       const normalizedEmail = data.email.trim().toLowerCase();
+      
       const response = await authApi.register({
         ...data,
         email: normalizedEmail,
@@ -128,26 +133,34 @@ export default function Register() {
         semesterId: academicSelection.semester,
         divisionId: academicSelection.divisionId,
       });
+
       if (response.data && response.data.error) {
         setError(response.data.error || 'Registration failed');
-        setLoading(false);
         return;
       }
+
       setPendingEmail(normalizedEmail);
       setStep('verify');
       setResendCooldown(60);
       setMessage('Verification code sent to your email! Please check your inbox.');
     } catch (err) {
-      setError(err.response?.data?.error || err.message || 'Registration failed');
+      const apiErr = err.response?.data?.error || err.response?.data?.message || err.message;
+      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        setError('Request timed out. Please check your internet connection or try again.');
+      } else {
+        setError(typeof apiErr === 'string' ? apiErr : 'Unable to complete registration. Please try again.');
+      }
     } finally {
-      setLoading(false);
+      setLoadingState(null);
     }
   };
 
   const onVerifyOtp = async (data) => {
-    setLoading(true);
+    if (loadingState) return;
+    setLoadingState('verifying');
     setError('');
     setMessage('');
+
     try {
       const response = await authApi.verifyOtp(pendingEmail, data.otp);
       if (response.data && response.data.error) {
@@ -156,25 +169,31 @@ export default function Register() {
       }
       setVerified(true);
       setMessage('Email Verified ✓ Account Created Successfully');
-      setTimeout(() => navigate('/login'), 1800);
+      setTimeout(() => navigate('/login'), 1600);
     } catch (err) {
-      setError(err.response?.data?.error || err.message || 'Verification failed');
+      const apiErr = err.response?.data?.error || err.response?.data?.message || err.message;
+      setError(typeof apiErr === 'string' ? apiErr : 'Verification failed. Please check the OTP code.');
     } finally {
-      setLoading(false);
+      setLoadingState(null);
     }
   };
 
   const resendOtp = async () => {
-    if (resendCooldown > 0) return;
+    if (resendCooldown > 0 || resendingOtp) return;
     setResendingOtp(true);
     setError('');
     setMessage('');
+
     try {
       const res = await authApi.sendOtp(pendingEmail);
       setMessage(res.data?.message || 'New 6-digit verification code sent to your email.');
       setResendCooldown(60);
     } catch (err) {
-      setError(err.response?.data?.error || err.message || 'Failed to resend OTP');
+      const apiErr = err.response?.data?.error || err.response?.data?.message || err.message;
+      if (err.response?.status === 429 && err.response?.data?.retryAfter) {
+        setResendCooldown(err.response.data.retryAfter);
+      }
+      setError(typeof apiErr === 'string' ? apiErr : 'Failed to resend OTP. Please try again.');
     } finally {
       setResendingOtp(false);
     }
@@ -397,10 +416,10 @@ export default function Register() {
                   <div className="slide-up s6 pt-1">
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={!!loadingState}
                       className="group relative w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-sm font-bold transition-all duration-200 shadow-lg shadow-blue-200 hover:shadow-blue-300 active:scale-[0.98] cursor-pointer"
                     >
-                      {loading ? (
+                      {loadingState === 'creating' ? (
                         <><Loader2 className="w-4 h-4 animate-spin" /> Creating account…</>
                       ) : (
                         <>
@@ -521,10 +540,10 @@ export default function Register() {
                       {/* Verify button */}
                       <button
                         type="submit"
-                        disabled={loading || otpValues.join('').length < 6}
+                        disabled={!!loadingState || otpValues.join('').length < 6}
                         className="group w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-200 text-white text-sm font-bold transition-all duration-200 shadow-lg shadow-blue-200 active:scale-[0.98] cursor-pointer"
                       >
-                        {loading ? (
+                        {loadingState === 'verifying' ? (
                           <><Loader2 className="w-4 h-4 animate-spin" /> Verifying…</>
                         ) : (
                           <>

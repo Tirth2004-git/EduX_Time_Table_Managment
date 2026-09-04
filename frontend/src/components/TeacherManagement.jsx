@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Plus, Edit, Trash2, X, UserCheck, Users, Clock, BookOpen, Search, AlertCircle, Upload } from 'lucide-react';
+import { useEffect, useState, useCallback } from 'react';
+import { Plus, Edit, Trash2, X, UserCheck, Users, Clock, BookOpen, Search, AlertCircle, Upload, RefreshCw } from 'lucide-react';
 import teacherApi from '@/services/api/teacherApi';
 import subjectApi from '@/services/api/subjectApi';
 
+// In-memory module cache to avoid blank flash on tab switching
+let _cachedTeachers = null;
+
 export default function TeacherManagement() {
-  const [teachers, setTeachers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [teachers, setTeachers] = useState(() => _cachedTeachers || []);
+  const [loading, setLoading] = useState(() => !_cachedTeachers);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [fetchError, setFetchError] = useState('');
+  const [formLoading, setFormLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingTeacher, setEditingTeacher] = useState(null);
   const [error, setError] = useState('');
@@ -38,6 +44,53 @@ export default function TeacherManagement() {
   const [importError, setImportError] = useState('');
   const [importResult, setImportResult] = useState(null);
 
+  const fetchTeachers = useCallback(async (isSilent = false) => {
+    if (!isSilent) {
+      setLoading(true);
+    } else {
+      setIsRefreshing(true);
+    }
+    setFetchError('');
+
+    try {
+      const response = await teacherApi.list();
+      const list = response.data?.data || response.data || [];
+      setTeachers(list);
+      _cachedTeachers = list;
+    } catch (err) {
+      console.error('[Teachers API Error]', err);
+      let errMsg = 'Unable to load teacher data. Please check your connection and try again.';
+      if (err.response?.status === 401) {
+        errMsg = 'Session expired or unauthorized. Please sign in again.';
+      } else if (err.response?.status === 403) {
+        errMsg = 'Access forbidden. Administrator permissions are required to view faculty roster.';
+      } else if (err.response?.data?.error) {
+        errMsg = err.response.data.error;
+      } else if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        errMsg = 'Request timed out. The backend server took too long to respond. Please retry.';
+      } else if (err.message && !err.response) {
+        errMsg = 'Unable to connect to the server. Please ensure the backend is running.';
+      }
+      setFetchError(errMsg);
+    } finally {
+      setLoading(false);
+      setIsRefreshing(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTeachers(_cachedTeachers ? true : false);
+
+    const handleSync = () => fetchTeachers(true);
+    window.addEventListener('teacherUpdated', handleSync);
+    window.addEventListener('timetableUpdated', handleSync);
+
+    return () => {
+      window.removeEventListener('teacherUpdated', handleSync);
+      window.removeEventListener('timetableUpdated', handleSync);
+    };
+  }, [fetchTeachers]);
+
   const handleImportSubmit = async (e) => {
     if (e) e.preventDefault();
     if (!importFile) return;
@@ -49,27 +102,15 @@ export default function TeacherManagement() {
       data.append('file', importFile);
       const response = await teacherApi.importCsv(data);
       setImportResult(response.data.data || { inserted: 0, updated: 0 });
-      await fetchTeachers();
+      await fetchTeachers(true);
+      window.dispatchEvent(new CustomEvent('teacherUpdated'));
+      window.dispatchEvent(new CustomEvent('dashboardUpdate'));
     } catch (err) {
       setImportError(err.response?.data?.error || err.message || 'Import failed');
     } finally {
       setImportLoading(false);
     }
   };
-
-
-  const fetchTeachers = async () => {
-    try {
-      const response = await teacherApi.list();
-      setTeachers(response.data.data || []);
-    } catch (error) {
-      console.error('Error fetching teachers:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTeachers();
-  }, []);
 
   useEffect(() => {
     if (formData.department) {
@@ -102,7 +143,7 @@ export default function TeacherManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setFormLoading(true);
     setError('');
     try {
       const payload = { ...formData, teaching_hours: parseInt(formData.teaching_hours) };
@@ -117,12 +158,14 @@ export default function TeacherManagement() {
         await teacherApi.assignSubjects(savedTeacher._id, formData.assignedSubjects);
       }
       
-      await fetchTeachers();
+      await fetchTeachers(true);
+      window.dispatchEvent(new CustomEvent('teacherUpdated'));
+      window.dispatchEvent(new CustomEvent('dashboardUpdate'));
       resetForm();
-      setLoading(false);
     } catch (err) {
       setError(err.response?.data?.error || err.message || 'Operation failed');
-      setLoading(false);
+    } finally {
+      setFormLoading(false);
     }
   };
 
@@ -149,7 +192,9 @@ export default function TeacherManagement() {
     if (!confirm('Are you sure you want to delete this teacher?')) return;
     try {
       await teacherApi.delete(id);
-      await fetchTeachers();
+      await fetchTeachers(true);
+      window.dispatchEvent(new CustomEvent('teacherUpdated'));
+      window.dispatchEvent(new CustomEvent('dashboardUpdate'));
     } catch (error) {
       console.error('Error deleting teacher:', error);
       alert(error.response?.data?.error || 'Failed to delete teacher');
@@ -199,6 +244,12 @@ export default function TeacherManagement() {
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          {isRefreshing && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-bold animate-pulse">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+              Syncing…
+            </span>
+          )}
           <button
             onClick={() => { setShowImportModal(true); setImportFile(null); setImportError(''); setImportResult(null); }}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-bold transition-all cursor-pointer"
@@ -215,24 +266,38 @@ export default function TeacherManagement() {
       </div>
 
       {/* ── Stats Cards Row ── */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {[
-          { label: 'Total Faculty', value: teachers.length, icon: <Users className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
-          { label: 'Total Hours Required', value: totalHours, icon: <Clock className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
-          { label: 'Assigned Hours', value: assignedHours, icon: <BookOpen className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
-          { label: 'Full Load Faculty', value: fullLoad, icon: <UserCheck className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
-        ].map(({ label, value, icon, bg }) => (
-          <div key={label} className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5 flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 shadow-sm">
-              {icon}
+      {loading && teachers.length === 0 ? (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5 flex items-center gap-4 animate-pulse">
+              <div className="w-10 h-10 rounded-xl bg-slate-100 shrink-0" />
+              <div className="space-y-2 flex-1">
+                <div className="h-6 w-14 bg-slate-200 rounded-md" />
+                <div className="h-3 w-28 bg-slate-100 rounded-md" />
+              </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{value}</h3>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{label}</p>
+          ))}
+        </div>
+      ) : fetchError && teachers.length === 0 ? null : (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { label: 'Total Faculty', value: teachers.length, icon: <Users className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
+            { label: 'Total Hours Required', value: totalHours, icon: <Clock className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
+            { label: 'Assigned Hours', value: assignedHours, icon: <BookOpen className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
+            { label: 'Full Load Faculty', value: fullLoad, icon: <UserCheck className="w-5 h-5 text-indigo-600" />, bg: 'bg-indigo-50/10 border-indigo-100/30' },
+          ].map(({ label, value, icon, bg }) => (
+            <div key={label} className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-5 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 shadow-sm">
+                {icon}
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{value}</h3>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{label}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* ── Add / Edit Form ── */}
       {showForm && (
@@ -447,10 +512,10 @@ export default function TeacherManagement() {
               <div className="flex gap-3 pt-1">
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={formLoading}
                   className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-[#6366F1] hover:from-indigo-700 hover:to-indigo-600 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-sm border-0 cursor-pointer"
                 >
-                  {loading ? 'Saving…' : editingTeacher ? 'Update Faculty' : 'Add Faculty'}
+                  {formLoading ? 'Saving…' : editingTeacher ? 'Update Faculty' : 'Add Faculty'}
                 </button>
                 <button
                   type="button"
@@ -465,163 +530,222 @@ export default function TeacherManagement() {
         </div>
       )}
 
-      {/* ── Teachers Table ── */}
-      <div className={cardCls}>
-        <div className="overflow-x-auto rounded-xl">
-          {filtered.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 text-slate-400 bg-white">
-              <Users className="w-12 h-12 mb-3 opacity-30 text-indigo-600" />
-              <p className="text-sm font-bold text-slate-800">{search ? 'No faculty matches your query' : 'No faculty configured'}</p>
-              <p className="text-xs text-slate-400 mt-1">Configure teachers database to generate timetables</p>
-              {!search && (
-                <button
-                  onClick={() => setShowForm(true)}
-                  className="mt-4 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-100/50 text-xs font-bold transition-all cursor-pointer"
-                >
-                  Add Your First Teacher
+      {/* ── Teachers Table / Skeletons / Error / Empty State ── */}
+      {loading && teachers.length === 0 ? (
+        <div className={cardCls}>
+          <div className="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-4 h-4 rounded-full border-2 border-indigo-600 border-t-transparent animate-spin" />
+              <span className="text-xs font-bold text-slate-600">Loading faculty data…</span>
+            </div>
+            <div className="h-4 w-28 bg-slate-100 rounded animate-pulse" />
+          </div>
+          <div className="divide-y divide-slate-100">
+            {[1, 2, 3, 4, 5].map((idx) => (
+              <div key={idx} className="px-6 py-4 flex items-center justify-between gap-4 animate-pulse">
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="h-7 w-20 bg-indigo-50/80 rounded-lg" />
+                  <div className="space-y-1.5 flex-1 max-w-xs">
+                    <div className="h-4 w-36 bg-slate-200 rounded" />
+                    <div className="h-3 w-24 bg-slate-100 rounded" />
+                  </div>
+                </div>
+                <div className="h-4 w-28 bg-slate-100 rounded hidden md:block" />
+                <div className="h-4 w-16 bg-slate-100 rounded hidden sm:block" />
+                <div className="h-4 w-20 bg-slate-100 rounded hidden lg:block" />
+                <div className="h-6 w-20 bg-slate-100 rounded-lg" />
+                <div className="flex gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-slate-100" />
+                  <div className="w-8 h-8 rounded-lg bg-slate-100" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : fetchError && teachers.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-red-100 shadow-sm p-12 flex flex-col items-center justify-center text-center">
+          <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center mb-4">
+            <AlertCircle className="w-7 h-7 text-red-500" />
+          </div>
+          <h3 className="text-lg font-bold text-slate-900">Unable to load teacher data</h3>
+          <p className="text-xs text-slate-500 mt-1.5 max-w-sm">
+            {fetchError || 'Something went wrong while fetching faculty information. Please check your connection and try again.'}
+          </p>
+          <button
+            onClick={() => fetchTeachers(false)}
+            disabled={loading}
+            className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white text-xs font-bold transition-all shadow-sm cursor-pointer border-0"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> {loading ? 'Retrying…' : 'Retry'}
+          </button>
+        </div>
+      ) : (
+        <div className={cardCls}>
+          <div className="overflow-x-auto rounded-xl">
+            {filtered.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-20 text-slate-400 bg-white">
+                <Users className="w-12 h-12 mb-3 opacity-30 text-indigo-600" />
+                <p className="text-sm font-bold text-slate-800">{search ? 'No faculty matches your query' : 'No faculty configured'}</p>
+                <p className="text-xs text-slate-400 mt-1">
+                  {search ? 'Try adjusting your search criteria' : 'Configure teachers database to generate timetables'}
+                </p>
+                {!search ? (
+                  <button
+                    onClick={() => { resetForm(); setShowForm(true); }}
+                    className="mt-4 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-100/50 text-xs font-bold transition-all cursor-pointer"
+                  >
+                    Add Your First Teacher
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setSearch('')}
+                    className="mt-4 px-4 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 text-xs font-bold transition-all cursor-pointer border-0"
+                  >
+                    Clear Search
+                  </button>
+                )}
+              </div>
+            ) : (
+              <table className="w-full text-sm border-collapse bg-white">
+                <thead>
+                  <tr className="bg-slate-900 text-white border-0">
+                    {['ID', 'Name / Portal Access', 'Subject', 'Divisions', 'Total Hours', 'Assigned', 'Remaining Status', 'Actions'].map((h) => (
+                      <th key={h} className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider whitespace-nowrap first:pl-6 last:pr-6">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.map((teacher, idx) => {
+                    const weeklyLimit = safeNumber(teacher.max_hours_per_week ?? teacher.teaching_hours);
+                    const pct = weeklyLimit > 0
+                      ? Math.round((safeNumber(teacher.assignedHours) / weeklyLimit) * 100)
+                      : 0;
+                    const isFull = teacher.remainingHours === 0;
+                    return (
+                      <tr
+                        key={teacher._id}
+                        className={`border-t border-slate-100 transition-colors hover:bg-slate-50/50 ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/20'}`}
+                      >
+                        {/* ID */}
+                        <td className="px-5 py-4 pl-6">
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-100/40 text-indigo-700 text-xs font-bold">
+                            {teacher.teacherID}
+                          </span>
+                        </td>
+
+                        {/* Name */}
+                        <td className="px-5 py-4">
+                          <div>
+                            <p className="font-bold text-slate-800">{teacher.faculty_name}</p>
+                            <p className="text-xs text-slate-400 mt-0.5">{teacher.teacher_number}</p>
+                            {teacher.userAccount ? (
+                              <span className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-lg bg-indigo-50 border border-indigo-100 text-[10px] font-black text-indigo-700">
+                                🔑 {teacher.userAccount.username} · {teacher.userAccount.email}
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-lg bg-slate-50 border border-slate-100 text-[10px] font-medium text-slate-400">
+                                🚫 No Portal Login
+                              </span>
+                            )}
+                          </div>
+                        </td>
+
+                        {/* Subjects */}
+                        <td className="px-5 py-4">
+                          <div className="flex flex-wrap gap-1">
+                            {teacher.assignedSubjects && teacher.assignedSubjects.length > 0 ? (
+                              teacher.assignedSubjects.map(sub => (
+                                <span key={sub._id} className="inline-flex items-center px-2 py-0.5 rounded bg-indigo-50/50 border border-indigo-100/50 text-indigo-600 text-[10px] font-bold">
+                                  {sub.subject_name}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-[10px] text-slate-400 font-semibold italic">No subjects</span>
+                            )}
+                          </div>
+                        </td>
+
+                        {/* Divisions */}
+                        <td className="px-5 py-4">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold">
+                            {teacher.allowedDivisions && teacher.allowedDivisions.length > 0 ? teacher.allowedDivisions.join(', ') : 'All'}
+                          </span>
+                        </td>
+
+                        {/* Total Hours */}
+                        <td className="px-5 py-4 text-slate-700 font-bold">{weeklyLimit}h</td>
+
+                        {/* Assigned with progress */}
+                        <td className="px-5 py-4">
+                          <div className="flex items-center gap-2">
+                            <span className="text-slate-700 font-bold w-6 text-xs">{teacher.assignedHours || 0}h</span>
+                            <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden w-16 border border-slate-200/20">
+                              <div
+                                className="h-full bg-indigo-500 rounded-full transition-all"
+                                style={{ width: `${pct}%` }}
+                              />
+                            </div>
+                            <span className="text-[10px] text-slate-400 font-bold">{pct}%</span>
+                          </div>
+                        </td>
+
+                        {/* Remaining */}
+                        <td className="px-5 py-4">
+                          <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${
+                            isFull
+                              ? 'bg-red-50 text-red-600 border border-red-100'
+                              : teacher.remainingHours <= 3
+                              ? 'bg-amber-50 text-amber-600 border border-amber-100'
+                              : 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+                          }`}>
+                            {isFull ? '● Full Load' : `${teacher.remainingHours}h left`}
+                          </span>
+                        </td>
+
+                        {/* Actions */}
+                        <td className="px-5 py-4 pr-6">
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              onClick={() => handleEdit(teacher)}
+                              className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 transition-all cursor-pointer bg-white"
+                              title="Edit"
+                            >
+                              <Edit className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(teacher._id)}
+                              className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer bg-white"
+                              title="Delete"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </div>
+
+          {/* Footer info */}
+          {filtered.length > 0 && (
+            <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
+              <p className="text-xs font-semibold text-slate-400">
+                Showing <span className="text-slate-600 font-bold">{filtered.length}</span> of {teachers.length} faculty members
+              </p>
+              {search && (
+                <button onClick={() => setSearch('')} className="text-xs text-indigo-500 hover:text-indigo-700 font-bold underline cursor-pointer bg-transparent border-0">
+                  Clear filter
                 </button>
               )}
             </div>
-          ) : (
-            <table className="w-full text-sm border-collapse bg-white">
-              <thead>
-                <tr className="bg-slate-900 text-white border-0">
-                  {['ID', 'Name / Portal Access', 'Subject', 'Divisions', 'Total Hours', 'Assigned', 'Remaining Status', 'Actions'].map((h) => (
-                    <th key={h} className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider whitespace-nowrap first:pl-6 last:pr-6">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map((teacher, idx) => {
-                  const weeklyLimit = safeNumber(teacher.max_hours_per_week ?? teacher.teaching_hours);
-                  const pct = weeklyLimit > 0
-                    ? Math.round((safeNumber(teacher.assignedHours) / weeklyLimit) * 100)
-                    : 0;
-                  const isFull = teacher.remainingHours === 0;
-                  return (
-                    <tr
-                      key={teacher._id}
-                      className={`border-t border-slate-100 transition-colors hover:bg-slate-50/50 ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/20'}`}
-                    >
-                      {/* ID */}
-                      <td className="px-5 py-4 pl-6">
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-100/40 text-indigo-700 text-xs font-bold">
-                          {teacher.teacherID}
-                        </span>
-                      </td>
-
-                      {/* Name */}
-                      <td className="px-5 py-4">
-                        <div>
-                          <p className="font-bold text-slate-800">{teacher.faculty_name}</p>
-                          <p className="text-xs text-slate-400 mt-0.5">{teacher.teacher_number}</p>
-                          {teacher.userAccount ? (
-                            <span className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-lg bg-indigo-50 border border-indigo-100 text-[10px] font-black text-indigo-700">
-                              🔑 {teacher.userAccount.username} · {teacher.userAccount.email}
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 mt-1.5 px-2 py-0.5 rounded-lg bg-slate-50 border border-slate-100 text-[10px] font-medium text-slate-400">
-                              🚫 No Portal Login
-                            </span>
-                          )}
-                        </div>
-                      </td>
-
-                      {/* Subjects */}
-                      <td className="px-5 py-4">
-                        <div className="flex flex-wrap gap-1">
-                          {teacher.assignedSubjects && teacher.assignedSubjects.length > 0 ? (
-                            teacher.assignedSubjects.map(sub => (
-                              <span key={sub._id} className="inline-flex items-center px-2 py-0.5 rounded bg-indigo-50/50 border border-indigo-100/50 text-indigo-600 text-[10px] font-bold">
-                                {sub.subject_name}
-                              </span>
-                            ))
-                          ) : (
-                            <span className="text-[10px] text-slate-400 font-semibold italic">No subjects</span>
-                          )}
-                        </div>
-                      </td>
-
-                      {/* Divisions */}
-                      <td className="px-5 py-4">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold">
-                          {teacher.allowedDivisions && teacher.allowedDivisions.length > 0 ? teacher.allowedDivisions.join(', ') : 'All'}
-                        </span>
-                      </td>
-
-                      {/* Total Hours */}
-                      <td className="px-5 py-4 text-slate-700 font-bold">{weeklyLimit}h</td>
-
-                      {/* Assigned with progress */}
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-2">
-                          <span className="text-slate-700 font-bold w-6 text-xs">{teacher.assignedHours || 0}h</span>
-                          <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden w-16 border border-slate-200/20">
-                            <div
-                              className="h-full bg-indigo-500 rounded-full transition-all"
-                              style={{ width: `${pct}%` }}
-                            />
-                          </div>
-                          <span className="text-[10px] text-slate-400 font-bold">{pct}%</span>
-                        </div>
-                      </td>
-
-                      {/* Remaining */}
-                      <td className="px-5 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${
-                          isFull
-                            ? 'bg-red-50 text-red-600 border border-red-100'
-                            : teacher.remainingHours <= 3
-                            ? 'bg-amber-50 text-amber-600 border border-amber-100'
-                            : 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-                        }`}>
-                          {isFull ? '● Full Load' : `${teacher.remainingHours}h left`}
-                        </span>
-                      </td>
-
-                      {/* Actions */}
-                      <td className="px-5 py-4 pr-6">
-                        <div className="flex items-center gap-1.5">
-                          <button
-                            onClick={() => handleEdit(teacher)}
-                            className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 transition-all cursor-pointer bg-white"
-                            title="Edit"
-                          >
-                            <Edit className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(teacher._id)}
-                            className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer bg-white"
-                            title="Delete"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
           )}
         </div>
-
-        {/* Footer info */}
-        {filtered.length > 0 && (
-          <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/30">
-            <p className="text-xs font-semibold text-slate-400">
-              Showing <span className="text-slate-600 font-bold">{filtered.length}</span> of {teachers.length} faculty members
-            </p>
-            {search && (
-              <button onClick={() => setSearch('')} className="text-xs text-indigo-500 hover:text-indigo-700 font-bold underline cursor-pointer bg-transparent border-0">
-                Clear filter
-              </button>
-            )}
-          </div>
-        )}
-      </div>
+      )}
 
       {/* ── Import CSV Modal ── */}
       {showImportModal && (

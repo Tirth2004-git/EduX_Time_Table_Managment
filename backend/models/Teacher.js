@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+require('./Department');
+require('./Subject');
 const teacherSchema = new mongoose.Schema({
   teacher_id: { type: String, required: true }, // Legacy string ID
   name: { type: String, required: true },
@@ -12,4 +14,8 @@ const teacherSchema = new mongoose.Schema({
   max_hours_per_week: { type: Number, required: true },
   min_hours_per_week: { type: Number, required: true }
 });
+teacherSchema.index({ teacher_id: 1 });
+teacherSchema.index({ department: 1 });
+teacherSchema.index({ status: 1 });
+
 module.exports = mongoose.model('Teacher', teacherSchema);

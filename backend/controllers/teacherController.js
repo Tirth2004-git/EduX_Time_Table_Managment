@@ -1,4 +1,7 @@
 const Teacher = require('../models/Teacher');
+const Subject = require('../models/Subject');
+const Department = require('../models/Department');
+const User = require('../models/User');
 const TeacherSubjectMapping = require('../models/TeacherSubjectMapping');
 const Timetable = require('../models/Timetable');
 const TeacherLeave = require('../models/TeacherLeave');
@@ -138,6 +141,7 @@ exports.getEligibleTeachers = async (req, res, next) => {
 // @route   GET /api/teachers
 // @access  Private (Admin)
 exports.getTeachers = async (req, res, next) => {
+  const reqStart = Date.now();
   try {
     const { departmentId, semesterId, division, subjectId, day, timeSlot } = req.query;
 
@@ -186,28 +190,78 @@ exports.getTeachers = async (req, res, next) => {
       return res.json({ success: true, data: validTeachers });
     }
 
+    const t0 = Date.now();
     const teachers = await Teacher.find().populate('subjects', 'subject_name subject_code').lean();
+    const dbTeachersTime = Date.now() - t0;
+
     const User = require('../models/User');
     const Timetable = require('../models/Timetable');
-    
+
+    const teacherIds = teachers.map(t => t._id);
+    const teacherIdStrings = teacherIds.map(id => id.toString());
+
+    // Execute user accounts lookup and timetable aggregation in parallel
+    const t1 = Date.now();
+    const [linkedUsers, timetableCounts] = await Promise.all([
+      User.find({
+        $or: [
+          { teacher_id: { $in: teacherIds } },
+          { teacher_id: { $in: teacherIdStrings } }
+        ]
+      }).select('email username teacher_id').lean(),
+      Timetable.aggregate([
+        {
+          $match: {
+            $or: [
+              { teacher: { $in: teacherIds } },
+              { teacher: { $in: teacherIdStrings } }
+            ]
+          }
+        },
+        {
+          $group: {
+            _id: '$teacher',
+            count: { $sum: 1 }
+          }
+        }
+      ])
+    ]);
+    const parallelAggTime = Date.now() - t1;
+
+    // Fast O(1) lookup maps
+    const userMap = new Map();
+    for (const u of linkedUsers) {
+      if (u.teacher_id) {
+        userMap.set(u.teacher_id.toString(), u);
+      }
+    }
+
+    const assignedHoursMap = new Map();
+    for (const item of timetableCounts) {
+      if (item._id) {
+        assignedHoursMap.set(item._id.toString(), item.count);
+      }
+    }
+
     for (let i = 0; i < teachers.length; i++) {
-      // Find linked user
-      const linkedUser = await User.findOne({ teacher_id: teachers[i]._id }).select('email username').lean();
-      teachers[i].userAccount = linkedUser || null;
-      
+      const tidStr = teachers[i]._id.toString();
+      teachers[i].userAccount = userMap.get(tidStr) || null;
       teachers[i].assignedSubjects = teachers[i].subjects || [];
 
-      // Calculate assigned and remaining hours from Timetable
-      const assignedHours = await Timetable.countDocuments({ teacher: teachers[i]._id });
+      const assignedHours = assignedHoursMap.get(tidStr) || 0;
       teachers[i].assignedHours = assignedHours;
       teachers[i].max_hours_per_week = Number(teachers[i].max_hours_per_week) || Number(teachers[i].teaching_hours) || 0;
       teachers[i].teaching_hours = teachers[i].max_hours_per_week;
       teachers[i].remainingHours = Math.max(0, teachers[i].max_hours_per_week - assignedHours);
-      
+
       // Ensure teacherID property exists for frontend
       teachers[i].teacherID = teachers[i].teacher_id;
       teachers[i].faculty_name = teachers[i].faculty_name || teachers[i].name;
     }
+
+    const totalTime = Date.now() - reqStart;
+    console.log(`[Teachers API] Loaded ${teachers.length} teachers in ${totalTime}ms (DB fetch: ${dbTeachersTime}ms, Aggregation: ${parallelAggTime}ms)`);
+
     res.json({ success: true, data: teachers });
   } catch (error) {
     next(error);

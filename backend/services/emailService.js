@@ -27,26 +27,47 @@ function isFictitiousDomain(email) {
   return FICTITIOUS_DOMAINS.some(d => domain === d || domain.endsWith('.' + d));
 }
 
-function createTransporter() {
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-  const port = parseInt(process.env.SMTP_PORT, 10) || 465;
+let cachedTransporter = null;
+
+function getTransporter() {
   const user = process.env.SMTP_USER || process.env.EMAIL_USER;
   const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
-  const secure = port === 465;
 
   if (!user || !pass) {
     return null;
   }
 
-  return nodemailer.createTransport({
+  if (cachedTransporter) {
+    return cachedTransporter;
+  }
+
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const port = parseInt(process.env.SMTP_PORT, 10) || 465;
+  const secure = port === 465;
+
+  cachedTransporter = nodemailer.createTransport({
     host,
     port,
     secure,
+    pool: true,
+    maxConnections: 5,
+    maxMessages: 100,
+    rateDelta: 1000,
+    rateLimit: 5,
+    connectionTimeout: 5000, // 5s connection timeout
+    greetingTimeout: 5000,   // 5s greeting timeout
+    socketTimeout: 10000,    // 10s socket timeout
     auth: {
       user,
       pass,
     },
+    tls: {
+      rejectUnauthorized: process.env.NODE_ENV === 'production',
+      minVersion: 'TLSv1.2',
+    },
   });
+
+  return cachedTransporter;
 }
 
 function getSender() {
@@ -58,6 +79,7 @@ function getSender() {
  * development redirection sandbox, and structured security logging.
  */
 async function sendEmailInternal({ type, recipientEmail, subject, text, html, metadata = {} }) {
+  const startTime = Date.now();
   const cleanRecipient = (recipientEmail || '').trim().toLowerCase();
 
   // 1. Safety Guard: Automated Test Environment
@@ -90,7 +112,7 @@ async function sendEmailInternal({ type, recipientEmail, subject, text, html, me
   }
 
   // 5. Transporter Check
-  const transporter = createTransporter();
+  const transporter = getTransporter();
   if (!transporter) {
     console.warn(`[EMAIL CONFIG WARNING] Type=${type} | To=${finalRecipient} | SMTP credentials not configured. Email logged to console.`);
     return { success: false, reason: 'SMTP not configured' };
@@ -106,11 +128,13 @@ async function sendEmailInternal({ type, recipientEmail, subject, text, html, me
       html,
     });
 
-    console.log(`[EMAIL SENT] type=${type} recipient=${finalRecipient} messageId=${info.messageId || 'OK'}`);
-    return { success: true, messageId: info.messageId };
+    const elapsedMs = Date.now() - startTime;
+    console.log(`[EMAIL SENT] type=${type} recipient=${finalRecipient} duration=${elapsedMs}ms messageId=${info.messageId || 'OK'}`);
+    return { success: true, messageId: info.messageId, durationMs: elapsedMs };
   } catch (error) {
-    console.error(`[EMAIL FAILED] type=${type} recipient=${finalRecipient} error="${error.message}"`);
-    return { success: false, error: error.message };
+    const elapsedMs = Date.now() - startTime;
+    console.error(`[EMAIL FAILED] type=${type} recipient=${finalRecipient} duration=${elapsedMs}ms error="${error.message}"`);
+    return { success: false, error: error.message, durationMs: elapsedMs };
   }
 }
 

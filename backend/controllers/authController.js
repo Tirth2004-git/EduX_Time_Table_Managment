@@ -46,6 +46,7 @@ const getOtpExpiryDate = (minutes = 10) => {
 // @route   POST /api/auth/register
 // @access  Public
 exports.register = async (req, res, next) => {
+  const reqStart = Date.now();
   try {
     const { name, password, departmentId, semesterId, divisionId } = req.body;
     const email = String(req.body.email || '').trim().toLowerCase();
@@ -59,6 +60,9 @@ exports.register = async (req, res, next) => {
     if (!division) {
       return res.status(400).json({ error: 'Please select a valid department, semester, and division.' });
     }
+
+    const valDuration = Date.now() - reqStart;
+    const dbStart = Date.now();
 
     const existingUser = await User.findOne({ email }).select('+otpHash +otpExpiresAt +otpAttempts +otpLastSentAt');
 
@@ -104,9 +108,21 @@ exports.register = async (req, res, next) => {
     }
 
     await userToSave.save();
+    const dbDuration = Date.now() - dbStart;
 
-    // Send transactional OTP verification email
-    await sendOtpEmail(email, otp, name);
+    // Send transactional OTP verification email non-blockingly
+    const emailStart = Date.now();
+    sendOtpEmail(email, otp, name)
+      .then((emailRes) => {
+        const emailDuration = Date.now() - emailStart;
+        console.log(`[Registration] Email dispatched to ${email} in ${emailDuration}ms (success: ${emailRes?.success})`);
+      })
+      .catch((err) => {
+        console.error(`[Registration] Background email dispatch failed for ${email}:`, err.message);
+      });
+
+    const totalDuration = Date.now() - reqStart;
+    console.log(`[Registration] Validation: ${valDuration}ms | DB/Save: ${dbDuration}ms | Total Request: ${totalDuration}ms`);
 
     res.status(200).json({
       success: true,
@@ -123,6 +139,7 @@ exports.register = async (req, res, next) => {
 // @route   POST /api/auth/send-otp, POST /api/auth/resend-otp
 // @access  Public
 exports.sendOtp = async (req, res, next) => {
+  const reqStart = Date.now();
   try {
     const email = String(req.body.email || '').trim().toLowerCase();
 
@@ -160,8 +177,18 @@ exports.sendOtp = async (req, res, next) => {
     user.otpLastSentAt = new Date();
     await user.save();
 
-    // Send OTP email
-    await sendOtpEmail(email, otp, user.name);
+    const emailStart = Date.now();
+    sendOtpEmail(email, otp, user.name)
+      .then((emailRes) => {
+        const emailDuration = Date.now() - emailStart;
+        console.log(`[Resend OTP] Email dispatched to ${email} in ${emailDuration}ms (success: ${emailRes?.success})`);
+      })
+      .catch((err) => {
+        console.error(`[Resend OTP] Background email dispatch failed for ${email}:`, err.message);
+      });
+
+    const totalDuration = Date.now() - reqStart;
+    console.log(`[Resend OTP] Processed in ${totalDuration}ms for ${email}`);
 
     res.json({
       success: true,
